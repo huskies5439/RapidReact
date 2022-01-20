@@ -2,7 +2,7 @@
  Code Pour Le Robot FRC 2021-2022
  
 ## Nos Code Important
- -[InfiniteRecharge](https://github.com/huskies5439/InfiniteRecharge)
+ -[Infinite Recharge](https://github.com/huskies5439/InfiniteRecharge)
  
 ## Liens Important
   -[WPILib](https://docs.wpilib.org/en/stable/index.html)
