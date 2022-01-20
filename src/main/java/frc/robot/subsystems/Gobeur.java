@@ -2,7 +2,9 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsytems;
+package frc.robot.subsystems;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -13,9 +15,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Gobeur extends SubsystemBase {
 
-  private DoubleSolenoid tiroir = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 0); //a determiner
+  private DoubleSolenoid bras = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 0); //a determiner
 
-  private WPI_Fal
+  private WPI_TalonFX rouleau = new WPI_TalonFX(1); //a determiner
 
   public Gobeur() {
     
@@ -23,26 +25,27 @@ public class Gobeur extends SubsystemBase {
 
   @Override
   public void periodic() {
-    @Override
-    public void moteurStop() {
-      rouleau.set(0.0);
-    }
-
-    public void moteurGobe() {
-      rouleau.set(1.0);
-    }
-
-    public void moteurPanic() {
-      rouleau.set(-1.0);
-    }
-
-    public void tiroirIn() {
-      tiroir.set(Value.kReverse);
-    }
-
-    public void tiroirOut() {
-      tiroir.set(Value.kForward);
-    }
-
+    
   }
+
+  public void stop() {
+    rouleau.set(0.0);
+  }
+
+  public void gober() {
+    rouleau.set(1.0);
+  }
+
+  public void jeter() {
+    rouleau.set(-1.0);
+  }
+
+  public void brasIn() {
+    bras.set(Value.kReverse);
+  }
+
+  public void brasOut() {
+    bras.set(Value.kForward);
+  }
+
 }
