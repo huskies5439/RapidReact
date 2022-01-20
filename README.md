@@ -5,9 +5,11 @@
  -[Infinite Recharge](https://github.com/huskies5439/InfiniteRecharge)
  
 ## Liens Important
+  -[Jamboard](https://jamboard.google.com/d/1MtAiHo2r3bF7JpLmS8ed2jNqNcJMVXCq8UoC5OfQmd8/viewer?f=11)
+
   -[WPILib](https://docs.wpilib.org/en/stable/index.html)
   
-  -[Command Base WPILib](https://docs.wpilib.org/en/stable/docs/software/commandbased/index.html)
+  -[Visualizing PathWeaver Trajectories](https://docs.wpilib.org/en/stable/docs/software/pathplanning/pathweaver/drawing-pathweaver-path.html)
   
   -[Update Les Libraries WPILib](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/wpilib-setup.html)
   
