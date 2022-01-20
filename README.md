@@ -3,6 +3,7 @@
  
 ## Nos Code Important
  -[Infinite Recharge](https://github.com/huskies5439/InfiniteRecharge)
+ -[BetaBot 2021](https://github.com/huskies5439/BetaBotBleu2021)
  
 ## Liens Important
   -[WPILib](https://docs.wpilib.org/en/stable/index.html)
