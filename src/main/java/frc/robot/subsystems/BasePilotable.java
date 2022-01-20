@@ -14,8 +14,6 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-
-
 public class BasePilotable extends SubsystemBase {
 // Changer les numéros de moteurs
 private WPI_TalonFX moteurAvantG = new WPI_TalonFX(1);
@@ -32,36 +30,33 @@ private Encoder encodeurG = new Encoder(0, 1,false);
 private Encoder encodeurD = new Encoder(2, 3,true);
 
 private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-  /** Creates a new BasePilotable. */
+  
   public BasePilotable() {}
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+  
   }
 
   public void conduire(double vx, double vz){
     drive.arcadeDrive(vx, vz);
-
   }
 
   public void autoConduire(double voltGauche, double voltDroit){
     moteursG.setVoltage(voltGauche);
     moteursD.setVoltage(voltDroit);
     drive.feed();
-
   }
 
   public void stop(){
     drive.arcadeDrive(0, 0);
-
   }
+
   public void setRamp(double ramp){
     moteurAvantG.configOpenloopRamp(ramp);
     moteurArriereG.configOpenloopRamp(ramp);
     moteurAvantD.configOpenloopRamp(ramp);
     moteurArriereD.configOpenloopRamp(ramp);
-    
   }
 
   public void setNeutralMode(NeutralMode mode){
@@ -69,11 +64,9 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
     moteurArriereG.setNeutralMode(mode);
     moteurAvantD.setNeutralMode(mode);
     moteurArriereD.setNeutralMode(mode);
-
   }
 
   public void getPositionG(){
-
 
   }  
 }
