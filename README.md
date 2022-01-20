@@ -10,3 +10,9 @@
   -[Command Base WPILib](https://docs.wpilib.org/en/stable/docs/software/commandbased/index.html)
   
   -[Update Les Libraries WPILib et Les FRC Games Tools](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/index.html)
+  
+  -[Phoenix Tunner](https://github.com/CrossTheRoadElec/Phoenix-Releases/releases/download/v5.20.2.2/CTRE_Phoenix_Framework_v5.20.2.2.exe)
+  
+  -[Limelight](https://downloads.limelightvision.io/software/LimelightFinderSetup1_0_1.exe)
+  
+  -[REV Robotics Hardware Client](https://docs.revrobotics.com/rev-control-system/managing-the-control-system/rev-hardware-client)
