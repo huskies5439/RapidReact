@@ -9,7 +9,9 @@
   
   -[Command Base WPILib](https://docs.wpilib.org/en/stable/docs/software/commandbased/index.html)
   
-  -[Update Les Libraries WPILib et Les FRC Games Tools](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/index.html)
+  -[Update Les Libraries WPILib](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/wpilib-setup.html)
+  
+  -[Update Les FRC Games Tools](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/frc-game-tools.html)
   
   -[Phoenix Tunner](https://github.com/CrossTheRoadElec/Phoenix-Releases/releases/download/v5.20.2.2/CTRE_Phoenix_Framework_v5.20.2.2.exe)
   
