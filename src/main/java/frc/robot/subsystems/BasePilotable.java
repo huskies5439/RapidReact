@@ -71,12 +71,12 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
   public void setBrake(boolean isBrake) {
 
     if (isBrake) {
-      moteursD.setNeutralMode(NeutralMode.Brake);
-      moteursG.setNeutralMode(NeutralMode.Brake);
+      //moteursD.setNeutralMode(NeutralMode.Brake);
+      //moteursG.setNeutralMode(NeutralMode.Brake);
     }
     else {
-      moteursD.setNeutralMode(NeutralMode.Coast);
-      moteursG.setNeutralMode(NeutralMode.Coast);
+      //moteursD.setNeutralMode(NeutralMode.Coast);
+      //moteursG.setNeutralMode(NeutralMode.Coast);
     }
   }
 
@@ -92,10 +92,6 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
     return (getPositionG()+getPositionD())/2.0;
   }
 
-  public void resetEncodeur(){// à terminer
-
-  }
-  
   public double getVitesseD() {
     return encodeurD.getRate();
   }
@@ -107,7 +103,7 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
     return (getVitesseD() + getVitesseG()) / 2;
   }
 
-  public void resetEncoder() {
+  public void resetEncodeur() {
 
   }
 
