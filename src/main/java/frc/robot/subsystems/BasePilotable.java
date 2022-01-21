@@ -32,10 +32,14 @@ private Encoder encodeurD = new Encoder(2, 3,true);
 
 private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
   
-  public BasePilotable() {}
+  public BasePilotable() {
+
+  }
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Vitesse Moyenne", getVitesse());
+    SmartDashboard.putNumber("Position Moyenne", getPositionMoyenne());  
   
     SmartDashboard.putNumber("Gyro", getAngle());
     SmartDashboard.putNumber("GyroSpeed", getAngleSpeed());
@@ -72,6 +76,7 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
   public void getPositionG(){
 
+<<<<<<< HEAD
   }  
 
   public void getPositionD(){
@@ -96,4 +101,6 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
     return gyro.getRate();
   }
+=======
+>>>>>>> edcf016a1aa1109fd1096ff1664138fa90da5974
 }
