@@ -4,17 +4,23 @@
 
 package frc.robot.subsystems;
 
+import java.io.IOException;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax.IdleMode;
 
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 public class BasePilotable extends SubsystemBase {
 // Changer les numéros de moteurs
@@ -32,19 +38,23 @@ private Encoder encodeurG = new Encoder(0, 1,false);
 private Encoder encodeurD = new Encoder(2, 3,true);
 
 private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-  
+
+private Trajectory trajectoire = new Trajectory();
+
+private SendableChooser chooser = new SendableChooser<>();
+
   public BasePilotable() {
     setBrake(false);
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Vitesse Moyenne", getVitesse());
-    SmartDashboard.putNumber("Position Moyenne", getPositionMoyenne());  
-  
-    SmartDashboard.putNumber("Gyro", getAngle());
-    SmartDashboard.putNumber("GyroSpeed", getAngleSpeed());
+  SmartDashboard.putNumber("Vitesse Moyenne", getVitesse());
+  SmartDashboard.putNumber("Position Moyenne", getPositionMoyenne());  
 
+  SmartDashboard.putNumber("Gyro", getAngle());
+  SmartDashboard.putNumber("GyroSpeed", getAngleSpeed());
+  
   }
 
   public void conduire(double vx, double vz){
@@ -64,19 +74,22 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
   public void setRamp(double ramp){
     moteurAvantG.configOpenloopRamp(ramp);
     moteurArriereG.configOpenloopRamp(ramp);
-    moteurAvantD.configOpenloopRamp(ramp); 
+    moteurAvantD.configOpenloopRamp(ramp);
     moteurArriereD.configOpenloopRamp(ramp);
   }
 
   public void setBrake(boolean isBrake) {
-
     if (isBrake) {
-      //moteursD.setNeutralMode(NeutralMode.Brake);
-      //moteursG.setNeutralMode(NeutralMode.Brake);
+      moteurAvantD.setNeutralMode(NeutralMode.Brake);
+      moteurArriereD.setNeutralMode(NeutralMode.Brake);
+      moteurAvantG.setNeutralMode(NeutralMode.Brake);
+      moteurArriereG.setNeutralMode(NeutralMode.Brake);
     }
     else {
-      //moteursD.setNeutralMode(NeutralMode.Coast);
-      //moteursG.setNeutralMode(NeutralMode.Coast);
+      moteurAvantD.setNeutralMode(NeutralMode.Coast);
+      moteurArriereD.setNeutralMode(NeutralMode.Coast);
+      moteurAvantG.setNeutralMode(NeutralMode.Coast);
+      moteurArriereG.setNeutralMode(NeutralMode.Coast);
     }
   }
 
@@ -107,18 +120,28 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
   }
 
-  public void resetGyro() {
-
-    gyro.reset();
-  }
-
   public double getAngle() {
-
     return gyro.getAngle();
   }
 
   public double getAngleSpeed() {
-
     return gyro.getRate();
   }
+
+  public void resetGyro() {
+    gyro.reset();
+  } 
+
+  public Trajectory creerTrajectoire(String trajet){
+    String trajetJSON = "output/"+trajet+".wpilib.json";
+    try{
+      var path = Filesystem.getDeployDirectory().toPath().resolve(trajetJSON);
+      return TrajectoryUtil.fromPathweaverJson(path);
+    }
+    catch(IOException e){
+      DriverStation.reportError("Unable to open trajectory : " + trajetJSON, e.getStackTrace());
+      return null;
+    }
+  }
+
 }
