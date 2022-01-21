@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class BasePilotable extends SubsystemBase {
@@ -36,6 +37,9 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
   @Override
   public void periodic() {
   
+    SmartDashboard.putNumber("Gyro", getAngle());
+    SmartDashboard.putNumber("GyroSpeed", getAngleSpeed());
+
   }
 
   public void conduire(double vx, double vz){
@@ -55,7 +59,7 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
   public void setRamp(double ramp){
     moteurAvantG.configOpenloopRamp(ramp);
     moteurArriereG.configOpenloopRamp(ramp);
-    moteurAvantD.configOpenloopRamp(ramp);
+    moteurAvantD.configOpenloopRamp(ramp); 
     moteurArriereD.configOpenloopRamp(ramp);
   }
 
@@ -69,4 +73,27 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
   public void getPositionG(){
 
   }  
+
+  public void getPositionD(){
+
+  } 
+
+  public void resetEncoder() {
+
+  }
+
+  public void resetGyro() {
+
+    gyro.reset();
+  }
+
+  public double getAngle() {
+
+    return gyro.getAngle();
+  }
+
+  public double getAngleSpeed() {
+
+    return gyro.getRate();
+  }
 }
