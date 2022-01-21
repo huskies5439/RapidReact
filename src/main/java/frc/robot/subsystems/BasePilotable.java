@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class BasePilotable extends SubsystemBase {
 // Changer les numéros de moteurs
@@ -33,7 +34,7 @@ private Encoder encodeurD = new Encoder(2, 3,true);
 private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
   
   public BasePilotable() {
-
+    setBrake(false);
   }
 
   @Override
@@ -67,11 +68,16 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
     moteurArriereD.configOpenloopRamp(ramp);
   }
 
-  public void setNeutralMode(NeutralMode mode){
-    moteurAvantG.setNeutralMode(mode);
-    moteurArriereG.setNeutralMode(mode);
-    moteurAvantD.setNeutralMode(mode);
-    moteurArriereD.setNeutralMode(mode);
+  public void setBrake(boolean isBrake) {
+
+    if (isBrake) {
+      moteursD.setNeutralMode(NeutralMode.Brake);
+      moteursG.setNeutralMode(NeutralMode.Brake);
+    }
+    else {
+      moteursD.setNeutralMode(NeutralMode.Coast);
+      moteursG.setNeutralMode(NeutralMode.Coast);
+    }
   }
 
   public double getPositionG() {
@@ -101,13 +107,6 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
     return (getVitesseD() + getVitesseG()) / 2;
   }
 
-<<<<<<< HEAD
-  }  
-
-  public void getPositionD(){
-
-  } 
-
   public void resetEncoder() {
 
   }
@@ -126,6 +125,4 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
     return gyro.getRate();
   }
-=======
->>>>>>> edcf016a1aa1109fd1096ff1664138fa90da5974
 }
