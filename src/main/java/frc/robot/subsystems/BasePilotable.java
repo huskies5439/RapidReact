@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class BasePilotable extends SubsystemBase {
@@ -31,10 +32,14 @@ private Encoder encodeurD = new Encoder(2, 3,true);
 
 private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
   
-  public BasePilotable() {}
+  public BasePilotable() {
+
+  }
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Vitesse Moyenne", getVitesse());
+    SmartDashboard.putNumber("Position Moyenne", getPositionMoyenne());  
   
   }
 
@@ -66,7 +71,31 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
     moteurArriereD.setNeutralMode(mode);
   }
 
-  public void getPositionG(){
+  public double getPositionG() {
+    return encodeurG.getDistance();
+  }
 
-  }  
+  public double getPositionD(){
+    return encodeurD.getDistance();
+  } 
+
+  public double getPositionMoyenne(){
+    return (getPositionG()+getPositionD())/2.0;
+  }
+
+  public void resetEncodeur(){// à terminer
+
+  }
+  
+  public double getVitesseD() {
+    return encodeurD.getRate();
+  }
+
+  public double getVitesseG() {
+    return encodeurG.getRate();
+  }
+  public double getVitesse() {
+    return (getVitesseD() + getVitesseG()) / 2;
+  }
+
 }
