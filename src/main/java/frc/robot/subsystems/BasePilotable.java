@@ -86,10 +86,6 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
     return (getPositionG()+getPositionD())/2.0;
   }
 
-  public void resetEncodeur(){// à terminer
-
-  }
-  
   public double getVitesseD() {
     return encodeurD.getRate();
   }
@@ -101,14 +97,7 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
     return (getVitesseD() + getVitesseG()) / 2;
   }
 
-<<<<<<< HEAD
-  }  
-
-  public void getPositionD(){
-
-  } 
-
-  public void resetEncoder() {
+  public void resetEncodeur() {
 
   }
 
@@ -126,6 +115,4 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
     return gyro.getRate();
   }
-=======
->>>>>>> edcf016a1aa1109fd1096ff1664138fa90da5974
 }
