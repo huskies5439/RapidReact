@@ -114,7 +114,8 @@ private Trajectory trajectoire = new Trajectory();
   }
 
   public void resetEncodeur() {
-
+    encodeurD.reset();
+    encodeurG.reset();
   }
 
   public double getAngle() {
