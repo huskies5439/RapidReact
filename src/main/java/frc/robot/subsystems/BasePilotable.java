@@ -42,11 +42,12 @@ private Trajectory trajectoire = new Trajectory();
   @Override
   public void periodic() {
   SmartDashboard.putNumber("Vitesse Moyenne", getVitesse());
-  SmartDashboard.putNumber("Position Moyenne", getPosition());  
   SmartDashboard.putNumber("Vitesse Droite", getVitesseD());
   SmartDashboard.putNumber("Vitesse Gauche", getVitesseG());  
+  SmartDashboard.putNumber("Position Moyenne", getPosition());
   SmartDashboard.putNumber("Position Droite", getPositionD());
   SmartDashboard.putNumber("Position Gauche", getPositionG());
+  
   SmartDashboard.putNumber("Gyro", getAngle());
   SmartDashboard.putNumber("GyroSpeed", getAngleSpeed());
   
