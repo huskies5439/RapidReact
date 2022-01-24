@@ -8,7 +8,6 @@ import java.io.IOException;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
@@ -18,7 +17,6 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -48,16 +46,15 @@ private Trajectory trajectoire = new Trajectory();
   SmartDashboard.putNumber("Vitesse Droite", getVitesseD());
   SmartDashboard.putNumber("Vitesse Gauche", getVitesseG());  
   SmartDashboard.putNumber("Position Droite", getPositionD());
-  SmartDashboard.putNumber("Position Gauche", getPositionG());  
-
-
+  SmartDashboard.putNumber("Position Gauche", getPositionG());
   SmartDashboard.putNumber("Gyro", getAngle());
   SmartDashboard.putNumber("GyroSpeed", getAngleSpeed());
   
   }
 
   public void conduire(double vx, double vz){
-    drive.arcadeDrive(vx, vz);
+    // Multiplieur du vx et vz à vérifier selon la conduite
+    drive.arcadeDrive(-0.8*vx, 0.65*vz);
   }
 
   public void autoConduire(double voltGauche, double voltDroit){
