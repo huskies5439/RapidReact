@@ -44,6 +44,8 @@ public BasePilotable() {
   resetEncodeur();
   resetGyro();
 
+  setRamp(0.25);
+  setBrake(false);
   moteurAvantG.setInverted(false);
   moteurArriereG.setInverted(false);
   moteurAvantD.setInverted(false);
