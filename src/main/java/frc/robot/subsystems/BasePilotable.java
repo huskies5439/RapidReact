@@ -39,6 +39,16 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
 private Trajectory trajectoire = new Trajectory();
 
+public BasePilotable() {
+
+  resetEncodeur();
+  resetGyro();
+
+}
+
+
+
+
   @Override
   public void periodic() {
   SmartDashboard.putNumber("Vitesse Moyenne", getVitesse());
