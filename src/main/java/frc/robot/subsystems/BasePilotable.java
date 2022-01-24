@@ -41,16 +41,10 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
 private Trajectory trajectoire = new Trajectory();
 
-private SendableChooser chooser = new SendableChooser<>();
-
-  public BasePilotable() {
-    setBrake(false);
-  }
-
   @Override
   public void periodic() {
   SmartDashboard.putNumber("Vitesse Moyenne", getVitesse());
-  SmartDashboard.putNumber("Position Moyenne", getPositionMoyenne());  
+  SmartDashboard.putNumber("Position Moyenne", getPosition());  
   SmartDashboard.putNumber("Vitesse Droite", getVitesseD());
   SmartDashboard.putNumber("Vitesse Gauche", getVitesseG());  
   SmartDashboard.putNumber("Position Droite", getPositionD());
@@ -106,7 +100,7 @@ private SendableChooser chooser = new SendableChooser<>();
     return encodeurD.getDistance();
   } 
 
-  public double getPositionMoyenne(){
+  public double getPosition(){
     return (getPositionG()+getPositionD())/2.0;
   }
 
