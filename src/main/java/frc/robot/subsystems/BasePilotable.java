@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class BasePilotable extends SubsystemBase {
-// Changer les numéros de moteurs
+//TODO Changer les numéros de moteurs
 private WPI_TalonFX moteurAvantG = new WPI_TalonFX(1);
 private WPI_TalonFX moteurArriereG = new WPI_TalonFX(2);
 private WPI_TalonFX moteurAvantD = new WPI_TalonFX(3);
@@ -70,7 +70,7 @@ public BasePilotable() {
   }
 
   public void conduire(double vx, double vz){
-    // Multiplieur du vx et vz à vérifier selon la conduite
+    //TODO Multiplieur du vx et vz à vérifier selon la conduite
     drive.arcadeDrive(-0.8*vx, 0.65*vz);
   }
 

@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Gobeur extends SubsystemBase {
   private DoubleSolenoid bras = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 0); // À déterminer
-  private WPI_TalonFX rouleau = new WPI_TalonFX(1); // À déterminer
+  private WPI_TalonFX rouleau = new WPI_TalonFX(1); //TODO À déterminer
 
   public Gobeur() {
     
