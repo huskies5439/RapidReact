@@ -4,12 +4,21 @@
 
 package frc.robot.commands;
 
+import java.io.FilenameFilter;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.BasePilotable;
 
 public class Conduire extends CommandBase {
+  BasePilotable basePilotable;
+  double avancer;
+  double tourner;
+
   /** Creates a new Conduire. */
-  public Conduire() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public Conduire(double avancer, double tourner, BasePilotable basePilotable) {
+    this.basePilotable = basePilotable;
+    this.avancer = avancer;
+    this.tourner = tourner;
   }
 
   // Called when the command is initially scheduled.
@@ -20,7 +29,7 @@ public class Conduire extends CommandBase {
   @Override
   public void execute() {
 
-    
+    basePilotable.conduire(avancer, tourner);
     
   }
 
