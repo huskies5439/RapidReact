@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class BasePilotable extends SubsystemBase {
 //TODO Changer les numéros de moteurs
@@ -39,10 +41,13 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
 private Trajectory trajectoire = new Trajectory();
 
+private DoubleSolenoid vitesse = new DoubleSolenoid(null, 0,1);
+
 public BasePilotable() {
 
   resetEncodeur();
   resetGyro();
+  basseVitesse();
 
   setRamp(0.25);
   setBrake(false);
@@ -158,4 +163,15 @@ public BasePilotable() {
     }
   }
 
+  public void hauteVitesse(){
+    vitesse.set(Value.kReverse);
+  }
+
+  public void basseVitesse(){
+    vitesse.set(Value.kForward);
+  }
+
+  public DoubleSolenoid.Value getRapport(){
+      return vitesse.get();
+  }
 }
