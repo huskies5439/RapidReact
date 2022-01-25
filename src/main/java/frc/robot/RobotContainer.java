@@ -8,8 +8,11 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.Conduire;
 import frc.robot.commands.Gober;
+import frc.robot.subsystems.BasePilotable;
 import frc.robot.subsystems.Gobeur;
 
 /**
@@ -19,6 +22,7 @@ import frc.robot.subsystems.Gobeur;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  private final BasePilotable basePilotable = new BasePilotable();
   private final Gobeur gobeur = new Gobeur();
 
 
@@ -29,6 +33,9 @@ XboxController pilote = new XboxController(0);
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+    basePilotable.setDefaultCommand(new Conduire(pilote.getLeftY(), pilote.getRightX(), basePilotable));
+
+
   }
 
   /**
