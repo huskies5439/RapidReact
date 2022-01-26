@@ -18,8 +18,8 @@ public class Gober extends CommandBase {
   
   @Override
   public void initialize() {
-    gobeur.brasIn();
-    gobeur.stop();
+    gobeur.brasOut();
+    gobeur.gober();
   }
 
   @Override

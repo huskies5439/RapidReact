@@ -8,22 +8,22 @@ import java.io.IOException;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class BasePilotable extends SubsystemBase {
-//TODO Changer les numéros de moteurs
+// Changer les numéros de moteurs
 private WPI_TalonFX moteurAvantG = new WPI_TalonFX(1);
 private WPI_TalonFX moteurArriereG = new WPI_TalonFX(2);
 private WPI_TalonFX moteurAvantD = new WPI_TalonFX(3);
@@ -41,42 +41,23 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
 private Trajectory trajectoire = new Trajectory();
 
-private DoubleSolenoid vitesse = new DoubleSolenoid(null, 0,1);
-
-public BasePilotable() {
-
-  resetEncodeur();
-  resetGyro();
-  basseVitesse();
-
-  setRamp(0.25);
-  setBrake(false);
-  moteurAvantG.setInverted(false);
-  moteurArriereG.setInverted(false);
-  moteurAvantD.setInverted(false);
-  moteurArriereD.setInverted(false);
-}
-
-
-
-
   @Override
   public void periodic() {
   SmartDashboard.putNumber("Vitesse Moyenne", getVitesse());
+  SmartDashboard.putNumber("Position Moyenne", getPosition());  
   SmartDashboard.putNumber("Vitesse Droite", getVitesseD());
   SmartDashboard.putNumber("Vitesse Gauche", getVitesseG());  
-  SmartDashboard.putNumber("Position Moyenne", getPosition());
   SmartDashboard.putNumber("Position Droite", getPositionD());
-  SmartDashboard.putNumber("Position Gauche", getPositionG());
-  
+  SmartDashboard.putNumber("Position Gauche", getPositionG());  
+
+
   SmartDashboard.putNumber("Gyro", getAngle());
   SmartDashboard.putNumber("GyroSpeed", getAngleSpeed());
   
   }
 
   public void conduire(double vx, double vz){
-    //TODO Multiplieur du vx et vz à vérifier selon la conduite
-    drive.arcadeDrive(-0.8*vx, 0.65*vz);
+    drive.arcadeDrive(vx, vz);
   }
 
   public void autoConduire(double voltGauche, double voltDroit){
@@ -135,8 +116,7 @@ public BasePilotable() {
   }
 
   public void resetEncodeur() {
-    encodeurD.reset();
-    encodeurG.reset();
+
   }
 
   public double getAngle() {
@@ -163,15 +143,4 @@ public BasePilotable() {
     }
   }
 
-  public void hauteVitesse(){
-    vitesse.set(Value.kReverse);
-  }
-
-  public void basseVitesse(){
-    vitesse.set(Value.kForward);
-  }
-
-  public DoubleSolenoid.Value getRapport(){
-      return vitesse.get();
-  }
 }

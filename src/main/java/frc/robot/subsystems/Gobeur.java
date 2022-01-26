@@ -16,6 +16,9 @@ public class Gobeur extends SubsystemBase {
   private WPI_TalonFX rouleau = new WPI_TalonFX(1); //TODO À déterminer
 
   public Gobeur() {
+    rouleau.setInverted(false);
+    brasIn();
+    stop();
     
   }
 
