@@ -15,14 +15,7 @@ public class Conduire extends CommandBase {
   double avancer;
   double tourner;
   //Déclare et permet l'envoie des states dans le SmartDashboard.
-  /*private enum State {
-    LOW(0), HIGH(1), AUTO(2);
-
-    private int stateValue;
-
-    State(int stateValue) {
-      this.stateValue = stateValue;
-    }*/
+  
 
   //}
 
@@ -44,23 +37,7 @@ public class Conduire extends CommandBase {
 
     basePilotable.conduire(avancer, tourner);
     
-    /*if (RobotState.isAutonomous()){
-      state= State.AUTO; //Pas nécéssaire en compé, mais sert a retourner en Autonomous.
-     } 
-   else if (Math.abs(basePilotable.getVitesse()) > 2 && state == State.LOW) { 
-     basePilotable.hauteVitesse(); 
-     state =State.HIGH; //Vérifier que le Robot est en basseVitesse pour passer en hauteVitesse.
-     } 
-   else if (Math.abs(basePilotable.getVitesse()) < 1.2 && state == State.HIGH) {
-     basePilotable.basseVitesse(); 
-     state = State.LOW; //Vérifier que le Robot est en hauteVitesse pour passer en basseVitesse.
-     } 
-   else if (state == State.AUTO) {
-     basePilotable.basseVitesse(); //Force la basseVitesse en Autonomous.
-     if (!RobotState.isAutonomous()) { 
-       state = State.LOW; //Après Autonomous passe dans la StateMachine principal.
-       } 
-   }*/
+   
 
   }
 
