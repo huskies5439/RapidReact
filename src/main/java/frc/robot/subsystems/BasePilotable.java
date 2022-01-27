@@ -9,12 +9,18 @@ import java.io.IOException;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -31,6 +37,7 @@ private MotorControllerGroup moteursG = new MotorControllerGroup(moteurAvantG, m
 private MotorControllerGroup moteursD = new MotorControllerGroup(moteurAvantD, moteurArriereD);
 
 private DifferentialDrive drive = new DifferentialDrive(moteursG, moteursD);
+private DifferentialDriveOdometry odometry;
 
 private Encoder encodeurG = new Encoder(0, 1,false);
 private Encoder encodeurD = new Encoder(2, 3,true);
