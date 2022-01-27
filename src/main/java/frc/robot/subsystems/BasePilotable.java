@@ -51,6 +51,8 @@ private DoubleSolenoid pistonTransmission = new DoubleSolenoid(PneumaticsModuleT
 private boolean shift = false;
 
 
+//allo ceci est un test
+
 public BasePilotable() {
 
   resetEncodeur();
