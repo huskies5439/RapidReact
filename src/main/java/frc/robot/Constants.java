@@ -15,6 +15,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    //je mappelle max
     //TODO vérifier la longueur du robot
     public static final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(0.76);
     public static final double kS = 1;
