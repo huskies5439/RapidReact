@@ -71,6 +71,8 @@ public BasePilotable() {
 
   @Override
   public void periodic() {
+    odometry.update(Rotation2d.fromDegrees(getAngle()), getPositionG(), getPositionD());
+  SmartDashboard.putNumberArray("odometry", getOdometry());  
   SmartDashboard.putNumber("Vitesse Moyenne", getVitesse());
   SmartDashboard.putNumber("Vitesse Droite", getVitesseD());
   SmartDashboard.putNumber("Vitesse Gauche", getVitesseG());  
