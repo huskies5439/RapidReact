@@ -38,7 +38,14 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
 private Trajectory trajectoire = new Trajectory();
 
-  private DoubleSolenoid vitesse = new DoubleSolenoid(null, 0,1);
+private DoubleSolenoid vitesse = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0,1); //les ports sont à valider
+
+private enum RapportTransmission {
+
+  LOW, HIGH 
+} 
+private RapportTransmission rapport=RapportTransmission.LOW; 
+
 
   public BasePilotable() {
 
@@ -160,13 +167,17 @@ private Trajectory trajectoire = new Trajectory();
 
   public void hauteVitesse(){
     vitesse.set(DoubleSolenoid.Value.kReverse);
+
+    rapport=RapportTransmission.HIGH;
   }
 
   public void basseVitesse(){
     vitesse.set(DoubleSolenoid.Value.kForward);
+
+    rapport=RapportTransmission.LOW;
   }
 
-  public DoubleSolenoid.Value getRapport(){
-    return vitesse.get();
+  public RapportTransmission getRapport(){
+    return rapport;
   }
 }
