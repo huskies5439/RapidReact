@@ -1,4 +1,4 @@
-// Copyright (c) FIRST and other WPILib contributors.
+// Copyright (c) FIRST and other WPILib contributors. 
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
@@ -10,6 +10,10 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax.IdleMode;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.*;
@@ -30,6 +34,7 @@ private MotorControllerGroup moteursG = new MotorControllerGroup(moteurAvantG, m
 private MotorControllerGroup moteursD = new MotorControllerGroup(moteurAvantD, moteurArriereD);
 
 private DifferentialDrive drive = new DifferentialDrive(moteursG, moteursD);
+private DifferentialDriveOdometry odometry;
 
 private Encoder encodeurG = new Encoder(0, 1,false);
 private Encoder encodeurD = new Encoder(2, 3,true);
@@ -152,6 +157,43 @@ private RapportTransmission rapport=RapportTransmission.LOW;
   public void resetGyro() {
     gyro.reset();
   } 
+
+  public void hauteVitesse(){
+    vitesse.set(DoubleSolenoid.Value.kReverse);
+  }
+
+  public void basseVitesse(){
+    vitesse.set(DoubleSolenoid.Value.kForward);
+  }
+
+  public DoubleSolenoid.Value getRapport(){
+    return vitesse.get();
+  }
+
+  public Pose2d getPose() {
+    return odometry.getPoseMeters();
+  }
+
+  public double[] getOdometry() {
+    double[] position = new double[3];
+    double x = getPose().getTranslation().getX();
+    double y = getPose().getTranslation().getY();
+    double theta = getPose().getRotation().getDegrees();
+    position[0] = x;
+    position[1] = y;
+    position[2] = theta;
+    return position;
+  }
+
+  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+    return new DifferentialDriveWheelSpeeds(getVitesseG(), getVitesseD());
+  }
+
+  public void resetOdometry(Pose2d pose) {
+    resetEncodeur();
+    resetGyro();
+    odometry.resetPosition(pose, Rotation2d.fromDegrees(getAngle()));
+  }
 
   public Trajectory creerTrajectoire(String trajet){
     String trajetJSON = "output/"+trajet+".wpilib.json";
