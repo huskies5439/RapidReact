@@ -43,13 +43,11 @@ private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
 private Trajectory trajectoire = new Trajectory();
 
-private DoubleSolenoid vitesse = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0,1); //les ports sont à valider
+private DoubleSolenoid pistonTransmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0,1); //les ports sont à valider
 
-private enum RapportTransmission {
+private boolean shift = false;
 
-  LOW, HIGH 
-} 
-private RapportTransmission rapport=RapportTransmission.LOW; 
+
 
 
   public BasePilotable() {
@@ -158,17 +156,6 @@ private RapportTransmission rapport=RapportTransmission.LOW;
     gyro.reset();
   } 
 
-  public void hauteVitesse(){
-    vitesse.set(DoubleSolenoid.Value.kReverse);
-  }
-
-  public void basseVitesse(){
-    vitesse.set(DoubleSolenoid.Value.kForward);
-  }
-
-  public DoubleSolenoid.Value getRapport(){
-    return vitesse.get();
-  }
 
   public Pose2d getPose() {
     return odometry.getPoseMeters();
@@ -208,18 +195,18 @@ private RapportTransmission rapport=RapportTransmission.LOW;
   }
 
   public void hauteVitesse(){
-    vitesse.set(DoubleSolenoid.Value.kReverse);
+    pistonTransmission.set(DoubleSolenoid.Value.kReverse);
 
-    rapport=RapportTransmission.HIGH;
+    shift = true;
   }
 
   public void basseVitesse(){
-    vitesse.set(DoubleSolenoid.Value.kForward);
+    pistonTransmission.set(DoubleSolenoid.Value.kForward);
 
-    rapport=RapportTransmission.LOW;
+    shift = false;
   }
 
-  public RapportTransmission getRapport(){
-    return rapport;
+  public boolean getShift(){
+    return shift;
   }
 }

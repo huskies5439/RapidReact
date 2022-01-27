@@ -6,6 +6,8 @@ package frc.robot.commands;
 
 import java.io.FilenameFilter;
 
+import com.fasterxml.jackson.databind.JsonSerializable.Base;
+
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BasePilotable;
@@ -36,7 +38,20 @@ public class Conduire extends CommandBase {
   public void execute() {
 
     basePilotable.conduire(avancer, tourner);
-    
+    // À calibrer
+   /*if(basePilotable.getShift() == false && basePilotable.getVitesse()>2){
+      basePilotable.hauteVitesse();
+
+      
+
+   }
+  else if(basePilotable.getShift() == true && basePilotable.getVitesse()<1){
+      basePilotable.basseVitesse();
+
+
+  }*/
+
+
    
 
   }
