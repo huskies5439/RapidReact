@@ -1,25 +1,22 @@
-// Copyright (c) FIRST and other WPILib contributors. 
+// Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems;
+package frc.robot.subsystems; 
 
 import java.io.IOException;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.revrobotics.CANSparkMax.IdleMode;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
-import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
-import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -34,7 +31,6 @@ private MotorControllerGroup moteursG = new MotorControllerGroup(moteurAvantG, m
 private MotorControllerGroup moteursD = new MotorControllerGroup(moteurAvantD, moteurArriereD);
 
 private DifferentialDrive drive = new DifferentialDrive(moteursG, moteursD);
-private DifferentialDriveOdometry odometry;
 
 private Encoder encodeurG = new Encoder(0, 1,false);
 private Encoder encodeurD = new Encoder(2, 3,true);
@@ -48,32 +44,31 @@ private DoubleSolenoid pistonTransmission = new DoubleSolenoid(PneumaticsModuleT
 private boolean shift = false;
 
 
+public BasePilotable() {
+
+  resetEncodeur();
+  resetGyro();
+
+  setRamp(0.25);
+  setBrake(false);
+  moteurAvantG.setInverted(false);
+  moteurArriereG.setInverted(false);
+  moteurAvantD.setInverted(false);
+  moteurArriereD.setInverted(false);
+}
 
 
-  public BasePilotable() {
 
-    resetEncodeur();
-    resetGyro();
-    basseVitesse();
-
-    setRamp(0.25);
-    setBrake(false);
-    moteurAvantG.setInverted(false);
-    moteurArriereG.setInverted(false);
-    moteurAvantD.setInverted(false);
-    moteurArriereD.setInverted(false);
-  }
 
   @Override
   public void periodic() {
   SmartDashboard.putNumber("Vitesse Moyenne", getVitesse());
-  SmartDashboard.putNumber("Position Moyenne", getPosition());  
   SmartDashboard.putNumber("Vitesse Droite", getVitesseD());
   SmartDashboard.putNumber("Vitesse Gauche", getVitesseG());  
+  SmartDashboard.putNumber("Position Moyenne", getPosition());
   SmartDashboard.putNumber("Position Droite", getPositionD());
-  SmartDashboard.putNumber("Position Gauche", getPositionG());  
-
-
+  SmartDashboard.putNumber("Position Gauche", getPositionG());
+  
   SmartDashboard.putNumber("Gyro", getAngle());
   SmartDashboard.putNumber("GyroSpeed", getAngleSpeed());
   
