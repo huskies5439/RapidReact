@@ -9,6 +9,9 @@ import java.io.IOException;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -24,7 +27,12 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class BasePilotable extends SubsystemBase {
   //Moteurs
@@ -208,4 +216,21 @@ public BasePilotable() {
       return null;
     }
   }
+
+  public Command ramseteSimple(Trajectory trajectoire){
+    //                                                                          //?? Maybe ajouter intialisation de la pose
+    RamseteCommand ramseteCommand = new RamseteCommand(                         //On crée notre Ramsete Command
+      trajectoire,                                                              //On passe notre trajectoire a la RamseteCommand afin qu'il sache quoi faire
+      this::getPose,                                                            //On passe notre pose, afin qu'il connaisse son emplacement
+      new RamseteController(2, 0.7),                                            //Ce sont des arguments réputés comme idéale pour des robots de FRC dans un Ramsete Controller
+      new SimpleMotorFeedforward(Constants.kSRamsete, Constants.kVRamsete, 0),  //On donnes nos arguments de FeedForward
+      Constants.kinematics,                                                     //Notre kinematics (Afin que le robot conaisse ses mesures)
+      this::getWheelSpeeds,                                                     //Donne nos vitesses de roues
+      new PIDController(Constants.kPRamsete, 0, 0),                             //On donne un PID Controller a chacune des roues (SpeedController Group)
+      new PIDController(Constants.kPRamsete, 0, 0),                             //"                                                                     "
+      this::autoConduire,                                                       //On lui donne une commande pour conduire
+      this);                                                                    //Tous les "this" sont la pour spécifier qu'on parle de la BasePilotable
+      return ramseteCommand.andThen(()->stop());                                //On demande au robot de s'arrêter à la fin de la trajectoire
+  }
+
 }
