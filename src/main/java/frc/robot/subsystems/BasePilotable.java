@@ -27,37 +27,31 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class BasePilotable extends SubsystemBase {
-//TODO Changer les numéros de moteurs
-private WPI_TalonFX moteurAvantG = new WPI_TalonFX(1);
-private WPI_TalonFX moteurArriereG = new WPI_TalonFX(2);
-private WPI_TalonFX moteurAvantD = new WPI_TalonFX(3);
-private WPI_TalonFX moteurArriereD = new WPI_TalonFX(4);
-
-private MotorControllerGroup moteursG = new MotorControllerGroup(moteurAvantG, moteurArriereG);
-private MotorControllerGroup moteursD = new MotorControllerGroup(moteurAvantD, moteurArriereD);
-
-private DifferentialDrive drive = new DifferentialDrive(moteursG, moteursD);
-private DifferentialDriveOdometry odometry;
-
-private Encoder encodeurG = new Encoder(0, 1,false);
-private Encoder encodeurD = new Encoder(2, 3,true);
-
-private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-
-private Trajectory trajectoire = new Trajectory();
-
-private DoubleSolenoid pistonTransmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0,1); //les ports sont à valider
-
-private boolean shift = false;
-
-
-//allo ceci est un test
+  //Moteurs
+  //TODO Changer les numéros de moteurs
+  private WPI_TalonFX moteurAvantG = new WPI_TalonFX(1);
+  private WPI_TalonFX moteurArriereG = new WPI_TalonFX(2);
+  private WPI_TalonFX moteurAvantD = new WPI_TalonFX(3);
+  private WPI_TalonFX moteurArriereD = new WPI_TalonFX(4);
+  private MotorControllerGroup moteursG = new MotorControllerGroup(moteurAvantG, moteurArriereG);
+  private MotorControllerGroup moteursD = new MotorControllerGroup(moteurAvantD, moteurArriereD);
+  private boolean shift = false;
+  //Encodeurs & Gyro
+  private Encoder encodeurG = new Encoder(0, 1,false);
+  private Encoder encodeurD = new Encoder(2, 3,true);
+  private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+  //Differential drive
+  private DifferentialDrive drive = new DifferentialDrive(moteursG, moteursD);
+  private DifferentialDriveOdometry odometry;
+  //Solenoid
+  private DoubleSolenoid pistonTransmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0,1); //les ports sont à valider
+  //Trajectory
+  private Trajectory trajectoire = new Trajectory();
 
 public BasePilotable() {
-
+  //Initialisations
   resetEncodeur();
   resetGyro();
-
   setRamp(0.25);
   setBrake(false);
   moteurAvantG.setInverted(false);
@@ -66,27 +60,23 @@ public BasePilotable() {
   moteurArriereD.setInverted(false);
 }
 
-
-
-
   @Override
   public void periodic() {
     odometry.update(Rotation2d.fromDegrees(getAngle()), getPositionG(), getPositionD());
-  SmartDashboard.putNumberArray("odometry", getOdometry());  
-  SmartDashboard.putNumber("Vitesse Moyenne", getVitesse());
-  SmartDashboard.putNumber("Vitesse Droite", getVitesseD());
-  SmartDashboard.putNumber("Vitesse Gauche", getVitesseG());  
-  SmartDashboard.putNumber("Position Moyenne", getPosition());
-  SmartDashboard.putNumber("Position Droite", getPositionD());
-  SmartDashboard.putNumber("Position Gauche", getPositionG());
-  
-  SmartDashboard.putNumber("Gyro", getAngle());
-  SmartDashboard.putNumber("GyroSpeed", getAngleSpeed());
-  
+    //SmartDashoard
+    SmartDashboard.putNumberArray("odometry", getOdometry());  
+    SmartDashboard.putNumber("Vitesse Moyenne", getVitesse());
+    SmartDashboard.putNumber("Vitesse Droite", getVitesseD());
+    SmartDashboard.putNumber("Vitesse Gauche", getVitesseG());  
+    SmartDashboard.putNumber("Position Moyenne", getPosition());
+    SmartDashboard.putNumber("Position Droite", getPositionD());
+    SmartDashboard.putNumber("Position Gauche", getPositionG());
+    SmartDashboard.putNumber("Gyro", getAngle());
+    SmartDashboard.putNumber("GyroSpeed", getAngleSpeed());
   }
 
   public void conduire(double vx, double vz){
-    //TODO Multiplieur du vx et vz à vérifier selon la conduite
+    //TODO Multiplicateur du vx et vz à vérifier selon la conduite
     drive.arcadeDrive(-0.8*vx, 0.65*vz);
   }
 
@@ -100,13 +90,14 @@ public BasePilotable() {
     drive.arcadeDrive(0, 0);
   }
 
+  //Ramp
   public void setRamp(double ramp){
     moteurAvantG.configOpenloopRamp(ramp);
     moteurArriereG.configOpenloopRamp(ramp);
     moteurAvantD.configOpenloopRamp(ramp);
     moteurArriereD.configOpenloopRamp(ramp);
   }
-
+  //Mode brake
   public void setBrake(boolean isBrake) {
     if (isBrake) {
       moteurAvantD.setNeutralMode(NeutralMode.Brake);
@@ -122,6 +113,7 @@ public BasePilotable() {
     }
   }
 
+  //Moteurs
   public double getPositionG() {
     return encodeurG.getDistance();
   }
@@ -141,8 +133,13 @@ public BasePilotable() {
   public double getVitesseG() {
     return encodeurG.getRate();
   }
+
   public double getVitesse() {
-    return (getVitesseD() + getVitesseG()) / 2;
+    return (getVitesseD() + getVitesseG()) / 2.0;
+  }
+
+  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+    return new DifferentialDriveWheelSpeeds(getVitesseG(), getVitesseD());
   }
 
   public void resetEncodeur() {
@@ -150,55 +147,10 @@ public BasePilotable() {
     encodeurG.reset();
   }
 
-  public double getAngle() {
-    return gyro.getAngle();
-  }
-
-  public double getAngleSpeed() {
-    return gyro.getRate();
-  }
-
-  public void resetGyro() {
-    gyro.reset();
+  //Transmission//
+  public boolean getShift(){
+    return shift;
   } 
-
-
-  public Pose2d getPose() {
-    return odometry.getPoseMeters();
-  }
-
-  public double[] getOdometry() {
-    double[] position = new double[3];
-    double x = getPose().getTranslation().getX();
-    double y = getPose().getTranslation().getY();
-    double theta = getPose().getRotation().getDegrees();
-    position[0] = x;
-    position[1] = y;
-    position[2] = theta;
-    return position;
-  }
-
-  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(getVitesseG(), getVitesseD());
-  }
-
-  public void resetOdometry(Pose2d pose) {
-    resetEncodeur();
-    resetGyro();
-    odometry.resetPosition(pose, Rotation2d.fromDegrees(getAngle()));
-  }
-
-  public Trajectory creerTrajectoire(String trajet){
-    String trajetJSON = "output/"+trajet+".wpilib.json";
-    try{
-      var path = Filesystem.getDeployDirectory().toPath().resolve(trajetJSON);
-      return TrajectoryUtil.fromPathweaverJson(path);
-    }
-    catch(IOException e){
-      DriverStation.reportError("Unable to open trajectory : " + trajetJSON, e.getStackTrace());
-      return null;
-    }
-  }
 
   public void hauteVitesse(){
     pistonTransmission.set(DoubleSolenoid.Value.kReverse);
@@ -211,8 +163,49 @@ public BasePilotable() {
 
     shift = false;
   }
+  
+  //Gyro
+  public double getAngle() {
+    return gyro.getAngle();
+  }
 
-  public boolean getShift(){
-    return shift;
+  public double getAngleSpeed() {
+    return gyro.getRate();
+  } 
+  public void resetGyro() {
+    gyro.reset();
+  } 
+
+  //Odometry
+  public double[] getOdometry() {
+    double[] position = new double[3];
+    double x = getPose().getTranslation().getX();
+    double y = getPose().getTranslation().getY();
+    double theta = getPose().getRotation().getDegrees();
+    position[0] = x;
+    position[1] = y;
+    position[2] = theta;
+    return position;
+  }
+  public Pose2d getPose() {
+    return odometry.getPoseMeters();
+  }
+ 
+  public void resetOdometry(Pose2d pose) {
+    resetEncodeur();
+    resetGyro();
+    odometry.resetPosition(pose, Rotation2d.fromDegrees(getAngle()));
+  }
+  //Trajectory
+  public Trajectory creerTrajectoire(String trajet){
+    String trajetJSON = "output/"+trajet+".wpilib.json";
+    try{
+      var path = Filesystem.getDeployDirectory().toPath().resolve(trajetJSON);
+      return TrajectoryUtil.fromPathweaverJson(path);
+    }
+    catch(IOException e){
+      DriverStation.reportError("Unable to open trajectory : " + trajetJSON, e.getStackTrace());
+      return null;
+    }
   }
 }
