@@ -20,7 +20,7 @@ public class TrajetAuto extends SequentialCommandGroup {
       new InstantCommand(() -> basePilotable.resetOdometry(trajectoire.getInitialPose())),
       new InstantCommand(() -> basePilotable.setBrake(false)),
       new InstantCommand(() -> basePilotable.setRamp(0)),
-      basePilotable.ramseteSimple(trajectoire).withTimeout(50).withName(trajet)
+      basePilotable.ramseteSimple(trajectoire).withTimeout(50)
     );
   }
 }

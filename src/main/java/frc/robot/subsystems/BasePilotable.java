@@ -28,9 +28,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -52,9 +50,7 @@ public class BasePilotable extends SubsystemBase {
   private DifferentialDrive drive = new DifferentialDrive(moteursG, moteursD);
   private DifferentialDriveOdometry odometry;
   //Solenoid
-  private DoubleSolenoid pistonTransmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0,1); //les ports sont à valider
-  //Trajectory
-  private Trajectory trajectoire = new Trajectory();
+  private DoubleSolenoid pistonTransmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0,1); //TODO les ports sont à valider
 
 public BasePilotable() {
   //Initialisations
@@ -83,6 +79,7 @@ public BasePilotable() {
     SmartDashboard.putNumber("GyroSpeed", getAngleSpeed());
   }
 
+  //Méthodes conduires
   public void conduire(double vx, double vz){
     //TODO Multiplicateur du vx et vz à vérifier selon la conduite
     drive.arcadeDrive(-0.8*vx, 0.65*vz);
@@ -105,6 +102,7 @@ public BasePilotable() {
     moteurAvantD.configOpenloopRamp(ramp);
     moteurArriereD.configOpenloopRamp(ramp);
   }
+
   //Mode brake
   public void setBrake(boolean isBrake) {
     if (isBrake) {
@@ -180,6 +178,7 @@ public BasePilotable() {
   public double getAngleSpeed() {
     return gyro.getRate();
   } 
+
   public void resetGyro() {
     gyro.reset();
   } 
@@ -195,15 +194,17 @@ public BasePilotable() {
     position[2] = theta;
     return position;
   }
+
   public Pose2d getPose() {
     return odometry.getPoseMeters();
   }
- 
+
   public void resetOdometry(Pose2d pose) {
     resetEncodeur();
     resetGyro();
     odometry.resetPosition(pose, Rotation2d.fromDegrees(getAngle()));
   }
+
   //Trajectory
   public Trajectory creerTrajectoire(String trajet){
     String trajetJSON = "output/"+trajet+".wpilib.json";
@@ -216,7 +217,6 @@ public BasePilotable() {
       return null;
     }
   }
-
   public Command ramseteSimple(Trajectory trajectoire){
     //                                                                          //?? Maybe ajouter intialisation de la pose
     RamseteCommand ramseteCommand = new RamseteCommand(                         //On crée notre Ramsete Command
