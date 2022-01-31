@@ -25,4 +25,4 @@
   
   -[Rapid React FRC 2022 Game Manual](https://firstfrc.blob.core.windows.net/frc2022/Manual/2022FRCGameManual.pdf)
   
-  -[Google Sheet des Taches](https://docs.google.com/spreadsheets/d/1AxY8FpF-gWeQtHU9PpCTP74TjODsy8M275rWg9LeZGs/edit#gid=0)
+  -[Google Sheet des Taches](https://docs.google.com/spreadsheets/d/1AxY8FpF-gWeQtHU9PpCTP74TjODsy8M275rWg9LeZGs/edit#gid=0)[s](https://drive.google.com/file/d/1RP0ITKWUICqrbAXKZ2cotDWQud7qY4J7/view?usp=sharing)
