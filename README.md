@@ -22,3 +22,7 @@
   -[Limelight](https://downloads.limelightvision.io/software/LimelightFinderSetup1_0_1.exe)
   
   -[REV Robotics Hardware Client](https://docs.revrobotics.com/rev-control-system/managing-the-control-system/rev-hardware-client)
+  
+  -[Rapid React FRC 2022 Game Manual](https://firstfrc.blob.core.windows.net/frc2022/Manual/2022FRCGameManual.pdf)
+  
+  -[Google Sheet des Taches](https://docs.google.com/spreadsheets/d/1AxY8FpF-gWeQtHU9PpCTP74TjODsy8M275rWg9LeZGs/edit#gid=0)
