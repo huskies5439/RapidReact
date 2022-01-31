@@ -41,7 +41,7 @@ public class BasePilotable extends SubsystemBase {
   private WPI_TalonFX moteurArriereD = new WPI_TalonFX(4);
   private MotorControllerGroup moteursG = new MotorControllerGroup(moteurAvantG, moteurArriereG);
   private MotorControllerGroup moteursD = new MotorControllerGroup(moteurAvantD, moteurArriereD);
-  private boolean shift = false;
+ 
   //Encodeurs & Gyro
   private Encoder encodeurG = new Encoder(0, 1,false);
   private Encoder encodeurD = new Encoder(2, 3,true);
@@ -49,9 +49,9 @@ public class BasePilotable extends SubsystemBase {
   //Differential drive
   private DifferentialDrive drive = new DifferentialDrive(moteursG, moteursD);
   private DifferentialDriveOdometry odometry;
-  //Solenoid
+  //Transmission
   private DoubleSolenoid pistonTransmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0,1); //TODO les ports sont à valider
-
+  private boolean isHighGear = false;
 public BasePilotable() {
   //Initialisations
   resetEncodeur();
@@ -154,20 +154,20 @@ public BasePilotable() {
   }
 
   //Transmission//
-  public boolean getShift(){
-    return shift;
+  public boolean getIsHighGear(){
+    return isHighGear;
   } 
 
-  public void hauteVitesse(){
+  public void highGear(){
     pistonTransmission.set(DoubleSolenoid.Value.kReverse);
 
-    shift = true;
+    isHighGear = true;
   }
 
-  public void basseVitesse(){
+  public void lowGear(){
     pistonTransmission.set(DoubleSolenoid.Value.kForward);
 
-    shift = false;
+    isHighGear = false;
   }
   
   //Gyro
