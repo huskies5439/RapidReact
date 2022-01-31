@@ -35,14 +35,14 @@ public class Conduire extends CommandBase {
 
     basePilotable.conduire(avancer, tourner);
     // À calibrer
-   /*if(basePilotable.getShift() == false && basePilotable.getVitesse()>2){
-      basePilotable.hauteVitesse();
+  /*if(! basePilotable.getIsHighGear() && basePilotable.getVitesse()>2){
+      basePilotable.highGear();
 
       
 
    }
-  else if(basePilotable.getShift() == true && basePilotable.getVitesse()<1){
-      basePilotable.basseVitesse();
+  else if(basePilotable.getIsHighGear() && basePilotable.getVitesse()<1){
+      basePilotable.lowGear();
 
 
   }*/
