@@ -27,7 +27,7 @@ public class Lanceur extends SubsystemBase {
 
  private ShuffleboardTab calibration = Shuffleboard.getTab("calibration");
  private NetworkTableEntry voltageLanceurCible =
-       calibration.add("vitesse lanceur cible",1)
+       calibration.add("voltage lanceur cible",1)
              .getEntry();
 
 
@@ -83,7 +83,7 @@ public class Lanceur extends SubsystemBase {
     setVoltage(0);
   }
 
-  public void pidfController(double vcible)
+  public void setVitesseFeedForwardPID(double vcible)
   {
     setVoltage(pid.calculate(getVitesse(),vcible)+lanceurFF.calculate(vcible));
   }
