@@ -7,6 +7,13 @@
  -[BetaBot 2021](https://github.com/huskies5439/BetaBotBleu2021)
  
 ## Liens Important
+
+  -[Rapid React FRC 2022 Game Manual](https://firstfrc.blob.core.windows.net/frc2022/Manual/2022FRCGameManual.pdf)
+  
+  -[Google Sheet des Tache](https://docs.google.com/spreadsheets/d/1AxY8FpF-gWeQtHU9PpCTP74TjODsy8M275rWg9LeZGs/edit#gid=0)[s](https://drive.google.com/file/d/1RP0ITKWUICqrbAXKZ2cotDWQud7qY4J7/view?usp=sharing)
+
+## Divers
+
   -[Jamboard de l'équipe](https://jamboard.google.com/d/1MtAiHo2r3bF7JpLmS8ed2jNqNcJMVXCq8UoC5OfQmd8/viewer?f=11)
 
   -[WPILib](https://docs.wpilib.org/en/stable/index.html)
@@ -23,6 +30,3 @@
   
   -[REV Robotics Hardware Client](https://docs.revrobotics.com/rev-control-system/managing-the-control-system/rev-hardware-client)
   
-  -[Rapid React FRC 2022 Game Manual](https://firstfrc.blob.core.windows.net/frc2022/Manual/2022FRCGameManual.pdf)
-  
-  -[Google Sheet des Tache](https://docs.google.com/spreadsheets/d/1AxY8FpF-gWeQtHU9PpCTP74TjODsy8M275rWg9LeZGs/edit#gid=0)[s](https://drive.google.com/file/d/1RP0ITKWUICqrbAXKZ2cotDWQud7qY4J7/view?usp=sharing)
