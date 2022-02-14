@@ -4,14 +4,14 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Lanceur;
+import frc.robot.subsystems.BasePilotable;
 
 public class CaracteriserDrive extends CommandBase {
-  Lanceur lanceur;
+  BasePilotable basePilotable;
 
-  public CaracteriserDrive(Lanceur lanceur) {
-    this.lanceur = lanceur;
-    addRequirements(lanceur);
+  public CaracteriserDrive(BasePilotable basePilotable) {
+    this.basePilotable = basePilotable;
+    addRequirements(basePilotable);
 
   }
   @Override
@@ -19,12 +19,12 @@ public class CaracteriserDrive extends CommandBase {
 
   @Override
   public void execute() {
-    lanceur.setVoltage(lanceur.getVoltageShuffleboard());
+    basePilotable.autoConduire(basePilotable.getVoltageShuffleBoard(),basePilotable.getVoltageShuffleBoard());
   }
 
   @Override
   public void end(boolean interrupted) {
-    lanceur.stop();
+    basePilotable.stop();
   }
 
   @Override
