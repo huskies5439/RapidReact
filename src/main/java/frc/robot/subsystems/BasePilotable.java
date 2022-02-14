@@ -18,6 +18,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -26,6 +27,8 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
@@ -41,6 +44,8 @@ public class BasePilotable extends SubsystemBase {
   private WPI_TalonFX moteurArriereD = new WPI_TalonFX(4);
   private MotorControllerGroup moteursG = new MotorControllerGroup(moteurAvantG, moteurArriereG);
   private MotorControllerGroup moteursD = new MotorControllerGroup(moteurAvantD, moteurArriereD);
+  private ShuffleboardTab calibration = Shuffleboard.getTab("calibration");
+  private NetworkTableEntry voltageBasePilotable = calibration.add("voltage base pilotable",0).getEntry();;
  
   //Encodeurs & Gyro
   private Encoder encodeurG = new Encoder(0, 1,false);
@@ -90,6 +95,11 @@ public BasePilotable() {
     moteursD.setVoltage(voltDroit);
     drive.feed();
   }
+
+  public double getVoltageShuffleBoard()
+{
+   return voltageBasePilotable.getDouble(0.0); 
+}
 
   public void stop(){
     drive.arcadeDrive(0, 0);

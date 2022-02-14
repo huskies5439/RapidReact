@@ -47,6 +47,7 @@ XboxController pilote = new XboxController(0);
   private void configureButtonBindings() {
 
     new JoystickButton(pilote, Button.kA.value).whenHeld(new Gober(gobeur));
+    //new JoystickButton(pilote, Button.kB.value).whenHeld();
   }
 
   /**

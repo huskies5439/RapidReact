@@ -6,10 +6,10 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Lanceur;
 
-public class CaracteriserDrive extends CommandBase {
+public class CaracteriserLanceur extends CommandBase {
   Lanceur lanceur;
 
-  public CaracteriserDrive(Lanceur lanceur) {
+  public CaracteriserLanceur(Lanceur lanceur) {
     this.lanceur = lanceur;
     addRequirements(lanceur);
 
