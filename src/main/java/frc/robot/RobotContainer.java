@@ -11,9 +11,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Conduire;
 import frc.robot.commands.Gober;
+import frc.robot.commands.LancerSimple;
 import frc.robot.commands.TrajetAuto;
 import frc.robot.subsystems.BasePilotable;
 import frc.robot.subsystems.Gobeur;
+import frc.robot.subsystems.Lanceur;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -24,6 +26,7 @@ import frc.robot.subsystems.Gobeur;
 public class RobotContainer {
   private final BasePilotable basePilotable = new BasePilotable();
   private final Gobeur gobeur = new Gobeur();
+  private final Lanceur lanceur = new Lanceur();
 
 
 XboxController pilote = new XboxController(0);
@@ -47,7 +50,7 @@ XboxController pilote = new XboxController(0);
   private void configureButtonBindings() {
 
     new JoystickButton(pilote, Button.kA.value).whenHeld(new Gober(gobeur));
-    //new JoystickButton(pilote, Button.kB.value).whenHeld();
+    new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerSimple(7, lanceur));
   }
 
   /**

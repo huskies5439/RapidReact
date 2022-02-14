@@ -14,6 +14,7 @@ public class LancerSimple extends CommandBase {
   public LancerSimple(double voltage, Lanceur lanceur) {
     this.lanceur = lanceur;
     this.voltage = voltage;
+    addRequirements(lanceur);
   }
 
   // Called when the command is initially scheduled.
