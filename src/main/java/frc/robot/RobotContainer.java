@@ -8,12 +8,15 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Conduire;
 import frc.robot.commands.Gober;
 import frc.robot.commands.LancerSimple;
 import frc.robot.commands.TrajetAuto;
 import frc.robot.subsystems.BasePilotable;
+import frc.robot.subsystems.Convoyeur;
 import frc.robot.subsystems.Gobeur;
 import frc.robot.subsystems.Lanceur;
 
@@ -27,7 +30,7 @@ public class RobotContainer {
   private final BasePilotable basePilotable = new BasePilotable();
   private final Gobeur gobeur = new Gobeur();
   private final Lanceur lanceur = new Lanceur();
-
+  private final Convoyeur convoyeur = new Convoyeur();
 
 XboxController pilote = new XboxController(0);
 
@@ -51,6 +54,8 @@ XboxController pilote = new XboxController(0);
 
     new JoystickButton(pilote, Button.kA.value).whenHeld(new Gober(gobeur));
     new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerSimple(7, lanceur));
+    new JoystickButton(pilote, Button.kY.value).whenHeld(new RunCommand(convoyeur::fournir).andThen(convoyeur::stop));
+    new JoystickButton(pilote, Button.kB.value).whenHeld(new RunCommand(convoyeur::sortir).andThen(convoyeur::stop));
   }
 
   /**
