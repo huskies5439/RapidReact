@@ -23,7 +23,7 @@ public class LancerFancy extends CommandBase {
   @Override
   public void execute() {
 
-    lanceur.setVoltage(vitesse);
+    lanceur.setVitesseFeedForwardPID(vitesse);
   }
   
 
