@@ -18,6 +18,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -46,7 +47,7 @@ public class BasePilotable extends SubsystemBase {
   private MotorControllerGroup moteursD = new MotorControllerGroup(moteurAvantD, moteurArriereD);
   private ShuffleboardTab calibration = Shuffleboard.getTab("calibration");
   private NetworkTableEntry voltageBasePilotable = calibration.add("voltage base pilotable",0).getEntry();;
- 
+  private double conversionEncodeur;
   //Encodeurs & Gyro
   private Encoder encodeurG = new Encoder(0, 1,false);
   private Encoder encodeurD = new Encoder(2, 3,true);
@@ -57,16 +58,27 @@ public class BasePilotable extends SubsystemBase {
   //Transmission
   private DoubleSolenoid pistonTransmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0,1); //TODO les ports sont à valider
   private boolean isHighGear = false;
+
+
+
 public BasePilotable() {
   //Initialisations
   resetEncodeur();
   resetGyro();
+
   setRamp(0.25);
   setBrake(false);
+
   moteurAvantG.setInverted(false);
   moteurArriereG.setInverted(false);
   moteurAvantD.setInverted(false);
   moteurArriereD.setInverted(false);
+
+  //valider la conversion des encodeurs
+  conversionEncodeur=Math.PI*Units.inchesToMeters(6)/(256*3*54/30); //roue de 6", ratio 54/30:1 shaft-roue 3:1 encodeur-shaft encodeur 256 clic encodeur
+  encodeurG.setDistancePerPulse(conversionEncodeur);
+  encodeurD.setDistancePerPulse(conversionEncodeur);
+
 }
 
   @Override
@@ -82,6 +94,10 @@ public BasePilotable() {
     SmartDashboard.putNumber("Position Gauche", getPositionG());
     SmartDashboard.putNumber("Gyro", getAngle());
     SmartDashboard.putNumber("GyroSpeed", getAngleSpeed());
+
+
+    
+    
   }
 
   //Méthodes conduires
