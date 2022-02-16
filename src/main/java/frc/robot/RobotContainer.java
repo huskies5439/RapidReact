@@ -39,7 +39,7 @@ XboxController pilote = new XboxController(0);
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    basePilotable.setDefaultCommand(new Conduire(pilote.getLeftY(), pilote.getRightX(), basePilotable));
+    basePilotable.setDefaultCommand(new Conduire(()-> pilote.getLeftY(),()-> pilote.getRightX(), basePilotable));
 
 
   }
@@ -55,7 +55,7 @@ XboxController pilote = new XboxController(0);
     //new JoystickButton(pilote, Button.kA.value).whenHeld(new Gober(gobeur));
     //new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerSimple(7, lanceur));
     //new JoystickButton(pilote, Button.kY.value).whenHeld(new RunCommand(convoyeur::fournir).andThen(convoyeur::stop));
-   // new JoystickButton(pilote, Button.kB.value).whenHeld(new RunCommand(convoyeur::sortir).andThen(convoyeur::stop));
+    //new JoystickButton(pilote, Button.kB.value).whenHeld(new RunCommand(convoyeur::sortir).andThen(convoyeur::stop));
   }
 
   /**
@@ -64,7 +64,8 @@ XboxController pilote = new XboxController(0);
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return new TrajetAuto("test", basePilotable);
+    // An ExampleCommand will run in autonomous 
+    //return new TrajetAuto("test", basePilotable);
+    return null;
   }
 }

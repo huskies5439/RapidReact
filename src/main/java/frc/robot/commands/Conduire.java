@@ -4,25 +4,22 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BasePilotable;
 
 public class Conduire extends CommandBase {
   BasePilotable basePilotable;
-  double avancer;
-  double tourner;
-  //Déclare et permet l'envoie des states dans le SmartDashboard.
+  DoubleSupplier avancer;
+  DoubleSupplier tourner;
   
-
-  //}
-
-  //private State state = State.AUTO;//Initialise la state en Auto.
-  /** Creates a new Conduire. */
-  public Conduire(double avancer, double tourner, BasePilotable basePilotable) {
+  public Conduire(DoubleSupplier avancer, DoubleSupplier tourner, BasePilotable basePilotable) {
     this.basePilotable = basePilotable;
     this.avancer = avancer;
     this.tourner = tourner;
+    addRequirements(basePilotable);
   }
 
   // Called when the command is initially scheduled.
@@ -33,7 +30,7 @@ public class Conduire extends CommandBase {
   @Override
   public void execute() {
 
-    basePilotable.conduire(avancer, tourner);
+    basePilotable.conduire(avancer.getAsDouble(), tourner.getAsDouble());
     // À calibrer
   /*if(! basePilotable.getIsHighGear() && basePilotable.getVitesse()>2){
       basePilotable.highGear();

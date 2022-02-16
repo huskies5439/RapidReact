@@ -64,13 +64,13 @@ public class BasePilotable extends SubsystemBase {
 public BasePilotable() {
   //Initialisations
   resetEncodeur();
-  resetGyro();
+  resetGyro();  
 
   setRamp(0.25);
   setBrake(false);
 
-  moteurAvantG.setInverted(false);
-  moteurArriereG.setInverted(false);
+  moteurAvantG.setInverted(true);
+  moteurArriereG.setInverted(true);
   moteurAvantD.setInverted(false);
   moteurArriereD.setInverted(false);
 
@@ -78,6 +78,8 @@ public BasePilotable() {
   conversionEncodeur=Math.PI*Units.inchesToMeters(6)/(256*3*54/30); //roue de 6", ratio 54/30:1 shaft-roue 3:1 encodeur-shaft encodeur 256 clic encodeur
   encodeurG.setDistancePerPulse(conversionEncodeur);
   encodeurD.setDistancePerPulse(conversionEncodeur);
+
+  odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getAngle()));
 
 }
 
@@ -198,11 +200,11 @@ public BasePilotable() {
   
   //Gyro
   public double getAngle() {
-    return gyro.getAngle();
+    return -gyro.getAngle();
   }
 
   public double getAngleSpeed() {
-    return gyro.getRate();
+    return -gyro.getRate();
   } 
 
   public void resetGyro() {
