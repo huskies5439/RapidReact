@@ -5,13 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Convoyeur;
 import frc.robot.subsystems.Gobeur;
 
 public class Gober extends CommandBase {
+  Convoyeur convoyeur;
   Gobeur gobeur;
   
-  public Gober(Gobeur gobeur) {
+  public Gober(Gobeur gobeur, Convoyeur convoyeur) {
+    this.convoyeur = convoyeur;
     this.gobeur = gobeur; 
+    addRequirements(convoyeur);
     addRequirements(gobeur);
   }
   

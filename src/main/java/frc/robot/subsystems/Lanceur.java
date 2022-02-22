@@ -32,8 +32,7 @@ public class Lanceur extends SubsystemBase {
 
 
   /** Creates a new Lanceur. */
-  public Lanceur() 
-  {
+  public Lanceur() {
     moteurLanceurDroit.setInverted(true);//vérifier
     moteurLanceurGauche.setInverted(false);//vérifier
     pid.setTolerance(125);//vérifier
@@ -43,54 +42,46 @@ public class Lanceur extends SubsystemBase {
   }
 
   @Override
-  public void periodic() 
-  {
+  public void periodic() {
     // This method will be called once per scheduler run
    /*SmartDashboard.putNumber("Vitesse Lanceur", getVitesse());
    SmartDashboard.putBoolean("Bonne vitesse", estBonneVitesse());
    SmartDashboard.putNumber("Position", getPosition());*/
   }
   
-  public void setConversionFactors(double facteur)
-  {
+  public void setConversionFactors(double facteur) {
       moteurLanceurDroit.getEncoder().setPositionConversionFactor(facteur);
       moteurLanceurGauche.getEncoder().setPositionConversionFactor(facteur);
       moteurLanceurDroit.getEncoder().setVelocityConversionFactor(facteur);
       moteurLanceurGauche.getEncoder().setVelocityConversionFactor(facteur);
   }
   
-  public boolean estBonneVitesse() 
-  {
+  public boolean estBonneVitesse() {
     return pid.atSetpoint();
   }
 
-  public void setVoltage(double voltage)
-  {
+  public void setVoltage(double voltage) {
     moteurLanceur.setVoltage(voltage);
   }
 
-  public double getVitesse()
-  {
+  public double getVitesse() {
     return (moteurLanceurDroit.getEncoder().getVelocity() + moteurLanceurGauche.getEncoder().getVelocity())/2.0 ;
   }
 
-  public double getPosition()
-  {
+  public double getPosition() {
     return (moteurLanceurDroit.getEncoder().getPosition() + moteurLanceurGauche.getEncoder().getPosition())/2.0;
   }
-  public void stop()
-  {
+  
+  public void stop() {
     setVoltage(0);
   }
 
-  public void setVitesseFeedForwardPID(double vcible)
-  {
+  public void setVitesseFeedForwardPID(double vcible) {
     setVoltage(pid.calculate(getVitesse(),vcible)+lanceurFF.calculate(vcible));
   }
 
-  public double getVoltageShuffleboard(){
+  public double getVoltageShuffleboard() {
     return voltageLanceurCible.getDouble(0);
-
   }
 
 

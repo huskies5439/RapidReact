@@ -5,16 +5,21 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.subsystems.Convoyeur;
 import frc.robot.subsystems.Lanceur;
 
 public class LancerSimple extends CommandBase {
   Lanceur lanceur;
+  Convoyeur convoyeur;
   double voltage;
 
-  public LancerSimple(double voltage, Lanceur lanceur) {
+  public LancerSimple(double voltage, Lanceur lanceur, Convoyeur convoyeur) {
     this.lanceur = lanceur;
+    this.convoyeur = convoyeur;
     this.voltage = voltage;
     addRequirements(lanceur);
+    addRequirements(convoyeur);
   }
 
   // Called when the command is initially scheduled.
@@ -25,8 +30,10 @@ public class LancerSimple extends CommandBase {
   @Override
   public void execute() {
 
-    lanceur.setVoltage(voltage);
-
+    convoyeur.sortir();
+    new WaitCommand(0.5);
+    lanceur.setVoltage(1);
+    convoyeur.fournir();
   }
 
   // Called once the command ends or is interrupted.
