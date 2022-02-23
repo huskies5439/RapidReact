@@ -9,7 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Convoyeur extends SubsystemBase {
-  private WPI_TalonSRX moteurConvoyeur = new WPI_TalonSRX(15);
+  private WPI_TalonSRX moteurConvoyeur = new WPI_TalonSRX(14);
 
   public Convoyeur() {
   }
