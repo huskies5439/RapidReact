@@ -29,17 +29,16 @@ public class LancerSimple extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    convoyeur.sortir();
-    new WaitCommand(0.5);
-    lanceur.setVoltage(1);
+    //revoir la logique du convoyeur qui décolle le ballon de la roue
+   
+    lanceur.setVoltage(voltage);
     convoyeur.fournir();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
+    convoyeur.stop();
     lanceur.stop();
   }
 

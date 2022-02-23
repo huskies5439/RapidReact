@@ -33,8 +33,8 @@ public class Lanceur extends SubsystemBase {
 
   /** Creates a new Lanceur. */
   public Lanceur() {
-    moteurLanceurDroit.setInverted(true);//vérifier
-    moteurLanceurGauche.setInverted(false);//vérifier
+    moteurLanceurDroit.setInverted(false);//vérifier
+    moteurLanceurGauche.setInverted(true);//vérifier
     pid.setTolerance(125);//vérifier
     setConversionFactors(1.5);//vérifier avec le nouveau rapport d'engrenage
     moteurLanceurGauche.setIdleMode(IdleMode.kCoast);
@@ -44,9 +44,9 @@ public class Lanceur extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-   /*SmartDashboard.putNumber("Vitesse Lanceur", getVitesse());
+   SmartDashboard.putNumber("Vitesse Lanceur", getVitesse());
    SmartDashboard.putBoolean("Bonne vitesse", estBonneVitesse());
-   SmartDashboard.putNumber("Position", getPosition());*/
+   SmartDashboard.putNumber("Position", getPosition());
   }
   
   public void setConversionFactors(double facteur) {

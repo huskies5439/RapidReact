@@ -28,9 +28,9 @@ import frc.robot.subsystems.Lanceur;
  */
 public class RobotContainer {
   private final BasePilotable basePilotable = new BasePilotable();
-  //private final Gobeur gobeur = new Gobeur();
-  //private final Lanceur lanceur = new Lanceur();
-  //private final Convoyeur convoyeur = new Convoyeur();
+  private final Gobeur gobeur = new Gobeur();
+  private final Lanceur lanceur = new Lanceur();
+  private final Convoyeur convoyeur = new Convoyeur();
 
 XboxController pilote = new XboxController(0);
 
@@ -52,10 +52,8 @@ XboxController pilote = new XboxController(0);
    */
   private void configureButtonBindings() {
 
-    //new JoystickButton(pilote, Button.kA.value).whenHeld(new Gober(gobeur));
-    //new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerSimple(7, lanceur));
-    //new JoystickButton(pilote, Button.kY.value).whenHeld(new RunCommand(convoyeur::fournir).andThen(convoyeur::stop));
-    //new JoystickButton(pilote, Button.kB.value).whenHeld(new RunCommand(convoyeur::sortir).andThen(convoyeur::stop));
+    new JoystickButton(pilote, Button.kA.value).whenHeld(new Gober(gobeur, convoyeur));
+    new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerSimple(7, lanceur, convoyeur));
   }
 
   /**

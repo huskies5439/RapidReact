@@ -12,7 +12,7 @@ public class Gober extends CommandBase {
   Convoyeur convoyeur;
   Gobeur gobeur;
   
-  public Gober(Gobeur gobeur, Convoyeur convoyeur) {
+  public Gober(Gobeur gobeur, Convoyeur convoyeur) {//remettre la dépendance du convoyeur
     this.convoyeur = convoyeur;
     this.gobeur = gobeur; 
     addRequirements(convoyeur);
@@ -23,6 +23,7 @@ public class Gober extends CommandBase {
   public void initialize() {
     gobeur.brasOut();
     gobeur.gober();
+    convoyeur.fournir();
   }
 
   @Override
@@ -34,6 +35,7 @@ public class Gober extends CommandBase {
   public void end(boolean interrupted) {
     gobeur.stop();
     gobeur.brasIn();
+    convoyeur.stop();
   }
 
   @Override

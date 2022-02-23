@@ -12,11 +12,11 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Gobeur extends SubsystemBase {
-  private DoubleSolenoid bras = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 0); // À déterminer
+  private DoubleSolenoid bras = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 2, 3); // À déterminer
   private WPI_TalonFX rouleau = new WPI_TalonFX(5); //TODO À déterminer
 
   public Gobeur() {
-    rouleau.setInverted(false);
+    rouleau.setInverted(false);//à déterminer
     brasIn();
     stop();
     

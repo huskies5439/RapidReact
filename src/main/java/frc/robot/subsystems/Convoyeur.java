@@ -12,6 +12,7 @@ public class Convoyeur extends SubsystemBase {
   private WPI_TalonSRX moteurConvoyeur = new WPI_TalonSRX(14);
 
   public Convoyeur() {
+    moteurConvoyeur.setInverted(true);
   }
 
   @Override
