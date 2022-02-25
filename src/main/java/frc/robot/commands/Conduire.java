@@ -32,22 +32,18 @@ public class Conduire extends CommandBase {
 
     basePilotable.conduire(avancer.getAsDouble(), tourner.getAsDouble());
     // À calibrer
-  /*if(! basePilotable.getIsHighGear() && basePilotable.getVitesse()>2){
+  /*if(! basePilotable.getIsHighGear() && basePilotable.getVitesse()>4){
       basePilotable.highGear();
 
       
 
    }
-  else if(basePilotable.getIsHighGear() && basePilotable.getVitesse()<1){
+  else if(basePilotable.getIsHighGear() && basePilotable.getVitesse()<2){
       basePilotable.lowGear();
 
 
   }*/
-
-
-   
-
-  }
+}
 
   // Called once the command ends or is interrupted.
   @Override

@@ -49,8 +49,8 @@ public class BasePilotable extends SubsystemBase {
   private NetworkTableEntry voltageBasePilotable = calibration.add("voltage base pilotable",0).getEntry();;
   private double conversionEncodeur;
   //Encodeurs & Gyro
-  private Encoder encodeurG = new Encoder(0, 1,false);
-  private Encoder encodeurD = new Encoder(2, 3,true);
+  private Encoder encodeurG = new Encoder(0, 1, true);
+  private Encoder encodeurD = new Encoder(2, 3, false);
   private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
   //Differential drive
   private DifferentialDrive drive = new DifferentialDrive(moteursG, moteursD);
