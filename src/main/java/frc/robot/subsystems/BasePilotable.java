@@ -56,7 +56,7 @@ public class BasePilotable extends SubsystemBase {
   private DifferentialDrive drive = new DifferentialDrive(moteursG, moteursD);
   private DifferentialDriveOdometry odometry;
   //Transmission
-  private DoubleSolenoid pistonTransmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0,1); //TODO les ports sont à valider
+  private DoubleSolenoid pistonTransmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 3, 4); //TODO les ports sont à valider
   private boolean isHighGear = false;
 
 

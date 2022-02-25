@@ -12,7 +12,7 @@ public class Gober extends CommandBase {
   Convoyeur convoyeur;
   Gobeur gobeur;
   
-  public Gober(Gobeur gobeur, Convoyeur convoyeur) {//remettre la dépendance du convoyeur
+  public Gober(Gobeur gobeur, Convoyeur convoyeur) {//faire une commande qui fonctionne juste avec gober pis l'autre convoyer
     this.convoyeur = convoyeur;
     this.gobeur = gobeur; 
     addRequirements(convoyeur);
