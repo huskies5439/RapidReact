@@ -6,7 +6,6 @@ package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
 
-import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BasePilotable;
 
@@ -32,17 +31,17 @@ public class Conduire extends CommandBase {
 
     basePilotable.conduire(avancer.getAsDouble(), tourner.getAsDouble());
     // À calibrer
-  /*if(! basePilotable.getIsHighGear() && basePilotable.getVitesse()>4){
+  if(! basePilotable.getIsHighGear() && basePilotable.getVitesse()>1.65){
       basePilotable.highGear();
 
       
 
    }
-  else if(basePilotable.getIsHighGear() && basePilotable.getVitesse()<2){
+  else if(basePilotable.getIsHighGear() && basePilotable.getVitesse()<1.25){
       basePilotable.lowGear();
 
 
-  }*/
+  }
 }
 
   // Called once the command ends or is interrupted.

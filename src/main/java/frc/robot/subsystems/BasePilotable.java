@@ -87,15 +87,15 @@ public BasePilotable() {
   public void periodic() {
     odometry.update(Rotation2d.fromDegrees(getAngle()), getPositionG(), getPositionD());
     //SmartDashoard
-    SmartDashboard.putNumberArray("odometry", getOdometry());  
+    //SmartDashboard.putNumberArray("odometry", getOdometry());  
     SmartDashboard.putNumber("Vitesse Moyenne", getVitesse());
-    SmartDashboard.putNumber("Vitesse Droite", getVitesseD());
-    SmartDashboard.putNumber("Vitesse Gauche", getVitesseG());  
+    //SmartDashboard.putNumber("Vitesse Droite", getVitesseD());
+    //SmartDashboard.putNumber("Vitesse Gauche", getVitesseG());  
     SmartDashboard.putNumber("Position Moyenne", getPosition());
-    SmartDashboard.putNumber("Position Droite", getPositionD());
-    SmartDashboard.putNumber("Position Gauche", getPositionG());
+    //SmartDashboard.putNumber("Position Droite", getPositionD());
+    //SmartDashboard.putNumber("Position Gauche", getPositionG());
     SmartDashboard.putNumber("Gyro", getAngle());
-    SmartDashboard.putNumber("GyroSpeed", getAngleSpeed());
+    //SmartDashboard.putNumber("GyroSpeed", getAngleSpeed());
 
 
     
@@ -105,7 +105,7 @@ public BasePilotable() {
   //Méthodes conduires
   public void conduire(double vx, double vz){
     //TODO Multiplicateur du vx et vz à vérifier selon la conduite
-    drive.arcadeDrive(-0.8*vx, 0.65*vz);
+    drive.arcadeDrive(-0.85*vx, 0.65*vz);
   }
 
   public void autoConduire(double voltGauche, double voltDroit){
@@ -187,13 +187,13 @@ public BasePilotable() {
   } 
 
   public void highGear(){
-    pistonTransmission.set(DoubleSolenoid.Value.kReverse);
+    pistonTransmission.set(DoubleSolenoid.Value.kForward);
 
     isHighGear = true;
   }
 
   public void lowGear(){
-    pistonTransmission.set(DoubleSolenoid.Value.kForward);
+    pistonTransmission.set(DoubleSolenoid.Value.kReverse);
 
     isHighGear = false;
   }

@@ -5,17 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Convoyeur;
 import frc.robot.subsystems.Gobeur;
 
 public class Gober extends CommandBase {
-  Convoyeur convoyeur;
   Gobeur gobeur;
   
-  public Gober(Gobeur gobeur, Convoyeur convoyeur) {//faire une commande qui fonctionne juste avec gober pis l'autre convoyer
-    this.convoyeur = convoyeur;
+  public Gober(Gobeur gobeur) {//faire une commande qui fonctionne juste avec gober pis l'autre convoyer
     this.gobeur = gobeur; 
-    addRequirements(convoyeur);
     addRequirements(gobeur);
   }
   
@@ -23,7 +19,6 @@ public class Gober extends CommandBase {
   public void initialize() {
     gobeur.brasOut();
     gobeur.gober();
-    convoyeur.fournir();
   }
 
   @Override
@@ -35,7 +30,6 @@ public class Gober extends CommandBase {
   public void end(boolean interrupted) {
     gobeur.stop();
     gobeur.brasIn();
-    convoyeur.stop();
   }
 
   @Override

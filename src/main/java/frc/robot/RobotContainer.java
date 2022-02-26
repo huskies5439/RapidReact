@@ -8,13 +8,12 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Conduire;
 import frc.robot.commands.Gober;
+import frc.robot.commands.SequenceGoberConvoyer;
 import frc.robot.commands.LancerSimple;
-import frc.robot.commands.TrajetAuto;
 import frc.robot.subsystems.BasePilotable;
 import frc.robot.subsystems.Convoyeur;
 import frc.robot.subsystems.Gobeur;
@@ -39,8 +38,8 @@ XboxController pilote = new XboxController(0);
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    basePilotable.setDefaultCommand(new Conduire(()-> pilote.getLeftY(),()-> pilote.getRightX(), basePilotable));
-
+    basePilotable.setDefaultCommand(new Conduire(pilote::getLeftY,pilote::getRightX, basePilotable));
+    
 
   }
 
@@ -52,9 +51,12 @@ XboxController pilote = new XboxController(0);
    */
   private void configureButtonBindings() {
 
-    new JoystickButton(pilote, Button.kA.value).whenHeld(new Gober(gobeur, convoyeur));
+    new JoystickButton(pilote, Button.kA.value).whenHeld(new SequenceGoberConvoyer(gobeur, convoyeur));
     new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerSimple(7, lanceur, convoyeur));
+    new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new StartEndCommand(basePilotable::highGear, basePilotable::lowGear));  
+    
   }
+  
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -62,6 +64,7 @@ XboxController pilote = new XboxController(0);
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+
     // An ExampleCommand will run in autonomous 
     //return new TrajetAuto("test", basePilotable);
     return null;
