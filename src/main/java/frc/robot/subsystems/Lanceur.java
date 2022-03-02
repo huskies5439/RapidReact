@@ -1,6 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
 
@@ -31,7 +28,7 @@ public class Lanceur extends SubsystemBase {
              .getEntry();
 
 
-  /** Creates a new Lanceur. */
+  
   public Lanceur() {
     moteurLanceurDroit.setInverted(false);//vérifier
     moteurLanceurGauche.setInverted(true);//vérifier
@@ -43,7 +40,7 @@ public class Lanceur extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+
    SmartDashboard.putNumber("Vitesse Lanceur", getVitesse());
    SmartDashboard.putBoolean("Bonne vitesse", estBonneVitesse());
    SmartDashboard.putNumber("Position", getPosition());
