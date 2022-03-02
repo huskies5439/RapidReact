@@ -21,11 +21,11 @@ public class Convoyeur extends SubsystemBase {
   }
 
   public void fournir() {
-    moteurConvoyeur.setVoltage(6); // à configurer
+    moteurConvoyeur.setVoltage(12); // à configurer
   }
 
   public void sortir() {
-    moteurConvoyeur.setVoltage(-6); // à configurer
+    moteurConvoyeur.setVoltage(-12); // à configurer
   }
 
   public void stop() {

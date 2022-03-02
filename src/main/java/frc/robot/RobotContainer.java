@@ -53,7 +53,8 @@ XboxController pilote = new XboxController(0);
 
     new JoystickButton(pilote, Button.kA.value).whenHeld(new SequenceGoberConvoyer(gobeur, convoyeur));
     new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerSimple(7, lanceur, convoyeur));
-    new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new StartEndCommand(basePilotable::highGear, basePilotable::lowGear));  
+    new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new StartEndCommand(convoyeur::fournir,convoyeur::stop,convoyeur)); //temporaire
+   
     
   }
   

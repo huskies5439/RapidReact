@@ -19,8 +19,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class Lanceur extends SubsystemBase {
-  private final CANSparkMax moteurLanceurDroit = new CANSparkMax(20,MotorType.kBrushless);//valider id
-  private final CANSparkMax moteurLanceurGauche = new CANSparkMax(38,MotorType.kBrushless);//valider ID
+  private final CANSparkMax moteurLanceurDroit = new CANSparkMax(20,MotorType.kBrushless);
+  private final CANSparkMax moteurLanceurGauche = new CANSparkMax(38,MotorType.kBrushless);
   private final MotorControllerGroup moteurLanceur  = new MotorControllerGroup(moteurLanceurDroit,moteurLanceurGauche);
   private final SimpleMotorFeedforward lanceurFF = new SimpleMotorFeedforward(0.188,0.001412); // valider les coefficients
  private PIDController pid = new PIDController(0.003, 0, 0);//valider kP
