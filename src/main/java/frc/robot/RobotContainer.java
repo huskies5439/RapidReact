@@ -37,8 +37,9 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     //A = Gober
-    new JoystickButton(pilote, Button.kA.value).whenHeld(new Gober(gobeur)
-                .alongWith( new StartEndCommand(convoyeur::fournir, convoyeur::stop,convoyeur )));
+    new JoystickButton(pilote, Button.kA.value).toggleWhenPressed(new Gober(gobeur)
+                .alongWith( new StartEndCommand(convoyeur::fournir, convoyeur::stop,convoyeur ))
+              );
 
     //X = Lancer
     new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerSimple(7, lanceur, convoyeur));

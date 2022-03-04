@@ -29,11 +29,11 @@ public class Gobeur extends SubsystemBase {
   }
 
   public void gober() {
-    rouleau.set(0.7);
+    rouleau.set(0.5);
   }
 
   public void jeter() {
-    rouleau.set(-0.7);
+    rouleau.set(-0.5);
   }
 
   public void brasIn() {
