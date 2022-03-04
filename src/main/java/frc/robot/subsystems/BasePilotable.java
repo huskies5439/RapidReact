@@ -93,13 +93,10 @@ public BasePilotable() {
     //SmartDashboard.putNumber("Position Gauche", getPositionG());
     SmartDashboard.putNumber("Gyro", getAngle());
     //SmartDashboard.putNumber("GyroSpeed", getAngleSpeed());
-
-
-    
     
   }
 
-  //Méthodes conduires
+  //Méthodes conduire
   public void conduire(double vx, double vz){
     //TODO Multiplicateur du vx et vz à vérifier selon la conduite
     drive.arcadeDrive(-0.85*vx, 0.65*vz);
@@ -178,7 +175,7 @@ public BasePilotable() {
     encodeurG.reset();
   }
 
-  //Transmission//
+  //Transmission
   public boolean getIsHighGear(){
     return isHighGear;
   } 
