@@ -57,11 +57,12 @@ public class RobotContainer {
     new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerFancy(2100, lanceur, convoyeur));
 
     //Y = Lancer en haut
-    new JoystickButton(pilote, Button.kY.value).toggleWhenPressed(new LancerFancy(6500, lanceur, convoyeur));
+    new JoystickButton(pilote, Button.kY.value).toggleWhenPressed(new LancerFancy(4500, lanceur, convoyeur));//pas la bonne vitesse
 
     //B = Convoyeur (temporaire)
     //new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new StartEndCommand(convoyeur::fournir,convoyeur::stop,convoyeur)); 
 
+    //Trigger droit + joystick droit
     new GrimpeurTrigger().whenActive(new Grimper(pilote::getRightY, grimpeur, basePilotable));
     
   }

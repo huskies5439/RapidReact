@@ -30,6 +30,7 @@ public class Grimper extends CommandBase {
   @Override
   public void execute() {
     grimpeur.setVitesse(vitesse.getAsDouble()*0.6);
+    basePilotable.stop();
   }
 
   // Called once the command ends or is interrupted.
