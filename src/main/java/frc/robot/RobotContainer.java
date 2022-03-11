@@ -6,9 +6,14 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Conduire;
 import frc.robot.commands.Gober;
+import frc.robot.commands.Grimper;
+import frc.robot.commands.LancerFancy;
 import frc.robot.commands.LancerSimple;
+import frc.robot.commands.caracteriser.CaracteriserDrive;
+import frc.robot.commands.caracteriser.CaracteriserLanceur;
 import frc.robot.subsystems.BasePilotable;
 import frc.robot.subsystems.Convoyeur;
 import frc.robot.subsystems.Gobeur;
@@ -24,6 +29,13 @@ public class RobotContainer {
   private final Grimpeur grimpeur = new Grimpeur();
 
   XboxController pilote = new XboxController(0);
+
+  public class GrimpeurTrigger extends Trigger {
+    @Override
+    public boolean get() {
+      return pilote.getRightTriggerAxis()>0.9;
+    }
+  }
 
 
   public RobotContainer() {
@@ -41,17 +53,17 @@ public class RobotContainer {
                 .alongWith( new StartEndCommand(convoyeur::fournir, convoyeur::stop,convoyeur ))
               );
 
-    //X = Lancer
-    new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerSimple(7, lanceur, convoyeur));
+    //X = Lancer en bas
+    new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerFancy(2100, lanceur, convoyeur));
+
+    //Y = Lancer en haut
+    new JoystickButton(pilote, Button.kY.value).toggleWhenPressed(new LancerFancy(6500, lanceur, convoyeur));
 
     //B = Convoyeur (temporaire)
-    new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new StartEndCommand(convoyeur::fournir,convoyeur::stop,convoyeur)); 
+    //new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new StartEndCommand(convoyeur::fournir,convoyeur::stop,convoyeur)); 
 
-    //RightBumper = Monter grimpeur
-    new JoystickButton(pilote, Button.kRightBumper.value).whenHeld(new StartEndCommand(grimpeur::monter,grimpeur::stop,grimpeur));
-
-    //LeftBumper = Descendre grimpeur
-    new JoystickButton(pilote, Button.kLeftBumper.value).whenHeld(new StartEndCommand(grimpeur::descendre,grimpeur::stop,grimpeur));
+    new GrimpeurTrigger().whenActive(new Grimper(pilote::getRightY, grimpeur, basePilotable));
+    
   }
   
 
@@ -59,6 +71,7 @@ public class RobotContainer {
 
     
     //return new TrajetAuto("test", basePilotable);
-    return null;
+    return new LancerFancy(5500 , lanceur, convoyeur);
+    //return null;
   }
 }

@@ -19,12 +19,12 @@ public class Lanceur extends SubsystemBase {
   private final CANSparkMax moteurLanceurDroit = new CANSparkMax(27,MotorType.kBrushless);
   private final CANSparkMax moteurLanceurGauche = new CANSparkMax(38,MotorType.kBrushless);
   private final MotorControllerGroup moteurLanceur  = new MotorControllerGroup(moteurLanceurDroit,moteurLanceurGauche);
-  private final SimpleMotorFeedforward lanceurFF = new SimpleMotorFeedforward(0.188,0.001412); // valider les coefficients
- private PIDController pid = new PIDController(0.003, 0, 0);//valider kP
+  private final SimpleMotorFeedforward lanceurFF = new SimpleMotorFeedforward(0.135,0.00141); // valider les coefficients
+ private PIDController pid = new PIDController(0.001, 0, 0);//valider kP = 0,003
 
  private ShuffleboardTab calibration = Shuffleboard.getTab("calibration");
- private NetworkTableEntry voltageLanceurCible =
-       calibration.add("voltage lanceur cible",1)
+ private NetworkTableEntry valeurLanceurCible =
+       calibration.add("valeur lanceur cible",0)
              .getEntry();
 
 
@@ -32,7 +32,7 @@ public class Lanceur extends SubsystemBase {
   public Lanceur() {
     moteurLanceurDroit.setInverted(false);//vérifier
     moteurLanceurGauche.setInverted(true);//vérifier
-    pid.setTolerance(125);//vérifier
+    pid.setTolerance(0);//vérifier
     setConversionFactors(1.5);//vérifier avec le nouveau rapport d'engrenage
     moteurLanceurGauche.setIdleMode(IdleMode.kCoast);
     moteurLanceurDroit.setIdleMode(IdleMode.kCoast);
@@ -77,8 +77,8 @@ public class Lanceur extends SubsystemBase {
     setVoltage(pid.calculate(getVitesse(),vcible)+lanceurFF.calculate(vcible));
   }
 
-  public double getVoltageShuffleboard() {
-    return voltageLanceurCible.getDouble(0);
+  public double getValeurShuffleboard() {
+    return valeurLanceurCible.getDouble(0);
   }
 
 

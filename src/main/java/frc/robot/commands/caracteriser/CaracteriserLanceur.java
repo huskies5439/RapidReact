@@ -16,7 +16,8 @@ public class CaracteriserLanceur extends CommandBase {
 
   @Override
   public void execute() {
-    lanceur.setVoltage(lanceur.getVoltageShuffleboard());
+    //lanceur.setVoltage(lanceur.getValeurShuffleboard()); //Pour trouver coefficient feed foward valeur en volt
+    lanceur.setVitesseFeedForwardPID(lanceur.getValeurShuffleboard());
   }
 
   @Override

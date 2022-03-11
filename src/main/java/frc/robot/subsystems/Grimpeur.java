@@ -20,16 +20,20 @@ public class Grimpeur extends SubsystemBase {
   public void periodic() {
 
   }
-  public void stop(){
+  public void stop() {
     moteurGrimpeur.set(0.0);
   }
 
-  public void monter(){
+  public void monter() {
     moteurGrimpeur.set(1.0);
   }
 
-  public void descendre(){
+  public void descendre() {
     moteurGrimpeur.set(-1.0);
+  }
+
+  public void setVitesse(double vitesse) {
+    moteurGrimpeur.set(vitesse);
   }
 
 }
