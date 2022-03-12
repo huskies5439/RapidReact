@@ -20,7 +20,10 @@ public class Conduire extends CommandBase {
 
   
   @Override
-  public void initialize() {}
+  public void initialize() {
+    /*basePilotable.setBrake(true);
+    basePilotable.setRamp(0.25);//à configurer*/
+  }
 
   
   @Override
@@ -43,7 +46,9 @@ public class Conduire extends CommandBase {
 
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    basePilotable.setBrake(false);
+  }
 
 
   @Override
