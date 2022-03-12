@@ -4,16 +4,29 @@
 
 package frc.robot.commands.auto;
 
+import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.subsystems.BasePilotable;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+
 public class Auto1Ballon extends SequentialCommandGroup {
-  /** Creates a new Auto1Ballon. */
+
   public Auto1Ballon() {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    addCommands();
+ /* Trajectory trajet = BasePilotable.creerTrajectoire("1ballon");
+  addCommands(
+    new InstantCommand(() -> basePilotable.resetOdometry(trajet.getInitialPose())),
+    new InstantCommand(() -> basePilotable.setRamp(0)),
+    new WaitCommand(3.754),//Délai pour pas que les ballon s'entrechoquent
+    new InstantCommand(() -> pince.fermerPince()),
+    new WaitCommand(1),
+    new InstantCommand(() -> pince.ouvrirPince()),
+      //trajet
+      basePilotable.ramseteSimple(trajet),
+
+      new WaitCommand(1)      new InstantCommand(() -> basePilotable.setBrake(true)),
+      //Lancer
+      //new TournerLimelight(basePilotable, limelight),
+
+  );*/
   }
 }

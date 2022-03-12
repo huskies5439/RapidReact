@@ -44,6 +44,9 @@ public class Lanceur extends SubsystemBase {
    SmartDashboard.putNumber("Vitesse Lanceur", getVitesse());
    SmartDashboard.putBoolean("Bonne vitesse", estBonneVitesse());
    SmartDashboard.putNumber("Position", getPosition());
+   SmartDashboard.putNumber("Courant Gauche", moteurLanceurGauche.getOutputCurrent());
+   SmartDashboard.putNumber("Courant Droite", moteurLanceurDroit.getOutputCurrent());
+
   }
   
   public void setConversionFactors(double facteur) {

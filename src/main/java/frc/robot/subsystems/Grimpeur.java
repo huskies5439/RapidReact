@@ -10,6 +10,7 @@ public class Grimpeur extends SubsystemBase {
 
   private WPI_TalonFX moteurGrimpeur = new WPI_TalonFX(6);
   
+  
   public Grimpeur() {
     moteurGrimpeur.setInverted(false); //A vérifier
     moteurGrimpeur.setNeutralMode(NeutralMode.Brake);

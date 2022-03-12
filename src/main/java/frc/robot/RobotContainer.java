@@ -26,7 +26,7 @@ public class RobotContainer {
   private final Gobeur gobeur = new Gobeur();
   private final Lanceur lanceur = new Lanceur();
   private final Convoyeur convoyeur = new Convoyeur();
-  private final Grimpeur grimpeur = new Grimpeur();
+  //private final Grimpeur grimpeur = new Grimpeur();
 
   XboxController pilote = new XboxController(0);
 
@@ -54,16 +54,16 @@ public class RobotContainer {
               );
 
     //X = Lancer en bas
-    new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerFancy(2100, lanceur, convoyeur));
+    new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerFancy(2100, lanceur, convoyeur));// monter le rpm
 
     //Y = Lancer en haut
-    new JoystickButton(pilote, Button.kY.value).toggleWhenPressed(new LancerFancy(4500, lanceur, convoyeur));//pas la bonne vitesse
+    new JoystickButton(pilote, Button.kY.value).toggleWhenPressed(new LancerFancy(6000, lanceur, convoyeur));//pas la bonne vitesse
 
     //B = Convoyeur (temporaire)
     //new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new StartEndCommand(convoyeur::fournir,convoyeur::stop,convoyeur)); 
 
     //Trigger droit + joystick droit
-    new GrimpeurTrigger().whenActive(new Grimper(pilote::getRightY, grimpeur, basePilotable));
+   // new GrimpeurTrigger().whenActive(new Grimper(pilote::getRightY, grimpeur, basePilotable));
     
   }
   
