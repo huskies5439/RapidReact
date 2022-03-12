@@ -18,7 +18,7 @@ public class Auto3Ballons extends SequentialCommandGroup {
     new InstantCommand(() -> basePilotable.setRamp(0)),
     new InstantCommand(() -> basePilotable.setBrake(true)),
     //trajet
-    basePilotable.ramseteSimple(one),
+    basePilotable.ramseteSimple(one)
       //Lancer ici
      /* new TournerLimelight(basePilotable, limelight),
       new WaitCommand(1),
