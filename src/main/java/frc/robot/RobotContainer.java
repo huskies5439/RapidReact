@@ -4,6 +4,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -26,7 +28,7 @@ public class RobotContainer {
   private final Gobeur gobeur = new Gobeur();
   private final Lanceur lanceur = new Lanceur();
   private final Convoyeur convoyeur = new Convoyeur();
-  //private final Grimpeur grimpeur = new Grimpeur();
+  private final Grimpeur grimpeur = new Grimpeur();
 
   XboxController pilote = new XboxController(0);
 
@@ -42,6 +44,7 @@ public class RobotContainer {
     
     configureButtonBindings();
     basePilotable.setDefaultCommand(new Conduire(pilote::getLeftY,pilote::getRightX, basePilotable));
+    //grimpeur.setDefaultCommand(new RunCommand(grimpeur::barrer,grimpeur));
     
 
   }
@@ -63,7 +66,9 @@ public class RobotContainer {
     //new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new StartEndCommand(convoyeur::fournir,convoyeur::stop,convoyeur)); 
 
     //Trigger droit + joystick droit
-   // new GrimpeurTrigger().whenActive(new Grimper(pilote::getRightY, grimpeur, basePilotable));
+    new GrimpeurTrigger().whileActiveContinuous(new Grimper(pilote::getRightY, grimpeur, basePilotable));
+
+
     
   }
   

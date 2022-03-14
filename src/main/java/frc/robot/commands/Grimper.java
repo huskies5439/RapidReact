@@ -24,7 +24,10 @@ public class Grimper extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    grimpeur.debarrer();
+
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -37,6 +40,7 @@ public class Grimper extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     grimpeur.stop();
+    grimpeur.barrer();
   }
 
   // Returns true when the command should end.
