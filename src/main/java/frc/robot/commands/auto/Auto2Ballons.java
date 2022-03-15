@@ -4,16 +4,34 @@
 
 package frc.robot.commands.auto;
 
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.subsystems.BasePilotable;
+import frc.robot.subsystems.Gobeur;
+import frc.robot.subsystems.Lanceur;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class Auto2Ballons extends SequentialCommandGroup {
-  /** Creates a new Auto2Ballon. */
-  public Auto2Ballons() {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    addCommands();
+
+  public Auto2Ballons(BasePilotable basePilotable, Gobeur gobeur, Lanceur lanceur ,Limelight limelight) {
+    
+    Trajectory trajet = basePilotable.creerTrajectoire("2ballons");
+   
+    addCommands(
+      //initialisation
+      new InstantCommand(() -> basePilotable.resetOdometry(trajet.getInitialPose())),
+      new InstantCommand(() -> basePilotable.setRamp(0)),
+      new InstantCommand(() -> basePilotable.setBrake(true)),
+      //trajet
+      basePilotable.ramseteSimple(trajet),//en parallèle, on gobe
+
+      //Lancer
+      //new TournerLimelight(basePilotable, limelight),
+      new WaitCommand(1),
+      new InstantCommand(() -> gobeur.gober()),
+      new WaitCommand(1),
+      new InstantCommand(() -> lanceur.setVitesseFeedForwardPID(1))
+    );
   }
 }
