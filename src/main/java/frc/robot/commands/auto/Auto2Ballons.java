@@ -14,19 +14,27 @@ import frc.robot.subsystems.Lanceur;
 
 public class Auto2Ballons extends SequentialCommandGroup {
 
-  public Auto2Ballons(BasePilotable basePilotable, Gobeur gobeur, Lanceur lanceur ,Limelight limelight) {
+  public Auto2Ballons(BasePilotable basePilotable, Gobeur gobeur, Lanceur lanceur, Limelight limelight, Convoyeur convoyeur) {
     
     Trajectory trajet = basePilotable.creerTrajectoire("2ballons");
    
     addCommands(
-      //initialisation
+      //0. Initialisations -> Créer un CommandGroup, c'est pareil dans tous les trajets??
       new InstantCommand(() -> basePilotable.resetOdometry(trajet.getInitialPose())),
       new InstantCommand(() -> basePilotable.setRamp(0)),
       new InstantCommand(() -> basePilotable.setBrake(true)),
-      //trajet
-      basePilotable.ramseteSimple(trajet),//en parallèle, on gobe
 
-      //Lancer
+      //1. Avancer et gober pour attraper le ballon
+      new ParallelRaceGroup(//Race fait que Gober va s'arrêter automatiquement à la fin du trajet
+          basePilotable.ramseteSimple(trajet),
+          new Gober(gobeur,convoyeur)
+         ),
+
+      //2. Continuer la trajectoire pour revenir dans le bon sens
+        //Le ParallelRaceGroup s'en occupe
+
+      
+      //3. Lancer 2 ballons en haut
       //new TournerLimelight(basePilotable, limelight),
       new WaitCommand(1),
       new InstantCommand(() -> gobeur.gober()),
