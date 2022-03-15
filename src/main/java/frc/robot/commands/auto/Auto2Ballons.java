@@ -6,15 +6,21 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.Gober;
+import frc.robot.commands.LancerFancy;
 import frc.robot.subsystems.BasePilotable;
+import frc.robot.subsystems.Convoyeur;
 import frc.robot.subsystems.Gobeur;
 import frc.robot.subsystems.Lanceur;
+import frc.robot.subsystems.LimeLight;
 
 public class Auto2Ballons extends SequentialCommandGroup {
 
-  public Auto2Ballons(BasePilotable basePilotable, Gobeur gobeur, Lanceur lanceur, Limelight limelight, Convoyeur convoyeur) {
+  public Auto2Ballons(BasePilotable basePilotable, Gobeur gobeur, Lanceur lanceur, LimeLight limelight, Convoyeur convoyeur) {
     
     Trajectory trajet = basePilotable.creerTrajectoire("2ballons");
    
@@ -27,7 +33,8 @@ public class Auto2Ballons extends SequentialCommandGroup {
       //1. Avancer et gober pour attraper le ballon
       new ParallelRaceGroup(//Race fait que Gober va s'arrêter automatiquement à la fin du trajet
           basePilotable.ramseteSimple(trajet),
-          new Gober(gobeur,convoyeur)
+          new Gober(gobeur),
+          new StartEndCommand(convoyeur::fournir, convoyeur::stop,convoyeur)
          ),
 
       //2. Continuer la trajectoire pour revenir dans le bon sens
@@ -35,11 +42,9 @@ public class Auto2Ballons extends SequentialCommandGroup {
 
       
       //3. Lancer 2 ballons en haut
-      //new TournerLimelight(basePilotable, limelight),
-      new WaitCommand(1),
-      new InstantCommand(() -> gobeur.gober()),
-      new WaitCommand(1),
-      new InstantCommand(() -> lanceur.setVitesseFeedForwardPID(1))
+      //new TournerLimelight(basePilotable, limelight), //Si on fait toujours TournerLimelight avant LancerFancy, il faudrait créer un command group
+      new LancerFancy(5000, lanceur, convoyeur)//J'ai mis 5000 rpm mais c'est temporaire
+           .withTimeout(2) //Pour arrêter de lancer après une seconde. À calibrer 
     );
   }
 }

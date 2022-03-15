@@ -11,12 +11,14 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.Gober;
 import frc.robot.commands.LancerFancy;
 import frc.robot.subsystems.BasePilotable;
+import frc.robot.subsystems.Convoyeur;
 import frc.robot.subsystems.Gobeur;
 import frc.robot.subsystems.Lanceur;
+import frc.robot.subsystems.LimeLight;
 
 public class Auto1Ballon extends SequentialCommandGroup {
 
-  public Auto1Ballon(BasePilotable basePilotable, Gobeur gobeur, Lanceur lanceur, Limelight limelight, Convoyeur convoyeur) {
+  public Auto1Ballon(BasePilotable basePilotable, Gobeur gobeur, Lanceur lanceur, LimeLight limelight, Convoyeur convoyeur) {
     
     Trajectory trajet = basePilotable.creerTrajectoire("1ballon");
 
@@ -32,13 +34,13 @@ public class Auto1Ballon extends SequentialCommandGroup {
       //2. Lancer un ballon en haut
       //new TournerLimelight(basePilotable, limelight), //Si on fait toujours TournerLimelight avant LancerFancy, il faudrait créer un command group
       new LancerFancy(5000, lanceur, convoyeur)//J'ai mis 5000 rpm mais c'est temporaire
-           .withTimeout(1); //Pour arrêter de lancer après une seconde. À calibrer 
+           .withTimeout(1), //Pour arrêter de lancer après une seconde. À calibrer 
 
       //3. Attendre pour laisser le temps aux robots de bouger
       new WaitCommand(7),// à tester, il faut s'assurer de ne pas manquer de temps
     
       //4. Recule pour le 2 points
-      basePilotable.ramseteSimple(trajet),
+      basePilotable.ramseteSimple(trajet)
     );
     
   }
