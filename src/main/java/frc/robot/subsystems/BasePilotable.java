@@ -1,13 +1,9 @@
-
-package frc.robot.subsystems; 
-
+package frc.robot.subsystems;
 import java.io.IOException;
 import java.util.function.DoubleSupplier;
-
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.controller.RamseteController;
@@ -40,33 +36,36 @@ import frc.robot.Constants;
 
 public class BasePilotable extends SubsystemBase {
   //Moteurs
-  //TODO Changer les numéros de moteurs
   private WPI_TalonFX moteurAvantG = new WPI_TalonFX(1);
   private WPI_TalonFX moteurArriereG = new WPI_TalonFX(2);
   private WPI_TalonFX moteurAvantD = new WPI_TalonFX(3);
   private WPI_TalonFX moteurArriereD = new WPI_TalonFX(4);
+
   private MotorControllerGroup moteursG = new MotorControllerGroup(moteurAvantG, moteurArriereG);
   private MotorControllerGroup moteursD = new MotorControllerGroup(moteurAvantD, moteurArriereD);
-  //Calibration
-  private ShuffleboardTab calibration = Shuffleboard.getTab("calibration");
-  private NetworkTableEntry voltageBasePilotable = calibration.add("voltage base pilotable",0).getEntry();;
-  //Encodeurs
+
+  private DifferentialDrive drive = new DifferentialDrive(moteursG, moteursD);
+
+  //Encodeurs, gyro et odométrie
   private Encoder encodeurG = new Encoder(0, 1, true);
   private Encoder encodeurD = new Encoder(2, 3, false); 
   private double conversionEncodeur;
-  //Gyro
+
   private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-  //Differential drive
-  private DifferentialDrive drive = new DifferentialDrive(moteursG, moteursD);
+ 
   private DifferentialDriveOdometry odometry;
+
   //Transmission
-  private DoubleSolenoid pistonTransmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 3, 4); //TODO les ports sont à valider
+  private DoubleSolenoid pistonTransmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 3, 4);
   private boolean isHighGear = false;
+
   //FeedForward & PID
   private SimpleMotorFeedforward tournerFF = new SimpleMotorFeedforward(0.496, 0.0287);
   private ProfiledPIDController tournerPID = new ProfiledPIDController(0.20, 0, 0, new TrapezoidProfile.Constraints(90, 90));
-  //Limelight
-  private MedianFilter filter = new MedianFilter(5);
+  
+  //Calibration
+  private ShuffleboardTab calibration = Shuffleboard.getTab("calibration");
+  private NetworkTableEntry voltageBasePilotable = calibration.add("voltage base pilotable",0).getEntry();
 
 public BasePilotable() {
   //Resets initiaux
@@ -89,7 +88,7 @@ public BasePilotable() {
   moteurArriereD.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor,0,0);
   moteurArriereG.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor,0,0);
 
-  //TODO Valider la conversion des encodeurs
+
   conversionEncodeur=Math.PI*Units.inchesToMeters(6)/(256*3*54/30); //roue de 6", ratio 54/30:1 shaft-roue 3:1 encodeur-shaft encodeur 256 clic encodeur
   encodeurG.setDistancePerPulse(conversionEncodeur);
   encodeurD.setDistancePerPulse(conversionEncodeur);
@@ -121,7 +120,6 @@ public BasePilotable() {
   }
   ////////////////////////////////////////Moteurs & Drive/////////////////////////////////////////////
    public void conduire(double vx, double vz){
-    //TODO Multiplicateur du vx et vz à vérifier selon la conduite
     drive.arcadeDrive(-0.85*vx, 0.65*vz);
   }
 
@@ -157,9 +155,7 @@ public BasePilotable() {
       moteurArriereG.setNeutralMode(NeutralMode.Coast);
     }
   }
-  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(getVitesseG(), getVitesseD());
-  }
+  
 
 ////////////////////////////////////////Encodeurs/////////////////////////////////////////////////////
  public double getPositionG() {
@@ -194,6 +190,10 @@ public BasePilotable() {
     encodeurD.reset();
     encodeurG.reset();
   }
+  
+  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+    return new DifferentialDriveWheelSpeeds(getVitesseG(), getVitesseD());
+  }
 
 ////////////////////////////////////////Transmission//////////////////////////////////////////////////
 
@@ -227,15 +227,14 @@ public void lowGear(){
     gyro.reset();
   } 
  
-////////////////////////////////////////Pose//////////////////////////////////////////////////////////
- public boolean atAngleCible(){
-    return tournerPID.atGoal();
-   }
- public Pose2d getPose() {
+ 
+ 
+
+//////////////////////////////////////// Pose et Odométrie/////////////////////////////////////////////
+
+  public Pose2d getPose() {
     return odometry.getPoseMeters();
   }
-
-////////////////////////////////////////Odométrie/////////////////////////////////////////////////////
 
   public double[] getOdometry() {
     double[] position = new double[3];
@@ -290,6 +289,10 @@ public void lowGear(){
   public double getVoltagePIDF(double angleCible, DoubleSupplier mesure){
     return tournerPID.calculate(mesure.getAsDouble(), angleCible) + tournerFF.calculate(tournerPID.getSetpoint().velocity);
   }
+
+  public boolean atAngleCible(){
+    return tournerPID.atGoal();
+   }
 }
   
 

@@ -24,11 +24,11 @@ public class ConvoyerFancy extends CommandBase {
   @Override
   public void execute() {
     if(convoyeur.capteur()){
-      convoyeur.stop();
+      convoyeur.fournir();
     }
 
     else {
-      convoyeur.fournir();
+      convoyeur.stop();
     }
   }
 

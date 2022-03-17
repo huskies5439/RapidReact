@@ -24,15 +24,14 @@ public class LancerFancy extends CommandBase {
   @Override
   public void execute() {
     lanceur.setVitesseFeedForwardPID(vitesse);
-    convoyeur.fournir();
-      /*if (lanceur.estBonneVitesse()) {
+      if (lanceur.estBonneVitesse() || convoyeur.capteur()) {
           convoyeur.fournir();
 
       }
 
       else {
         convoyeur.stop();
-      }*/
+      }
   }
   
 
