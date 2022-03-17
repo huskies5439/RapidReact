@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Conduire;
+import frc.robot.commands.ConvoyerFancy;
 import frc.robot.commands.Gober;
 import frc.robot.commands.Grimper;
 import frc.robot.commands.LancerFancy;
@@ -52,9 +53,11 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     //A = Gober
-    new JoystickButton(pilote, Button.kA.value).toggleWhenPressed(new Gober(gobeur)
+    new JoystickButton(pilote, Button.kA.value).toggleWhenPressed(new Gober(gobeur).alongWith( new ConvoyerFancy(convoyeur)));
+    
+    /*new JoystickButton(pilote, Button.kA.value).toggleWhenPressed(new Gober(gobeur)
                 .alongWith( new StartEndCommand(convoyeur::fournir, convoyeur::stop,convoyeur ))
-              );
+              );*/  //old Convoyeur
 
     //X = Lancer en bas
     new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerFancy(2100, lanceur, convoyeur));// monter le rpm
@@ -63,13 +66,11 @@ public class RobotContainer {
     new JoystickButton(pilote, Button.kY.value).toggleWhenPressed(new LancerFancy(6000, lanceur, convoyeur));//pas la bonne vitesse
 
     //B = Convoyeur (temporaire)
-    //new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new StartEndCommand(convoyeur::fournir,convoyeur::stop,convoyeur)); 
+    new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new ConvoyerFancy(convoyeur)); 
 
     //Trigger droit + joystick droit
     new GrimpeurTrigger().whileActiveContinuous(new Grimper(pilote::getRightY, grimpeur, basePilotable));
 
-
-    
   }
   
 
