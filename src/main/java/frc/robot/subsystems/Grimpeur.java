@@ -14,7 +14,7 @@ public class Grimpeur extends SubsystemBase {
   
   
   public Grimpeur() {
-    moteurGrimpeur.setInverted(false); //A vérifier
+    moteurGrimpeur.setInverted(true); 
     moteurGrimpeur.setNeutralMode(NeutralMode.Brake);
     
     barrer();

@@ -14,7 +14,7 @@ public class LancerFancy extends CommandBase {
     this.lanceur = lanceur;
     this.convoyeur = convoyeur;
     addRequirements(lanceur);
-    addRequirements(convoyeur);
+    //addRequirements(convoyeur);
   }
 
   @Override
