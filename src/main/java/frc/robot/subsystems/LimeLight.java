@@ -15,7 +15,6 @@ public class LimeLight extends SubsystemBase {
   private NetworkTableEntry ta = limelight.getEntry("ta");
   private NetworkTableEntry ty = limelight.getEntry("ty");
   private NetworkTableEntry ledMode = limelight.getEntry("ledMode");
-  private NetworkTableEntry camMode = limelight.getEntry("camMode");
   private NetworkTableEntry stream = limelight.getEntry("stream");
   //TODO Trouver les bonnes valeurs
   
@@ -24,7 +23,7 @@ public class LimeLight extends SubsystemBase {
   double angleLimelight = 0;
 
   public LimeLight() {
-   // ledOff();
+    ledOff();
     stream.setNumber(0);
 
   }

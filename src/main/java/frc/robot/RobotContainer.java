@@ -70,7 +70,7 @@ public class RobotContainer {
 
     //B = Convoyeur (temporaire)
     //new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new ConvoyerFancy(convoyeur)); 
-    new JoystickButton(pilote, Button.kB.value).whileHeld(new TournerLimelight(basePilotable,limelight));
+    new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new TournerLimelight(basePilotable,limelight));
 
     //Trigger droit + joystick droit
     new GrimpeurTrigger().whileActiveContinuous(new Grimper(pilote::getRightY, grimpeur, basePilotable));
@@ -85,8 +85,8 @@ public class RobotContainer {
      
    //return new TrajetAuto("test", basePilotable);
     //return new CaracteriserDrive(basePilotable);
-    return new TournerLimelight(basePilotable, limelight);
-    //return new TournerAuto(15, basePilotable);
+    //return new TournerLimelight(basePilotable, limelight);
+    return new TournerAuto(15, basePilotable);
     
    
   }

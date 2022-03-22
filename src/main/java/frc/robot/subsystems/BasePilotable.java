@@ -60,8 +60,8 @@ public class BasePilotable extends SubsystemBase {
   private boolean isHighGear = false;
 
   //FeedForward & PID en rotation
-  private SimpleMotorFeedforward tournerFF = new SimpleMotorFeedforward(0.532, 0.0268);
-  private ProfiledPIDController tournerPID = new ProfiledPIDController(0, 0, 0, new TrapezoidProfile.Constraints(45, 45));
+  private SimpleMotorFeedforward tournerFF = new SimpleMotorFeedforward(0.8, 0.05);
+  private ProfiledPIDController tournerPID = new ProfiledPIDController(0.4, 0, 0, new TrapezoidProfile.Constraints(45, 90));
   
   //Calibration
   private ShuffleboardTab calibration = Shuffleboard.getTab("calibration");
@@ -115,7 +115,7 @@ public BasePilotable() {
     //SmartDashboard.putNumber("Position Droite", getPositionD());
     //SmartDashboard.putNumber("Position Gauche", getPositionG());
     SmartDashboard.putNumber("Gyro", getAngle());
-    SmartDashboard.putNumber("GyroSpeed", getAngleSpeed());
+    //SmartDashboard.putNumber("GyroSpeed", getAngleSpeed());
     
   }
   ////////////////////////////////////////Moteurs & Drive/////////////////////////////////////////////
@@ -287,11 +287,7 @@ public void lowGear(){
 
 ////////////////////////////////////////PID de rotation///////////////////////////////////////////////
   public double getVoltagePIDF(double angleCible, DoubleSupplier mesure){
-    double velocity = tournerPID.getSetpoint().velocity;
-    SmartDashboard.putNumber("velocity cible", velocity);
-    double feedforward = tournerFF.calculate(velocity);
-    SmartDashboard.putNumber("feedforward", feedforward);
-    return tournerPID.calculate(mesure.getAsDouble(), angleCible)+feedforward;
+    return tournerPID.calculate(mesure.getAsDouble(), angleCible)+tournerFF.calculate(tournerPID.getSetpoint().velocity);
   }
 
   public boolean atAngleCible(){

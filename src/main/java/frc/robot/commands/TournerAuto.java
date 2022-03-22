@@ -5,9 +5,7 @@
 package frc.robot.commands;
 
 
-import com.fasterxml.jackson.databind.JsonSerializable.Base;
 
-import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BasePilotable;
 
@@ -42,6 +40,6 @@ double voltage;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return basePilotable.atAngleCible();
   }
 }

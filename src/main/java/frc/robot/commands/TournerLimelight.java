@@ -21,6 +21,7 @@ public class TournerLimelight extends CommandBase {
     this.limelight = limelight;
 
     addRequirements(basePilotable);
+    addRequirements(limelight);
   
     
   }
@@ -28,7 +29,7 @@ public class TournerLimelight extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //limelight.ledOn();
+    limelight.ledOn();
 
   }
 
@@ -36,18 +37,18 @@ public class TournerLimelight extends CommandBase {
   @Override
   public void execute() {
 
-        voltage = basePilotable.getVoltagePIDF(0, limelight::getTx);
-        basePilotable.autoConduire(-voltage, voltage);
-        SmartDashboard.putNumber("voltage rotation", voltage);
-        SmartDashboard.putBoolean("atAngleCible", basePilotable.atAngleCible());
+ 
+      voltage = basePilotable.getVoltagePIDF(0, limelight::getTx);
+      basePilotable.autoConduire(-voltage, voltage);
+
+       
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
     basePilotable.stop();
-    //limelight.ledOff();
+    limelight.ledOff();
   }
 
   // Returns true when the command should end.
