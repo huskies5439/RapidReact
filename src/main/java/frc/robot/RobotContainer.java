@@ -15,6 +15,8 @@ import frc.robot.commands.Gober;
 import frc.robot.commands.Grimper;
 import frc.robot.commands.LancerFancy;
 import frc.robot.commands.LancerSimple;
+import frc.robot.commands.TournerAuto;
+import frc.robot.commands.TournerLimelight;
 import frc.robot.commands.caracteriser.CaracteriserDrive;
 import frc.robot.commands.caracteriser.CaracteriserLanceur;
 import frc.robot.subsystems.BasePilotable;
@@ -22,6 +24,7 @@ import frc.robot.subsystems.Convoyeur;
 import frc.robot.subsystems.Gobeur;
 import frc.robot.subsystems.Grimpeur;
 import frc.robot.subsystems.Lanceur;
+import frc.robot.subsystems.LimeLight;
 
 
 public class RobotContainer {
@@ -30,6 +33,7 @@ public class RobotContainer {
   private final Lanceur lanceur = new Lanceur();
   private final Convoyeur convoyeur = new Convoyeur();
   private final Grimpeur grimpeur = new Grimpeur();
+  private final LimeLight limelight = new LimeLight();
 
   XboxController pilote = new XboxController(0);
 
@@ -45,7 +49,6 @@ public class RobotContainer {
     
     configureButtonBindings();
     basePilotable.setDefaultCommand(new Conduire(pilote::getLeftY,pilote::getRightX, basePilotable));
-    //grimpeur.setDefaultCommand(new RunCommand(grimpeur::barrer,grimpeur));
     
 
   }
@@ -66,19 +69,25 @@ public class RobotContainer {
     new JoystickButton(pilote, Button.kY.value).toggleWhenPressed(new LancerFancy(6000, lanceur, convoyeur));//pas la bonne vitesse
 
     //B = Convoyeur (temporaire)
-    new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new ConvoyerFancy(convoyeur)); 
+    //new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new ConvoyerFancy(convoyeur)); 
+    new JoystickButton(pilote, Button.kB.value).whileHeld(new TournerLimelight(basePilotable,limelight));
 
     //Trigger droit + joystick droit
     new GrimpeurTrigger().whileActiveContinuous(new Grimper(pilote::getRightY, grimpeur, basePilotable));
+
+
 
   }
   
 
     public Command getAutonomousCommand() {
 
+     
+   //return new TrajetAuto("test", basePilotable);
+    //return new CaracteriserDrive(basePilotable);
+    return new TournerLimelight(basePilotable, limelight);
+    //return new TournerAuto(15, basePilotable);
     
-    //return new TrajetAuto("test", basePilotable);
-    return new LancerFancy(5500 , lanceur, convoyeur);
-    //return null;
+   
   }
 }

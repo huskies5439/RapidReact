@@ -59,9 +59,9 @@ public class BasePilotable extends SubsystemBase {
   private DoubleSolenoid pistonTransmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 3, 4);
   private boolean isHighGear = false;
 
-  //FeedForward & PID
-  private SimpleMotorFeedforward tournerFF = new SimpleMotorFeedforward(0.496, 0.0287);
-  private ProfiledPIDController tournerPID = new ProfiledPIDController(0.20, 0, 0, new TrapezoidProfile.Constraints(90, 90));
+  //FeedForward & PID en rotation
+  private SimpleMotorFeedforward tournerFF = new SimpleMotorFeedforward(0.532, 0.0268);
+  private ProfiledPIDController tournerPID = new ProfiledPIDController(0, 0, 0, new TrapezoidProfile.Constraints(45, 45));
   
   //Calibration
   private ShuffleboardTab calibration = Shuffleboard.getTab("calibration");
@@ -98,7 +98,7 @@ public BasePilotable() {
 
   //Tourner PID
   tournerPID.enableContinuousInput(-180, 180);
-  tournerPID.setTolerance(1);
+  tournerPID.setTolerance(2);
 
 }
 
@@ -115,7 +115,7 @@ public BasePilotable() {
     //SmartDashboard.putNumber("Position Droite", getPositionD());
     //SmartDashboard.putNumber("Position Gauche", getPositionG());
     SmartDashboard.putNumber("Gyro", getAngle());
-    //SmartDashboard.putNumber("GyroSpeed", getAngleSpeed());
+    SmartDashboard.putNumber("GyroSpeed", getAngleSpeed());
     
   }
   ////////////////////////////////////////Moteurs & Drive/////////////////////////////////////////////
@@ -287,7 +287,11 @@ public void lowGear(){
 
 ////////////////////////////////////////PID de rotation///////////////////////////////////////////////
   public double getVoltagePIDF(double angleCible, DoubleSupplier mesure){
-    return tournerPID.calculate(mesure.getAsDouble(), angleCible) + tournerFF.calculate(tournerPID.getSetpoint().velocity);
+    double velocity = tournerPID.getSetpoint().velocity;
+    SmartDashboard.putNumber("velocity cible", velocity);
+    double feedforward = tournerFF.calculate(velocity);
+    SmartDashboard.putNumber("feedforward", feedforward);
+    return tournerPID.calculate(mesure.getAsDouble(), angleCible)+feedforward;
   }
 
   public boolean atAngleCible(){

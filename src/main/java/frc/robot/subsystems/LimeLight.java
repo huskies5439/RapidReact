@@ -24,9 +24,7 @@ public class LimeLight extends SubsystemBase {
   double angleLimelight = 0;
 
   public LimeLight() {
-    ledOff();
-    camHumain();
-    camDetection();
+   // ledOff();
     stream.setNumber(0);
 
   }
@@ -58,12 +56,8 @@ public class LimeLight extends SubsystemBase {
   public void ledOff() {
     ledMode.setNumber(1);
   }
-  public void camHumain(){
-    camMode.setNumber(1);
-  }
-  public void camDetection(){
-    camMode.setNumber(0);
-  }
+
+
 
   @Override
   public void periodic() {
