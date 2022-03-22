@@ -61,7 +61,7 @@ public class BasePilotable extends SubsystemBase {
 
   //FeedForward & PID en rotation
   private SimpleMotorFeedforward tournerFF = new SimpleMotorFeedforward(0.8, 0.05);
-  private ProfiledPIDController tournerPID = new ProfiledPIDController(0.4, 0, 0, new TrapezoidProfile.Constraints(45, 90));
+  private ProfiledPIDController tournerPID = new ProfiledPIDController(0.3, 0, 0, new TrapezoidProfile.Constraints(45, 45));
   
   //Calibration
   private ShuffleboardTab calibration = Shuffleboard.getTab("calibration");

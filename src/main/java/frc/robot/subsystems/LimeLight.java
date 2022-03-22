@@ -18,9 +18,9 @@ public class LimeLight extends SubsystemBase {
   private NetworkTableEntry stream = limelight.getEntry("stream");
   //TODO Trouver les bonnes valeurs
   
-  double hLimelight = 0;
-  double hCible = 0; 
-  double angleLimelight = 0;
+  double hLimelight = 0.82;
+  double hCible = 2.64; 
+  double angleLimelight = 33.2;
 
   public LimeLight() {
     ledOff();
