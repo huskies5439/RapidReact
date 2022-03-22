@@ -35,7 +35,7 @@ public class Auto2Ballons extends SequentialCommandGroup {
           basePilotable.ramseteSimple(trajet),
           new Gober(gobeur),
           new StartEndCommand(convoyeur::fournir, convoyeur::stop,convoyeur)
-         ),
+         )
 
       //2. Continuer la trajectoire pour revenir dans le bon sens
         //Le ParallelRaceGroup s'en occupe
@@ -43,8 +43,8 @@ public class Auto2Ballons extends SequentialCommandGroup {
       
       //3. Lancer 2 ballons en haut
       //new TournerLimelight(basePilotable, limelight), //Si on fait toujours TournerLimelight avant LancerFancy, il faudrait créer un command group
-      new LancerFancy(5000, lanceur, convoyeur)//J'ai mis 5000 rpm mais c'est temporaire
-           .withTimeout(2) //Pour arrêter de lancer après une seconde. À calibrer 
+      //new LancerFancy(5000, lanceur, convoyeur)//J'ai mis 5000 rpm mais c'est temporaire
+           //.withTimeout(2) //Pour arrêter de lancer après une seconde. À calibrer 
     );
   }
 }

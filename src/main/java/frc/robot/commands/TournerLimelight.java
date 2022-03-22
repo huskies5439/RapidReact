@@ -37,10 +37,13 @@ public class TournerLimelight extends CommandBase {
   @Override
   public void execute() {
 
- 
+    if(limelight.getTv()){
       voltage = basePilotable.getVoltagePIDF(0, limelight::getTx);
       basePilotable.autoConduire(-voltage, voltage);
-
+    }
+    else{
+      basePilotable.stop();
+    }
        
   }
 

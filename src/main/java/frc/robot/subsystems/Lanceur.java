@@ -20,7 +20,7 @@ public class Lanceur extends SubsystemBase {
   private final CANSparkMax moteurLanceurGauche = new CANSparkMax(38,MotorType.kBrushless);
   private final MotorControllerGroup moteurLanceur  = new MotorControllerGroup(moteurLanceurDroit,moteurLanceurGauche);
   private final SimpleMotorFeedforward lanceurFF = new SimpleMotorFeedforward(0.135,0.00141); // valider les coefficients
- private PIDController pid = new PIDController(0.001, 0, 0);//valider kP = 0,003
+ private PIDController pid = new PIDController(0.002, 0, 0.0003);
 
  private ShuffleboardTab calibration = Shuffleboard.getTab("calibration");
  private NetworkTableEntry valeurLanceurCible =
@@ -32,7 +32,7 @@ public class Lanceur extends SubsystemBase {
   public Lanceur() {
     moteurLanceurDroit.setInverted(false);//vérifier
     moteurLanceurGauche.setInverted(true);//vérifier
-    pid.setTolerance(30);//vérifier
+    pid.setTolerance(20);//vérifier
     setConversionFactors(1.5);//vérifier avec le nouveau rapport d'engrenage
     moteurLanceurGauche.setIdleMode(IdleMode.kCoast);
     moteurLanceurDroit.setIdleMode(IdleMode.kCoast);

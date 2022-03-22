@@ -17,6 +17,7 @@ import frc.robot.commands.LancerFancy;
 import frc.robot.commands.LancerSimple;
 import frc.robot.commands.TournerAuto;
 import frc.robot.commands.TournerLimelight;
+import frc.robot.commands.ViserLancer;
 import frc.robot.commands.caracteriser.CaracteriserDrive;
 import frc.robot.commands.caracteriser.CaracteriserLanceur;
 import frc.robot.subsystems.BasePilotable;
@@ -63,10 +64,10 @@ public class RobotContainer {
               );*/  //old Convoyeur
 
     //X = Lancer en bas
-    new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerFancy(2100, lanceur, convoyeur));// monter le rpm
+    //new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerFancy(2100, lanceur, convoyeur));// monter le rpm
 
     //Y = Lancer en haut
-    new JoystickButton(pilote, Button.kY.value).toggleWhenPressed(new LancerFancy(6000, lanceur, convoyeur));//pas la bonne vitesse
+    new JoystickButton(pilote, Button.kY.value).toggleWhenPressed(new ViserLancer(basePilotable, lanceur, convoyeur, limelight));//pas la bonne vitesse
 
     //B = Convoyeur (temporaire)
     //new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new ConvoyerFancy(convoyeur)); 
@@ -86,7 +87,7 @@ public class RobotContainer {
    //return new TrajetAuto("test", basePilotable);
     //return new CaracteriserDrive(basePilotable);
     //return new TournerLimelight(basePilotable, limelight);
-    return new TournerAuto(15, basePilotable);
+      return null;
     
    
   }
