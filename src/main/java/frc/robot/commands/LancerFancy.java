@@ -4,6 +4,7 @@ package frc.robot.commands;
 import javax.lang.model.util.ElementScanner6;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Convoyeur;
 import frc.robot.subsystems.Lanceur;
 import frc.robot.subsystems.LimeLight;
@@ -13,49 +14,81 @@ public class LancerFancy extends CommandBase {
   Lanceur lanceur;
   LimeLight limelight;
   double vitesse;
-  public LancerFancy(Lanceur lanceur, Convoyeur convoyeur, LimeLight limelight) {
+  boolean enHaut;
+  boolean forcerLancerBas;
+  boolean shoot;
+  boolean pretLancer;
+  public LancerFancy(boolean forcerLancerBas, Lanceur lanceur, Convoyeur convoyeur, LimeLight limelight) {
     this.lanceur = lanceur;
     this.convoyeur = convoyeur;
     this.limelight = limelight;
     addRequirements(lanceur);
-    //addRequirements(convoyeur);
+    //addRequirements(convoyeur); 
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    shoot = false;
+    enHaut = false;
+    pretLancer = false;
+
+  }
 
 
   @Override
   public void execute() {
 
-    if((limelight.getDistance() > 1.5 && limelight.getDistance() <= 3.0) && limelight.getTv()){
-      vitesse = (2614 * limelight.getDistance()) - 211;
+    if(limelight.getTv()) { //s'il voit la cible
+      if(limelight.getDistance() < 1.5) {
+        shoot = true;
+        enHaut = false;
+      }
+
+      else if(limelight.getDistance() < 3 && limelight.getDistance() >= 1.5) {
+        shoot = true;
+        enHaut = true;
+      }
+
+      else {
+        shoot = false;
+      }
 
     }
-    else if(limelight.getDistance()<1.5 || !limelight.getTv()){
-      vitesse = 2100;
+    else { // si il ne voit pas la cible
+      if(forcerLancerBas) {
+        shoot = true;
+        enHaut = false;
+      }
+
+      else {
+        shoot = false;
+      }
 
     }
-    else{
-      vitesse = 0;
-    }
+
+    if(shoot) {
+      if(enHaut) {
+        vitesse = (2614 * limelight.getDistance()) - 211;
+        pretLancer = (lanceur.estBonneVitesse() && Math.abs(limelight.getTx())<Constants.kToleranceRotation) || convoyeur.capteurHaut(); 
+      }
+
+      else {
+        vitesse = 2100;
+        pretLancer = lanceur.estBonneVitesse() || convoyeur.capteurHaut();
+      }
+
+      lanceur.setVitesseFeedForwardPID(vitesse);
     
-
-    lanceur.setVitesseFeedForwardPID(vitesse);
-    if(vitesse != 0){
-    
-      if (lanceur.estBonneVitesse() || convoyeur.capteur()) {
+      if (pretLancer) {
           convoyeur.fournir();
-
       }
 
       else {
         convoyeur.stop();
       }
+      
     }
-    else {
-      convoyeur.stop();
-    }
+    
   }
 
 

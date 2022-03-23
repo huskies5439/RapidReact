@@ -16,7 +16,7 @@ public class ViserLancer extends ParallelCommandGroup {
   
     addCommands(
     new TournerLimelight(basePilotable, limelight),
-    new LancerFancy(lanceur, convoyeur, limelight)
+    new LancerFancy(false, lanceur, convoyeur, limelight)
     );
   }
 }

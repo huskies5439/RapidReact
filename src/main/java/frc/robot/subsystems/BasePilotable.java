@@ -98,7 +98,7 @@ public BasePilotable() {
 
   //Tourner PID
   tournerPID.enableContinuousInput(-180, 180);
-  tournerPID.setTolerance(2);
+  tournerPID.setTolerance(Constants.kToleranceRotation);
 
 }
 

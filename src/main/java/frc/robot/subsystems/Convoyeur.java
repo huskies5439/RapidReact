@@ -9,7 +9,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Convoyeur extends SubsystemBase {
   private WPI_TalonSRX moteurConvoyeur = new WPI_TalonSRX(14);
-  private DigitalInput capteurInfrarouge = new DigitalInput(9);
+  private DigitalInput capteurHaut = new DigitalInput(9);
+  private DigitalInput capteurBas = new DigitalInput(7);
 
   public Convoyeur() {
     moteurConvoyeur.setInverted(true);
@@ -17,7 +18,7 @@ public class Convoyeur extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putBoolean("Capteur Infrarouge", capteur());
+    SmartDashboard.putBoolean("Capteur Infrarouge", capteurHaut());
   }
 
   public void fournir() {
@@ -32,7 +33,12 @@ public class Convoyeur extends SubsystemBase {
     moteurConvoyeur.setVoltage(0);
   }
 
-  public boolean capteur() {
-    return capteurInfrarouge.get();
+  public boolean capteurHaut() {
+    return capteurHaut.get();
+  }
+
+  
+  public boolean capteurBas() {
+    return capteurBas.get();
   }
 }
