@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.AutoGrimper;
 import frc.robot.commands.Conduire;
 import frc.robot.commands.ConvoyerFancy;
 import frc.robot.commands.Gober;
@@ -51,7 +52,6 @@ public class RobotContainer {
     configureButtonBindings();
     basePilotable.setDefaultCommand(new Conduire(pilote::getLeftY,pilote::getRightX, basePilotable));
     convoyeur.setDefaultCommand(new ConvoyerFancy(convoyeur));
-    
 
   }
 
@@ -69,6 +69,12 @@ public class RobotContainer {
 
     //Trigger droit + joystick droit
     new GrimpeurTrigger().whileActiveContinuous(new Grimper(pilote::getRightY, grimpeur, basePilotable));
+
+
+
+    new JoystickButton(pilote, Button.kRightBumper.value).toggleWhenPressed(new AutoGrimper(20000, grimpeur) );//trouver la vraie hauteur
+    new JoystickButton(pilote, Button.kLeftBumper.value).toggleWhenPressed(new AutoGrimper(0, grimpeur) );
+
 
 
 
