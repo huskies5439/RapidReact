@@ -59,20 +59,13 @@ public class RobotContainer {
   private void configureButtonBindings() {
     //A = Gober
     new JoystickButton(pilote, Button.kA.value).toggleWhenPressed(new Gober(gobeur));
-    
-    /*new JoystickButton(pilote, Button.kA.value).toggleWhenPressed(new Gober(gobeur)
-                .alongWith( new StartEndCommand(convoyeur::fournir, convoyeur::stop,convoyeur ))
-              );*/  //old Convoyeur
-
-    //X = Lancer en bas
-    new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerFancy(true, lanceur, convoyeur, limelight));// monter le rpm
+  
 
     //Y = Lancer en haut
     new JoystickButton(pilote, Button.kY.value).toggleWhenPressed(new ViserLancer(basePilotable, lanceur, convoyeur, limelight));//pas la bonne vitesse
 
-    //B = Convoyeur (temporaire)
-    //new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new ConvoyerFancy(convoyeur)); 
-    //new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new TournerLimelight(basePilotable,limelight));
+    
+
 
     //Trigger droit + joystick droit
     new GrimpeurTrigger().whileActiveContinuous(new Grimper(pilote::getRightY, grimpeur, basePilotable));
@@ -88,7 +81,7 @@ public class RobotContainer {
    //return new TrajetAuto("test", basePilotable);
     //return new CaracteriserDrive(basePilotable);
     //return new TournerLimelight(basePilotable, limelight);
-      return null;
+      return new CaracteriserLanceur(lanceur, convoyeur);
     
    
   }

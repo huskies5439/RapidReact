@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,6 +23,9 @@ public class LimeLight extends SubsystemBase {
   double hCible = 2.64; 
   double angleLimelight = 33.2;
 
+
+  LinearFilter filtreDistance = LinearFilter.singlePoleIIR(0.1, 0.02);
+
   public LimeLight() {
     ledOff();
     stream.setNumber(0);
@@ -29,7 +33,7 @@ public class LimeLight extends SubsystemBase {
   }
 
   public double getDistance(){
-    return(hCible-hLimelight)/Math.tan(Math.toRadians(angleLimelight+getTy()));
+    return filtreDistance.calculate((hCible-hLimelight)/Math.tan(Math.toRadians(angleLimelight+getTy())));
   }
 
   public double getTa() {

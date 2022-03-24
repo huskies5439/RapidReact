@@ -27,12 +27,13 @@ public class Lanceur extends SubsystemBase {
        calibration.add("valeur lanceur cible",0)
              .getEntry();
 
+            
 
   
   public Lanceur() {
     moteurLanceurDroit.setInverted(false);//vérifier
     moteurLanceurGauche.setInverted(true);//vérifier
-    pid.setTolerance(20);//vérifier
+    pid.setTolerance(30);//vérifier
     setConversionFactors(1.5);//vérifier avec le nouveau rapport d'engrenage
     moteurLanceurGauche.setIdleMode(IdleMode.kCoast);
     moteurLanceurDroit.setIdleMode(IdleMode.kCoast);

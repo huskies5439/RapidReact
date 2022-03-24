@@ -1,8 +1,9 @@
 
 package frc.robot.commands;
 
-import javax.lang.model.util.ElementScanner6;
 
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Convoyeur;
@@ -15,15 +16,14 @@ public class LancerFancy extends CommandBase {
   LimeLight limelight;
   double vitesse;
   boolean enHaut;
-  boolean forcerLancerBas;
   boolean shoot;
   boolean pretLancer;
-  public LancerFancy(boolean forcerLancerBas, Lanceur lanceur, Convoyeur convoyeur, LimeLight limelight) {
+  public LancerFancy( Lanceur lanceur, Convoyeur convoyeur, LimeLight limelight) {
     this.lanceur = lanceur;
     this.convoyeur = convoyeur;
     this.limelight = limelight;
     addRequirements(lanceur);
-    //addRequirements(convoyeur); 
+    addRequirements(convoyeur); 
   }
 
   @Override
@@ -39,41 +39,34 @@ public class LancerFancy extends CommandBase {
   public void execute() {
 
     if(limelight.getTv()) { //s'il voit la cible
-      if(limelight.getDistance() < 1.5) {
+      if(limelight.getDistance() < 1.5) {//proche
         shoot = true;
         enHaut = false;
       }
 
-      else if(limelight.getDistance() < 3 && limelight.getDistance() >= 1.5) {
+      else if(limelight.getDistance() < 3.25 && limelight.getDistance() >= 1.5) {//distance moyenne
         shoot = true;
         enHaut = true;
       }
 
-      else {
+      else {//trop loin
         shoot = false;
       }
 
     }
     else { // si il ne voit pas la cible
-      if(forcerLancerBas) {
-        shoot = true;
-        enHaut = false;
-      }
-
-      else {
-        shoot = false;
-      }
-
+      shoot = true;
+      enHaut = false;
     }
 
     if(shoot) {
       if(enHaut) {
-        vitesse = (2614 * limelight.getDistance()) - 211;
+        vitesse = 414 * Math.pow(limelight.getDistance(), 2) -1308 * limelight.getDistance() + 4666;
         pretLancer = (lanceur.estBonneVitesse() && Math.abs(limelight.getTx())<Constants.kToleranceRotation) || convoyeur.capteurHaut(); 
       }
 
-      else {
-        vitesse = 2100;
+      else { //on lance en
+        vitesse = 2200;
         pretLancer = lanceur.estBonneVitesse() || convoyeur.capteurHaut();
       }
 
@@ -88,6 +81,13 @@ public class LancerFancy extends CommandBase {
       }
       
     }
+    else
+    {
+      lanceur.stop();
+      convoyeur.stop();
+    }
+
+    SmartDashboard.putNumber("Cible vitesse lanceur", vitesse);
     
   }
 

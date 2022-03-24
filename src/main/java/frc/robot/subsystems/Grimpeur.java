@@ -4,6 +4,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -17,8 +18,6 @@ public class Grimpeur extends SubsystemBase {
     moteurGrimpeur.setInverted(true); 
     moteurGrimpeur.setNeutralMode(NeutralMode.Brake);
     
-    barrer();
-
   }
 
   @Override
