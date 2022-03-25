@@ -95,7 +95,7 @@ public class RobotContainer {
     new GrimpeurTrigger().whileActiveContinuous(new Grimper(pilote::getRightY, grimpeur, basePilotable));
 
 
-
+    //Bumper gauche/droite pour monter et descendre automatiquement le grimpeur À TESTER
     new JoystickButton(pilote, Button.kRightBumper.value).toggleWhenPressed(new AutoGrimper(20000, grimpeur) );//trouver la vraie hauteur
     new JoystickButton(pilote, Button.kLeftBumper.value).toggleWhenPressed(new AutoGrimper(0, grimpeur) );
   }
