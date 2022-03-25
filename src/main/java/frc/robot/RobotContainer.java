@@ -75,8 +75,8 @@ public class RobotContainer {
     new JoystickButton(pilote, Button.kRightBumper.value).toggleWhenPressed(new AutoGrimper(20000, grimpeur) );//trouver la vraie hauteur
     new JoystickButton(pilote, Button.kLeftBumper.value).toggleWhenPressed(new AutoGrimper(0, grimpeur) );
 
-
-
+    //X = LancerSimple
+    new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerSimple(Constants.vitesseLancerBas, lanceur, convoyeur));
 
   }
   
