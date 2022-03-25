@@ -38,54 +38,57 @@ public class LancerFancy extends CommandBase {
   @Override
   public void execute() {
 
-    if(limelight.getTv()) { //s'il voit la cible
-      if(limelight.getDistance() < 1.5) {//proche
+    if(limelight.getTv()) { //Si on voit la cible, on décide le comportement selon la distance
+      if(limelight.getDistance() < 1.5) {//proche = on lance en bas
         shoot = true;
         enHaut = false;
       }
 
-      else if(limelight.getDistance() < 3.25 && limelight.getDistance() >= 1.5) {//distance moyenne
+      else if(limelight.getDistance() < 3.25 && limelight.getDistance() >= 1.5) {//zone où l'angle permet de lancer en haut
         shoot = true;
         enHaut = true;
       }
 
-      else {//trop loin
+      else {//trop loin = on ne lance pas
         shoot = false;
       }
 
     }
-    else { // si il ne voit pas la cible
+    else { // pas de cible = on lance pas
       shoot = false;
     }
 
-    if(shoot) { //si il lance
-      if(enHaut) { //si il lance en haut
-        vitesse = 414 * Math.pow(limelight.getDistance(), 2) -1308 * limelight.getDistance() + 4666;
+    if(shoot) { //Lancer.....
+      if(enHaut) { //Lancer en haut
+        //trouver rpm du lanceur selon la distance
+        vitesse = 414 * Math.pow(limelight.getDistance(), 2) -1308 * limelight.getDistance() + 4666; 
+         //lance si bonne vitesse et centrer sur la limelight
         pretLancer = (lanceur.estBonneVitesse() && Math.abs(limelight.getTx())<Constants.kToleranceRotation) || convoyeur.capteurHaut(); 
       }
 
       else { //sinon on lance en bas
         vitesse = Constants.vitesseLancerBas;
+        //Ici, on ne vérifie pas l'alignement car la limelight est trop proche pour être précise
         pretLancer = lanceur.estBonneVitesse() || convoyeur.capteurHaut();
       }
 
+      //Pousser la vitesse voulue dans le PID+Feedforward
       lanceur.setVitesseFeedForwardPID(vitesse);
     
-      if (pretLancer) { //si il est prêt à lancer
+      if (pretLancer) { //s'il est prêt à lancer, on convoit
           convoyeur.fournir();
       }
 
-      else { //si il n'est pas prêt à lancer
+      else {
         convoyeur.stop();
       }
       
     }
-    else { //si il ne lance pas
+    else { //s'il ne lance pas
       lanceur.stop();
       convoyeur.stop();
     }
 
-    SmartDashboard.putNumber("Cible vitesse lanceur", vitesse);
     
   }
 

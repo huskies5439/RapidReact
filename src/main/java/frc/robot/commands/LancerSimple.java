@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.Convoyeur;
 import frc.robot.subsystems.Lanceur;
 
@@ -32,11 +31,11 @@ public class LancerSimple extends CommandBase {
 
    lanceur.setVitesseFeedForwardPID(vitesse);
 
-    if (lanceur.estBonneVitesse() && convoyeur.capteurHaut()) { // si le lanceur est bonne vitesse et le capteur détecte un ballon
-        convoyeur.fournir();
+    if (lanceur.estBonneVitesse() && convoyeur.capteurHaut()) { 
+        convoyeur.fournir();// On fournit jusqu'au capteur, ou jusqu'au lanceur s'il est à la bonne vitesse
     }
 
-    else { // sinon le convoyeur stop (Tip Top)
+    else {
       convoyeur.stop();
     }
   }
