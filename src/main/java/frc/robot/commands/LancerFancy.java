@@ -18,7 +18,7 @@ public class LancerFancy extends CommandBase {
   boolean enHaut;
   boolean shoot;
   boolean pretLancer;
-  public LancerFancy( Lanceur lanceur, Convoyeur convoyeur, LimeLight limelight) {
+  public LancerFancy(Lanceur lanceur, Convoyeur convoyeur, LimeLight limelight) {
     this.lanceur = lanceur;
     this.convoyeur = convoyeur;
     this.limelight = limelight;
@@ -55,34 +55,32 @@ public class LancerFancy extends CommandBase {
 
     }
     else { // si il ne voit pas la cible
-      shoot = true;
-      enHaut = false;
+      shoot = false;
     }
 
-    if(shoot) {
-      if(enHaut) {
+    if(shoot) { //si il lance
+      if(enHaut) { //si il lance en haut
         vitesse = 414 * Math.pow(limelight.getDistance(), 2) -1308 * limelight.getDistance() + 4666;
         pretLancer = (lanceur.estBonneVitesse() && Math.abs(limelight.getTx())<Constants.kToleranceRotation) || convoyeur.capteurHaut(); 
       }
 
-      else { //on lance en
-        vitesse = 2200;
+      else { //sinon on lance en bas
+        vitesse = Constants.vitesseLancerBas;
         pretLancer = lanceur.estBonneVitesse() || convoyeur.capteurHaut();
       }
 
       lanceur.setVitesseFeedForwardPID(vitesse);
     
-      if (pretLancer) {
+      if (pretLancer) { //si il est prêt à lancer
           convoyeur.fournir();
       }
 
-      else {
+      else { //si il n'est pas prêt à lancer
         convoyeur.stop();
       }
       
     }
-    else
-    {
+    else { //si il ne lance pas
       lanceur.stop();
       convoyeur.stop();
     }
