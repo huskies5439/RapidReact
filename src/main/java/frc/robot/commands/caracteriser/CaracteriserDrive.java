@@ -17,7 +17,7 @@ public class CaracteriserDrive extends CommandBase {
   @Override
   public void execute() {
     //++ pour caractériser linéaire, -+ pour caractériser en rotation
-    basePilotable.autoConduire(-basePilotable.getVoltageShuffleBoard(),basePilotable.getVoltageShuffleBoard());
+    basePilotable.autoConduire(basePilotable.getVoltageShuffleBoard(),basePilotable.getVoltageShuffleBoard());
   }
 
   @Override

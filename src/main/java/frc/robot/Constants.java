@@ -10,6 +10,9 @@ public final class Constants {
     public static final double kVRamsete = 0;
     public static final double kPRamsete = 0;
 
+    //Teleop
+    public static final double kRampTeleOp  = 0.25;
+
     //Lancer
     public static final int vitesseLancerBas = 2200;
 

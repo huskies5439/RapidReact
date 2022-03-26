@@ -7,21 +7,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.AutoGrimper;
 import frc.robot.commands.Conduire;
+import frc.robot.commands.ConvoyerFancy;
 import frc.robot.commands.ConvoyerSimple;
 import frc.robot.commands.Gober;
 import frc.robot.commands.Grimper;
-import frc.robot.commands.LancerFancy;
 import frc.robot.commands.LancerSimple;
-import frc.robot.commands.TournerAuto;
-import frc.robot.commands.TournerLimelight;
+import frc.robot.commands.ViserLancer;
 import frc.robot.commands.caracteriser.CaracteriserDrive;
-import frc.robot.commands.caracteriser.CaracteriserLanceur;
 import frc.robot.subsystems.BasePilotable;
 import frc.robot.subsystems.Convoyeur;
 import frc.robot.subsystems.Gobeur;
@@ -80,7 +77,7 @@ public class RobotContainer {
     //A = Gober
     new JoystickButton(pilote, Button.kA.value).toggleWhenPressed(new Gober(gobeur));
   
-    //B = Convoyer
+    //B = Convoyer pour test
     new JoystickButton(pilote, Button.kA.value).toggleWhenPressed(new ConvoyerSimple(convoyeur, lanceur));
 
     //Y = Lancer en haut
@@ -102,10 +99,13 @@ public class RobotContainer {
   
 
     public Command getAutonomousCommand() {
-      return chooser.getSelected().withTimeout(14.8)
+      /*return chooser.getSelected().withTimeout(14.8)
       //prepare Teleop
       .andThen (new InstantCommand(() -> basePilotable.setBrake(false)))
-      .andThen (new InstantCommand(() -> basePilotable.setRamp(0.25)));
-      //return null;
+      .andThen (new InstantCommand(() -> basePilotable.setRamp(Constants.kRampTeleOp)));*/
+
+
+      return new CaracteriserDrive(basePilotable);
+      
   }
 }

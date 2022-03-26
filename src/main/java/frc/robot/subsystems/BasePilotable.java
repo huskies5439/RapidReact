@@ -8,7 +8,6 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.math.filter.MedianFilter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -73,7 +72,7 @@ public BasePilotable() {
   resetGyro();  
 
   //Ramp et brake
-  setRamp(0.25);
+  setRamp(Constants.kRampTeleOp);
   setBrake(false);
 
   //Inversion des moteurs
