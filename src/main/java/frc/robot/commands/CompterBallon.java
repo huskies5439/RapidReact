@@ -18,8 +18,9 @@ public class CompterBallon extends CommandBase {
 
   @Override
   public void initialize() {
-    etatActuel = false;
-    etatPasse = false;
+    nombreBallons = 0;
+    etatActuel = true;
+    etatPasse = true;
   }
 
   @Override

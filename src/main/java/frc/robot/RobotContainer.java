@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AutoGrimper;
+import frc.robot.commands.CompterBallon;
 import frc.robot.commands.Conduire;
 import frc.robot.commands.ConvoyerFancy;
 import frc.robot.commands.ConvoyerSimple;
@@ -40,8 +41,8 @@ public class RobotContainer {
 
   XboxController pilote = new XboxController(0);
 
+  //Trajets
   private final SendableChooser<Command> chooser = new SendableChooser<>();
-  //trajets
   private final Command Auto1Ballon = new Auto1Ballon(basePilotable, gobeur, lanceur, limelight, convoyeur);
   private final Command Auto2Ballons = new Auto2Ballons(basePilotable, gobeur, lanceur, limelight, convoyeur);
   private final Command Auto3Ballons = new Auto3Ballons(basePilotable, gobeur, lanceur, limelight, convoyeur);
@@ -57,55 +58,49 @@ public class RobotContainer {
 
 
   public RobotContainer() {
-    configureButtonBindings();
+    //Chooser
+    SmartDashboard.putData(chooser);
     chooser.setDefaultOption("Trajet Vide", trajetVide);
     chooser.addOption("Trajet 1 Ballon", Auto1Ballon);
-    chooser.addOption("Tajet 2 Ballons", Auto2Ballons);
+    chooser.addOption("Trajet 2 Ballons", Auto2Ballons);
     chooser.addOption("Trajet 3 Ballons", Auto3Ballons);
-
     
-    SmartDashboard.putData(chooser);
-
+    configureButtonBindings();
     basePilotable.setDefaultCommand(new Conduire(pilote::getLeftY,pilote::getRightX, basePilotable));
     convoyeur.setDefaultCommand(new ConvoyerFancy(convoyeur));
-
-
   }
 
-
+///////////////////////////////////////////////////////Buttons Bindings//////////////////////////////////////////////////////////////////////
   private void configureButtonBindings() {
-    //A = Gober
-    new JoystickButton(pilote, Button.kA.value).toggleWhenPressed(new Gober(gobeur));
-  
+
     //B = Convoyer pour test
     new JoystickButton(pilote, Button.kA.value).toggleWhenPressed(new ConvoyerSimple(convoyeur, lanceur));
 
-    //Y = Lancer en haut
-    new JoystickButton(pilote, Button.kY.value).toggleWhenPressed(new ViserLancer(basePilotable, lanceur, convoyeur, limelight));//pas la bonne vitesse
+    //A = Gober
+    new JoystickButton(pilote, Button.kA.value).toggleWhenPressed(new Gober(gobeur));
 
     //X = LancerSimple
     new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerSimple(Constants.vitesseLancerBas, lanceur, convoyeur));
 
-
+    //Y = Lancer en haut
+    new JoystickButton(pilote, Button.kY.value).toggleWhenPressed(new ViserLancer(basePilotable, lanceur, convoyeur, limelight));//pas la bonne vitesse
 
     //Trigger droit + joystick droit
     new GrimpeurTrigger().whileActiveContinuous(new Grimper(pilote::getRightY, grimpeur, basePilotable));
-
 
     //Bumper gauche/droite pour monter et descendre automatiquement le grimpeur À TESTER
     new JoystickButton(pilote, Button.kRightBumper.value).toggleWhenPressed(new AutoGrimper(20000, grimpeur) );//trouver la vraie hauteur
     new JoystickButton(pilote, Button.kLeftBumper.value).toggleWhenPressed(new AutoGrimper(0, grimpeur) );
   }
-  
 
+///////////////////////////////////////////////////////Autonomous Command///////////////////////////////////////////////////////////////
     public Command getAutonomousCommand() {
-      /*return chooser.getSelected().withTimeout(14.8)
+      return chooser.getSelected();
       //prepare Teleop
-      .andThen (new InstantCommand(() -> basePilotable.setBrake(false)))
-      .andThen (new InstantCommand(() -> basePilotable.setRamp(Constants.kRampTeleOp)));*/
+      
 
-
-      return new CaracteriserDrive(basePilotable);
+      //return new CaracteriserDrive(basePilotable);
+      //return trajetVide;
       
   }
 }
