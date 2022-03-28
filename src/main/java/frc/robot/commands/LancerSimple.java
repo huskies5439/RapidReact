@@ -31,7 +31,7 @@ public class LancerSimple extends CommandBase {
 
    lanceur.setVitesseFeedForwardPID(vitesse);
 
-    if (lanceur.estBonneVitesse() && convoyeur.capteurHaut()) { 
+    if (lanceur.estBonneVitesse() || convoyeur.capteurHaut()) { 
         convoyeur.fournir();// On fournit jusqu'au capteur, ou jusqu'au lanceur s'il est à la bonne vitesse
     }
 

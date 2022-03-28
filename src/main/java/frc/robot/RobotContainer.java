@@ -74,7 +74,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     //B = Convoyer pour test
-    new JoystickButton(pilote, Button.kA.value).toggleWhenPressed(new ConvoyerSimple(convoyeur, lanceur));
+    new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new ConvoyerSimple(convoyeur, lanceur));
 
     //A = Gober
     new JoystickButton(pilote, Button.kA.value).toggleWhenPressed(new Gober(gobeur));

@@ -22,7 +22,7 @@ public class ConvoyerSimple extends CommandBase {
   public void initialize() {}
 
   @Override
-  public void execute() {
+  public void execute() { // Lancer un ballon à 1500 RPM
     lanceur.setVitesseFeedForwardPID(1500);
     convoyeur.fournir();
   }
