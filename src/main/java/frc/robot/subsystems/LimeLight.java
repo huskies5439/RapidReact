@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -15,24 +16,23 @@ public class LimeLight extends SubsystemBase {
   private NetworkTableEntry ta = limelight.getEntry("ta");
   private NetworkTableEntry ty = limelight.getEntry("ty");
   private NetworkTableEntry ledMode = limelight.getEntry("ledMode");
-  private NetworkTableEntry camMode = limelight.getEntry("camMode");
   private NetworkTableEntry stream = limelight.getEntry("stream");
-  //TODO Trouver les bonnes valeurs
   
-  double hLimelight = 0;
-  double hCible = 0; 
-  double angleLimelight = 0;
+  double hLimelight = 0.82;
+  double hCible = 2.64; 
+  double angleLimelight = 33.2;
+
+
+  LinearFilter filtreDistance = LinearFilter.singlePoleIIR(0.1, 0.02);
 
   public LimeLight() {
     ledOff();
-    camHumain();
-    camDetection();
     stream.setNumber(0);
 
   }
 
   public double getDistance(){
-    return(hCible-hLimelight)/Math.tan(Math.toRadians(angleLimelight+getTy()));
+    return filtreDistance.calculate((hCible-hLimelight)/Math.tan(Math.toRadians(angleLimelight+getTy())));
   }
 
   public double getTa() {
@@ -58,12 +58,8 @@ public class LimeLight extends SubsystemBase {
   public void ledOff() {
     ledMode.setNumber(1);
   }
-  public void camHumain(){
-    camMode.setNumber(1);
-  }
-  public void camDetection(){
-    camMode.setNumber(0);
-  }
+
+
 
   @Override
   public void periodic() {

@@ -8,42 +8,29 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Convoyeur;
 import frc.robot.subsystems.Lanceur;
 
-public class LancerSimple extends CommandBase {
-  Lanceur lanceur;
+public class ConvoyerSimple extends CommandBase {
   Convoyeur convoyeur;
-  int vitesse;
-
-  
-  public LancerSimple(int vitesse, Lanceur lanceur, Convoyeur convoyeur) {
-    this.lanceur = lanceur;
+  Lanceur lanceur;
+  public ConvoyerSimple(Convoyeur convoyeur, Lanceur lanceur) {
     this.convoyeur = convoyeur;
-    this.vitesse = vitesse;
-    addRequirements(lanceur);
+    this.lanceur = lanceur;
     addRequirements(convoyeur);
+    addRequirements(lanceur);
   }
-
   
   @Override
   public void initialize() {}
 
   @Override
-  public void execute() {
-
-   lanceur.setVitesseFeedForwardPID(vitesse);
-
-    if (lanceur.estBonneVitesse() || convoyeur.capteurHaut()) { 
-        convoyeur.fournir();// On fournit jusqu'au capteur, ou jusqu'au lanceur s'il est à la bonne vitesse
-    }
-
-    else {
-      convoyeur.stop();
-    }
+  public void execute() { // Lancer un ballon à 1500 RPM
+    lanceur.setVitesseFeedForwardPID(1500);
+    convoyeur.fournir();
   }
 
   @Override
   public void end(boolean interrupted) {
-    convoyeur.stop();
     lanceur.stop();
+    convoyeur.stop();
   }
 
   @Override

@@ -8,7 +8,6 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.math.filter.MedianFilter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -59,9 +58,9 @@ public class BasePilotable extends SubsystemBase {
   private DoubleSolenoid pistonTransmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 3, 4);
   private boolean isHighGear = false;
 
-  //FeedForward & PID
-  private SimpleMotorFeedforward tournerFF = new SimpleMotorFeedforward(0.496, 0.0287);
-  private ProfiledPIDController tournerPID = new ProfiledPIDController(0.20, 0, 0, new TrapezoidProfile.Constraints(90, 90));
+  //FeedForward & PID en rotation
+  private SimpleMotorFeedforward tournerFF = new SimpleMotorFeedforward(0.8, 0.05);
+  private ProfiledPIDController tournerPID = new ProfiledPIDController(0.3, 0, 0, new TrapezoidProfile.Constraints(45, 45));
   
   //Calibration
   private ShuffleboardTab calibration = Shuffleboard.getTab("calibration");
@@ -73,7 +72,7 @@ public BasePilotable() {
   resetGyro();  
 
   //Ramp et brake
-  setRamp(0.25);
+  setRamp(Constants.kRampTeleOp);
   setBrake(false);
 
   //Inversion des moteurs
@@ -98,7 +97,7 @@ public BasePilotable() {
 
   //Tourner PID
   tournerPID.enableContinuousInput(-180, 180);
-  tournerPID.setTolerance(1);
+  tournerPID.setTolerance(Constants.kToleranceRotation);
 
 }
 
@@ -287,7 +286,7 @@ public void lowGear(){
 
 ////////////////////////////////////////PID de rotation///////////////////////////////////////////////
   public double getVoltagePIDF(double angleCible, DoubleSupplier mesure){
-    return tournerPID.calculate(mesure.getAsDouble(), angleCible) + tournerFF.calculate(tournerPID.getSetpoint().velocity);
+    return tournerPID.calculate(mesure.getAsDouble(), angleCible)+tournerFF.calculate(tournerPID.getSetpoint().velocity);
   }
 
   public boolean atAngleCible(){

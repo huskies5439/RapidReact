@@ -32,7 +32,7 @@ public class Grimper extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    grimpeur.setVitesse(vitesse.getAsDouble()*0.6);
+    grimpeur.setVitesse(vitesse.getAsDouble()*-0.6);//- car le joystick Y est inversé
     basePilotable.stop();
   }
 

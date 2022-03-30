@@ -8,22 +8,18 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Convoyeur;
 
 public class ConvoyerFancy extends CommandBase {
-  /** Creates a new ConvoyerFancy. */
   Convoyeur convoyeur;
   public ConvoyerFancy(Convoyeur convoyeur) {
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(convoyeur);
     this.convoyeur = convoyeur;
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(convoyeur.capteur()){
+    if(convoyeur.capteurHaut() && !convoyeur.capteurBas()){
       convoyeur.fournir();
     }
 
@@ -32,13 +28,11 @@ public class ConvoyerFancy extends CommandBase {
     }
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     convoyeur.stop();
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;

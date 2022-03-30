@@ -4,12 +4,14 @@
 
 package frc.robot.commands.auto;
 
+
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.Gober;
-import frc.robot.commands.LancerFancy;
+import frc.robot.Constants;
+import frc.robot.commands.CompterBallon;
+import frc.robot.commands.ViserLancer;
 import frc.robot.subsystems.BasePilotable;
 import frc.robot.subsystems.Convoyeur;
 import frc.robot.subsystems.Gobeur;
@@ -29,18 +31,21 @@ public class Auto1Ballon extends SequentialCommandGroup {
       new InstantCommand(() -> basePilotable.setBrake(true)),
       
       //1. Attendre pour éviter de cogner les ballons 
-      new WaitCommand(3.754),//~3 secondes c'est peut-être beaucoup
+      new WaitCommand(2),//~3 secondes c'est peut-être beaucoup
 
       //2. Lancer un ballon en haut
-      //new TournerLimelight(basePilotable, limelight), //Si on fait toujours TournerLimelight avant LancerFancy, il faudrait créer un command group
-      new LancerFancy(5000, lanceur, convoyeur)//J'ai mis 5000 rpm mais c'est temporaire
-           .withTimeout(1), //Pour arrêter de lancer après une seconde. À calibrer 
+      new ViserLancer(basePilotable, lanceur, convoyeur, limelight)
+          .raceWith(new CompterBallon(1,convoyeur)),//arrêter le ViserLancer après que 1 ballon soit lancé
 
       //3. Attendre pour laisser le temps aux robots de bouger
-      new WaitCommand(7),// à tester, il faut s'assurer de ne pas manquer de temps
+      new WaitCommand(3),// à tester, il faut s'assurer de ne pas manquer de temps
     
       //4. Recule pour le 2 points
-      basePilotable.ramseteSimple(trajet)
+      basePilotable.ramseteSimple(trajet),
+
+      new InstantCommand(() -> basePilotable.setBrake(false)),
+      new InstantCommand(() -> basePilotable.setRamp(Constants.kRampTeleOp))
+
     );
     
   }
