@@ -25,7 +25,7 @@ public class Grimpeur extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Position Grimpeur-", getPosition());
+    SmartDashboard.putNumber("Position Grimpeur", getPosition());
 
   }
 

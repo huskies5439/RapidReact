@@ -30,11 +30,11 @@ public class AutoGrimper extends CommandBase {
   @Override
   public void execute() {
     if (grimpeur.getPosition() > cible + marge) {
-      grimpeur.setVitesse(-0.2);
+      grimpeur.setVitesse(-0.3);//descendre
     }
 
     else if (grimpeur.getPosition() < cible - marge) {
-      grimpeur.setVitesse(0.2);
+      grimpeur.setVitesse(0.7);//monter
     }
     else {
       stop = true;
