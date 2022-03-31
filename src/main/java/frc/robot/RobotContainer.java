@@ -20,6 +20,7 @@ import frc.robot.commands.Grimper;
 import frc.robot.commands.LancerSimple;
 import frc.robot.commands.ViserLancer;
 import frc.robot.commands.caracteriser.CaracteriserDrive;
+import frc.robot.commands.caracteriser.CaracteriserLanceur;
 import frc.robot.subsystems.BasePilotable;
 import frc.robot.subsystems.Convoyeur;
 import frc.robot.subsystems.Gobeur;
@@ -73,8 +74,8 @@ public class RobotContainer {
 ///////////////////////////////////////////////////////Buttons Bindings//////////////////////////////////////////////////////////////////////
   private void configureButtonBindings() {
 
-    //B = Convoyer pour test
-    new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new ConvoyerSimple(convoyeur, lanceur));
+    /*//B = Convoyer pour test
+    new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new ConvoyerSimple(convoyeur, lanceur));*/
 
     //A = Gober
     new JoystickButton(pilote, Button.kA.value).toggleWhenPressed(new Gober(gobeur));
@@ -96,10 +97,9 @@ public class RobotContainer {
 ///////////////////////////////////////////////////////Autonomous Command///////////////////////////////////////////////////////////////
     public Command getAutonomousCommand() {
       return chooser.getSelected();
-      //prepare Teleop
       
 
-      //return new CaracteriserDrive(basePilotable);
+      //return new CaracteriserLanceur(lanceur, convoyeur);
       //return trajetVide;
       
   }

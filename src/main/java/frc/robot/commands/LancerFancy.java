@@ -60,7 +60,7 @@ public class LancerFancy extends CommandBase {
     if(shoot) { //Lancer.....
       if(enHaut) { //Lancer en haut
         //trouver rpm du lanceur selon la distance
-        vitesse = 414 * Math.pow(limelight.getDistance(), 2) -1308 * limelight.getDistance() + 4666; 
+        vitesse = 329 * Math.pow(limelight.getDistance(), 2) -911 * limelight.getDistance() + 4258; 
          //lance si bonne vitesse et centrer sur la limelight
         pretLancer = (lanceur.estBonneVitesse() && Math.abs(limelight.getTx())<Constants.kToleranceRotation) || convoyeur.capteurHaut(); 
       }
