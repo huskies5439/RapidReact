@@ -18,8 +18,8 @@ public class Convoyeur extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putBoolean("Capteur Infrarouge Haut", capteurHaut());
-    SmartDashboard.putBoolean("Capteur Infrarouge Bas", capteurBas());
+    /*SmartDashboard.putBoolean("Capteur Infrarouge Haut", capteurHaut());
+    SmartDashboard.putBoolean("Capteur Infrarouge Bas", capteurBas());*/
   }
 
   public void fournir() {

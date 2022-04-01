@@ -78,7 +78,7 @@ public class RobotContainer {
     new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new ConvoyerSimple(convoyeur, lanceur));*/
 
     //A = Gober
-    new JoystickButton(pilote, Button.kA.value).toggleWhenPressed(new Gober(gobeur));
+    new JoystickButton(pilote, Button.kA.value).whenHeld(new Gober(gobeur));
 
     //X = LancerSimple
     new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerSimple(Constants.vitesseLancerBas, lanceur, convoyeur));

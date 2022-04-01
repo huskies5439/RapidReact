@@ -19,7 +19,7 @@ public class Lanceur extends SubsystemBase {
   private final CANSparkMax moteurLanceurDroit = new CANSparkMax(27,MotorType.kBrushless);
   private final CANSparkMax moteurLanceurGauche = new CANSparkMax(38,MotorType.kBrushless);
   private final MotorControllerGroup moteurLanceur  = new MotorControllerGroup(moteurLanceurDroit,moteurLanceurGauche);
-  private final SimpleMotorFeedforward lanceurFF = new SimpleMotorFeedforward(0.135,0.00141); // valider les coefficients
+  private final SimpleMotorFeedforward lanceurFF = new SimpleMotorFeedforward(0.135,0.00141); 
  private PIDController pid = new PIDController(0.002, 0, 0.0003);
 
  private ShuffleboardTab calibration = Shuffleboard.getTab("calibration");
@@ -31,10 +31,10 @@ public class Lanceur extends SubsystemBase {
 
   
   public Lanceur() {
-    moteurLanceurDroit.setInverted(false);//vérifier
-    moteurLanceurGauche.setInverted(true);//vérifier
-    pid.setTolerance(30);//vérifier
-    setConversionFactors(1.5);//vérifier avec le nouveau rapport d'engrenage
+    moteurLanceurDroit.setInverted(false);
+    moteurLanceurGauche.setInverted(true);
+    pid.setTolerance(30);
+    setConversionFactors(1.5);
     moteurLanceurGauche.setIdleMode(IdleMode.kCoast);
     moteurLanceurDroit.setIdleMode(IdleMode.kCoast);
   }
@@ -44,7 +44,7 @@ public class Lanceur extends SubsystemBase {
 
    SmartDashboard.putNumber("Vitesse Lanceur", getVitesse());
    SmartDashboard.putBoolean("Bonne vitesse", estBonneVitesse());
-   SmartDashboard.putNumber("Position", getPosition());
+   //SmartDashboard.putNumber("Position", getPosition());
 
 
   }

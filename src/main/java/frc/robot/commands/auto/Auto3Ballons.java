@@ -32,19 +32,20 @@ public class Auto3Ballons extends SequentialCommandGroup {
   //1. Lancer le ballon pré-chargé en haut
   new ViserLancer(basePilotable, lanceur, convoyeur, limelight)
   .raceWith(new CompterBallon(1,convoyeur)),//arrêter le ViserLancer après que 1 ballon soit lancé
+  
+  //2. Reculer pour bien se placer
   basePilotable.ramseteSimple(trajet),
 
+
+  //3. Avancer et Gober pour ramasser les deux ballons
   new InstantCommand(() -> basePilotable.resetOdometry(trajetB.getInitialPose())),
 
-
-  //2. Avancer et Gober pour ramasser les deux ballons
   new ParallelRaceGroup(//Race fait que Gober va s'arrêter automatiquement à la fin du trajet
           basePilotable.ramseteSimple(trajetB) ,
           new Gober(gobeur),
           new ConvoyerFancy(convoyeur)),
 
-  //3. Continuer la trajectoire pour revenir dans le bon sens
-    //Le ParallelRaceGroup s'en occupe
+  
 
   //4. Lancer les deux ballons en haut
   new ViserLancer(basePilotable, lanceur, convoyeur, limelight)

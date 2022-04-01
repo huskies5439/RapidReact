@@ -23,15 +23,22 @@ public class LimeLight extends SubsystemBase {
   double angleLimelight = 33.2;
 
 
-  LinearFilter filtreDistance = LinearFilter.singlePoleIIR(0.1, 0.02);
+  LinearFilter filtreDistance = LinearFilter.singlePoleIIR(0.1, 0.02); //filtre pour adoucir les variations
 
   public LimeLight() {
     ledOff();
     stream.setNumber(0);
-
   }
 
-  public double getDistance(){
+  public void ledOn() {
+    ledMode.setNumber(3);
+  }
+
+  public void ledOff() {
+    ledMode.setNumber(1);
+  }
+
+  public double getDistance() {
     return filtreDistance.calculate((hCible-hLimelight)/Math.tan(Math.toRadians(angleLimelight+getTy())));
   }
 
@@ -51,20 +58,10 @@ public class LimeLight extends SubsystemBase {
     return ty.getDouble(0);
   }
 
-
-  public void ledOn() {
-    ledMode.setNumber(3);
-  }
-  public void ledOff() {
-    ledMode.setNumber(1);
-  }
-
-
-
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("tx", getTx());
-    SmartDashboard.putNumber("ty", getTy());
+   // SmartDashboard.putNumber("tx", getTx());
+   // SmartDashboard.putNumber("ty", getTy());
     SmartDashboard.putNumber("distance limelight", getDistance());
   }
 }

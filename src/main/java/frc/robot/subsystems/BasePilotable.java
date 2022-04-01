@@ -110,7 +110,7 @@ public BasePilotable() {
     SmartDashboard.putNumber("Vitesse Moyenne", getVitesse());
     //SmartDashboard.putNumber("Vitesse Droite", getVitesseD());
     //SmartDashboard.putNumber("Vitesse Gauche", getVitesseG());  
-    SmartDashboard.putNumber("Position Moyenne", getPosition());
+    //SmartDashboard.putNumber("Position Moyenne", getPosition());
     //SmartDashboard.putNumber("Position Droite", getPositionD());
     //SmartDashboard.putNumber("Position Gauche", getPositionG());
     SmartDashboard.putNumber("Gyro", getAngle());

@@ -5,14 +5,13 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Grimpeur extends SubsystemBase {
 
   private WPI_TalonFX moteurGrimpeur = new WPI_TalonFX(6);
-  private Servo barrure = new Servo(0);
+  //private Servo barrure = new Servo(0);
   
   
   
@@ -46,12 +45,12 @@ public class Grimpeur extends SubsystemBase {
     moteurGrimpeur.set(vitesse);
   }
 
-  public void barrer() {
+  /*public void barrer() {
     barrure.setAngle(30);
   }
 
   public void debarrer(){
     barrure.setAngle(170);
-  }
+  }*/
 
 }
