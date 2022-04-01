@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AutoGrimper;
 import frc.robot.commands.CompterBallon;
@@ -50,7 +51,7 @@ public class RobotContainer {
   private final Command trajetVide = new WaitCommand(14);
 
 
-  public class GrimpeurTrigger extends Trigger {
+  public class GobeurTrigger extends Trigger {
     @Override
     public boolean get() {
       return pilote.getRightTriggerAxis()>0.9;
@@ -77,21 +78,20 @@ public class RobotContainer {
     /*//B = Convoyer pour test
     new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new ConvoyerSimple(convoyeur, lanceur));*/
 
-    //A = Gober
-    new JoystickButton(pilote, Button.kA.value).whenHeld(new Gober(gobeur));
-
-    //X = LancerSimple
-    new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerSimple(Constants.vitesseLancerBas, lanceur, convoyeur));
+    //A = LancerSimple
+    new JoystickButton(pilote, Button.kA.value).toggleWhenPressed(new LancerSimple(Constants.vitesseLancerBas, lanceur, convoyeur));
 
     //Y = Lancer en haut
     new JoystickButton(pilote, Button.kY.value).toggleWhenPressed(new ViserLancer(basePilotable, lanceur, convoyeur, limelight));//pas la bonne vitesse
 
-    //Trigger droit + joystick droit
-    new GrimpeurTrigger().whileActiveContinuous(new Grimper(pilote::getRightY, grimpeur, basePilotable));
+    //Trigger droit = Gober
+    new GobeurTrigger().whileActiveContinuous(new Gober(gobeur));
+    //Ajuster grimper
+    new JoystickButton(pilote, Button.kStart.value).whenHeld(new Grimper(pilote::getLeftY, grimpeur, basePilotable));
 
-    //Bumper gauche/droite pour monter et descendre automatiquement le grimpeur À TESTER
-    new JoystickButton(pilote, Button.kRightBumper.value).toggleWhenPressed(new AutoGrimper(300000, grimpeur) );//trouver la vraie hauteur
-    new JoystickButton(pilote, Button.kLeftBumper.value).toggleWhenPressed(new AutoGrimper(0, grimpeur) );
+    //POV Button haut/bas pour monter et descendre automatiquement le grimpeur À TESTER
+    new POVButton(pilote,0).toggleWhenPressed(new AutoGrimper(300000, grimpeur) );
+    new POVButton(pilote, 180).toggleWhenPressed(new AutoGrimper(0, grimpeur) );
   }
 
 ///////////////////////////////////////////////////////Autonomous Command///////////////////////////////////////////////////////////////

@@ -55,7 +55,7 @@ public class BasePilotable extends SubsystemBase {
   private DifferentialDriveOdometry odometry;
 
   //Transmission
-  private DoubleSolenoid pistonTransmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 3, 4);
+  private DoubleSolenoid pistonTransmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 5, 6);
   private boolean isHighGear = false;
 
   //FeedForward & PID en rotation
