@@ -27,7 +27,7 @@ public class LimeLight extends SubsystemBase {
 
   public LimeLight() {
     ledOff();
-    stream.setNumber(0);
+    stream.setNumber(2);
   }
 
   public void ledOn() {

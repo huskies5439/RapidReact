@@ -19,6 +19,8 @@ public class Auto3Ballons extends SequentialCommandGroup {
   public Auto3Ballons(BasePilotable basePilotable, Gobeur gobeur, Lanceur lanceur, LimeLight limelight, Convoyeur convoyeur) {
   Trajectory trajet = basePilotable.creerTrajectoire("3ballon");
   Trajectory trajetB = basePilotable.creerTrajectoire("3ballonB");
+  Trajectory trajetC = basePilotable.creerTrajectoire("3ballonC");
+
 
 
 
@@ -30,8 +32,8 @@ public class Auto3Ballons extends SequentialCommandGroup {
   new InstantCommand(() -> basePilotable.setBrake(true)),
 
   //1. Lancer le ballon pré-chargé en haut
-  new ViserLancer(basePilotable, lanceur, convoyeur, limelight)
-  .raceWith(new CompterBallon(1,convoyeur)),//arrêter le ViserLancer après que 1 ballon soit lancé
+  //new ViserLancer(basePilotable, lanceur, convoyeur, limelight)
+  //.raceWith(new CompterBallon(1,convoyeur)),//arrêter le ViserLancer après que 1 ballon soit lancé
   
   //2. Reculer pour bien se placer
   basePilotable.ramseteSimple(trajet),
@@ -45,11 +47,17 @@ public class Auto3Ballons extends SequentialCommandGroup {
           new Gober(gobeur),
           new ConvoyerFancy(convoyeur)),
 
-  
 
+  new InstantCommand(() -> basePilotable.resetOdometry(trajetC.getInitialPose())),
+  basePilotable.ramseteSimple(trajetC),
+
+
+
+  
+/*
   //4. Lancer les deux ballons en haut
   new ViserLancer(basePilotable, lanceur, convoyeur, limelight)
-      .raceWith(new CompterBallon(2,convoyeur)),//arrêter le ViserLancer après que 2 ballon soit lancé
+      .raceWith(new CompterBallon(2,convoyeur)),//arrêter le ViserLancer après que 2 ballon soit lancé*/
   
   new InstantCommand(() -> basePilotable.setBrake(false)),
   new InstantCommand(() -> basePilotable.setRamp(Constants.kRampTeleOp))

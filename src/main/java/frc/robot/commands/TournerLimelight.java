@@ -19,6 +19,7 @@ public class TournerLimelight extends CommandBase {
   @Override
   public void initialize() {
     limelight.ledOn();
+    basePilotable.setBrake(true);
   }
 
   @Override

@@ -90,7 +90,7 @@ public class RobotContainer {
     new JoystickButton(pilote, Button.kStart.value).whenHeld(new Grimper(pilote::getLeftY, grimpeur, basePilotable));
 
     //POV Button haut/bas pour monter et descendre automatiquement le grimpeur À TESTER
-    new POVButton(pilote,0).toggleWhenPressed(new AutoGrimper(300000, grimpeur) );
+    new POVButton(pilote,0).toggleWhenPressed(new AutoGrimper(320000, grimpeur) );
     new POVButton(pilote, 180).toggleWhenPressed(new AutoGrimper(0, grimpeur) );
   }
 
@@ -98,6 +98,8 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
       return chooser.getSelected();
       
+
+     //return new CaracteriserDrive(basePilotable);
 
       //return new CaracteriserLanceur(lanceur, convoyeur);
       //return trajetVide;

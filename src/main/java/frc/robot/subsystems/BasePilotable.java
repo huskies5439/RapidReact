@@ -75,6 +75,9 @@ public BasePilotable() {
   setRamp(Constants.kRampTeleOp);
   setBrake(false);
 
+  //transmission
+  lowGear();
+
   //Inversion des moteurs
   moteurAvantG.setInverted(true);
   moteurArriereG.setInverted(true);
@@ -119,7 +122,7 @@ public BasePilotable() {
   }
   ////////////////////////////////////////Moteurs & Drive/////////////////////////////////////////////
    public void conduire(double vx, double vz){
-    drive.arcadeDrive(-0.85*vx, 0.65*vz);
+    drive.arcadeDrive(-0.85*vx, 0.7*vz);
   }
 
   public void autoConduire(double voltGauche, double voltDroit){

@@ -29,6 +29,7 @@ public class LancerFancy extends CommandBase {
     shoot = false;
     enHaut = false;
     pretLancer = false;
+    
 
   }
 
