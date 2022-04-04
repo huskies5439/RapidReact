@@ -35,8 +35,8 @@ public class Auto3Ballons extends SequentialCommandGroup {
   new InstantCommand(() -> basePilotable.setBrake(true)),
 
   //1. Lancer le ballon pré-chargé en haut
-  //new ViserLancer(basePilotable, lanceur, convoyeur, limelight)
-  //.raceWith(new CompterBallon(1,convoyeur)),//arrêter le ViserLancer après que 1 ballon soit lancé
+  new ViserLancer(basePilotable, lanceur, convoyeur, limelight)
+  .raceWith(new CompterBallon(1,convoyeur)),//arrêter le ViserLancer après que 1 ballon soit lancé
   
   //2. Reculer pour bien se placer
   basePilotable.ramseteSimple(trajet),
@@ -49,6 +49,9 @@ public class Auto3Ballons extends SequentialCommandGroup {
           basePilotable.ramseteSimple(trajetB) ,
           new Gober(gobeur),
           new ConvoyerFancy(convoyeur)),
+          
+
+  //new InstantCommand(()->limelight.ledOn(), limelight),        
 
 
  
@@ -58,9 +61,9 @@ public class Auto3Ballons extends SequentialCommandGroup {
         new WaitUntilCommand(limelight::getTv)
   ),*/
   
-/*
+
   //4. Lancer les deux ballons en haut
-  new ViserLancer(basePilotable, lanceur, convoyeur, limelight)
+ /* new ViserLancer(basePilotable, lanceur, convoyeur, limelight)
       .raceWith(new CompterBallon(2,convoyeur)),//arrêter le ViserLancer après que 2 ballon soit lancé*/
   
   new InstantCommand(() -> basePilotable.setBrake(false)),

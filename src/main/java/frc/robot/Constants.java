@@ -15,7 +15,7 @@ public final class Constants {
     public static final double kRampTeleOp  = 0.25;
 
     //Lancer
-    public static final int vitesseLancerBas = 2200;
+    public static final int vitesseLancerBas = 2000;
 
     //Alignement limelight
     public static final double kToleranceRotation = 2;
