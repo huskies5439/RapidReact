@@ -118,6 +118,11 @@ public BasePilotable() {
     //SmartDashboard.putNumber("Position Gauche", getPositionG());
     SmartDashboard.putNumber("Gyro", getAngle());
     //SmartDashboard.putNumber("GyroSpeed", getAngleSpeed());
+
+    SmartDashboard.putNumber("courant avant gauche", moteurAvantG.getStatorCurrent());
+    SmartDashboard.putNumber("courant avant droit", moteurAvantD.getStatorCurrent());
+    SmartDashboard.putNumber("courant arriere gauche", moteurArriereG.getStatorCurrent());
+    SmartDashboard.putNumber("courant arriere Droit", moteurArriereD.getStatorCurrent());
     
   }
   ////////////////////////////////////////Moteurs & Drive/////////////////////////////////////////////
