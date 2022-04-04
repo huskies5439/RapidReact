@@ -38,9 +38,9 @@ public class Auto2Ballons extends SequentialCommandGroup {
 
       
       //3. Lancer 2 ballons en haut
-      new ViserLancer(basePilotable, lanceur, convoyeur, limelight)
+     /* new ViserLancer(basePilotable, lanceur, convoyeur, limelight)
       .raceWith(new CompterBallon(2,convoyeur)),//arrêter le ViserLancer après que 2 ballon soit lancé
-
+*/
       new InstantCommand(() -> basePilotable.setBrake(false)),
       new InstantCommand(() -> basePilotable.setRamp(Constants.kRampTeleOp))
 

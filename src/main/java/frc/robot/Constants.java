@@ -6,10 +6,11 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 public final class Constants {
     //Ramsete
     public static final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(0.63); 
-    public static final double kSRamsete = 0.83;//0.83
-    public static final double kVRamsete = 0.8;//0.8
-    public static final double kPRamsete = 1;//1
+    public static final double kSRamsete = 0.7;//0.83
+    public static final double kVRamsete = 1.25;//0.8
+    public static final double kARamsete = 0.05;//0.75
 
+    public static final double kPRamsete = 0.01;//1
     //Teleop
     public static final double kRampTeleOp  = 0.25;
 

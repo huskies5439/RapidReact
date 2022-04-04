@@ -282,7 +282,7 @@ public void lowGear(){
       trajectoire,                                                              //On passe notre trajectoire a la RamseteCommand afin qu'il sache quoi faire
       this::getPose,                                                            //On passe notre pose, afin qu'il connaisse son emplacement
       new RamseteController(2, 0.7),                                            //Ce sont des arguments réputés comme idéale pour des robots de FRC dans un Ramsete Controller
-      new SimpleMotorFeedforward(Constants.kSRamsete, Constants.kVRamsete, 0),  //On donnes nos arguments de FeedForward
+      new SimpleMotorFeedforward(Constants.kSRamsete, Constants.kVRamsete, Constants.kARamsete),  //On donnes nos arguments de FeedForward
       Constants.kinematics,                                                     //Notre kinematics (Afin que le robot conaisse ses mesures)
       this::getWheelSpeeds,                                                     //Donne nos vitesses de roues
       new PIDController(Constants.kPRamsete, 0, 0),                             //On donne un PID Controller a chacune des roues (SpeedController Group)
