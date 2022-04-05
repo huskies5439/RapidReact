@@ -92,11 +92,5 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
       return chooser.getSelected();
       
-
-     //return new CaracteriserDrive(basePilotable);
-
-      //return new CaracteriserLanceur(lanceur, convoyeur);
-      //return trajetVide;
-      
   }
 }

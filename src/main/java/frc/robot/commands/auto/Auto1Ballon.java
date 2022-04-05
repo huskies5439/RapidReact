@@ -21,20 +21,20 @@ public class Auto1Ballon extends SequentialCommandGroup {
     Trajectory trajet = basePilotable.creerTrajectoire("1ballon");
 
     addCommands(
-      //0. Initialisations -> Créer un CommandGroup, c'est pareil dans tous les trajets??
+      //0. Initialisations
       new InstantCommand(() -> basePilotable.resetOdometry(trajet.getInitialPose())),
       new InstantCommand(() -> basePilotable.setRamp(0)),
       new InstantCommand(() -> basePilotable.setBrake(true)),
       
       //1. Attendre pour éviter de cogner les ballons 
-      new WaitCommand(2),//~3 secondes c'est peut-être beaucoup
+      new WaitCommand(2),
 
       //2. Lancer un ballon en haut
       new ViserLancer(basePilotable, lanceur, convoyeur, limelight)
           .raceWith(new CompterBallon(1,convoyeur)),//arrêter le ViserLancer après que 1 ballon soit lancé
 
       //3. Attendre pour laisser le temps aux robots de bouger
-      new WaitCommand(3),// à tester, il faut s'assurer de ne pas manquer de temps
+      new WaitCommand(3),
     
       //4. Recule pour le 2 points
       basePilotable.ramseteSimple(trajet),

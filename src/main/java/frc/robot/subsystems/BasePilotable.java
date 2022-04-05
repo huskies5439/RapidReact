@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 import java.io.IOException;
 import java.util.function.DoubleSupplier;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -84,13 +83,7 @@ public BasePilotable() {
   moteurAvantD.setInverted(false);
   moteurArriereD.setInverted(false);
 
-  //Configuration des capteurs des moteurs
-  moteurAvantD.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor,0,0);
-  moteurAvantG.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor,0,0);
-  moteurArriereD.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor,0,0);
-  moteurArriereG.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor,0,0);
-
-
+  //Configuration des encodeurs externes
   conversionEncodeur=Math.PI*Units.inchesToMeters(6)/(256*3*54/30); //roue de 6", ratio 54/30:1 shaft-roue 3:1 encodeur-shaft encodeur 256 clic encodeur
   encodeurG.setDistancePerPulse(conversionEncodeur);
   encodeurD.setDistancePerPulse(conversionEncodeur);
@@ -119,10 +112,6 @@ public BasePilotable() {
     SmartDashboard.putNumber("Gyro", getAngle());
     //SmartDashboard.putNumber("GyroSpeed", getAngleSpeed());
 
-    SmartDashboard.putNumber("courant avant gauche", moteurAvantG.getStatorCurrent());
-    SmartDashboard.putNumber("courant avant droit", moteurAvantD.getStatorCurrent());
-    SmartDashboard.putNumber("courant arriere gauche", moteurArriereG.getStatorCurrent());
-    SmartDashboard.putNumber("courant arriere Droit", moteurArriereD.getStatorCurrent());
     
   }
   ////////////////////////////////////////Moteurs & Drive/////////////////////////////////////////////

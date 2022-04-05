@@ -5,6 +5,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BasePilotable;
 
+///////////ATTENTION, les paramètres PID et FF ne permettent pas à cette Commande
+///////////de fonctionner à plus de 15-20 degrés
+
 public class TournerAuto extends CommandBase {
 double angleCible;
 BasePilotable basePilotable;

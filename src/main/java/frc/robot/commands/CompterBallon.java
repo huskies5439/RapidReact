@@ -3,6 +3,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Convoyeur;
 
+//Cette commande sert à compter le nombre de ballons qui sont lancés
+//Cela sert à terminer les lancers en autonome
+
 public class CompterBallon extends CommandBase {
   Convoyeur convoyeur;
   int nombreBallons;

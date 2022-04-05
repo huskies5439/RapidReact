@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Convoyeur;
 import frc.robot.subsystems.Lanceur;
 
+
+///////////ATTENTION cette commande sert uniquement à tester le fonctionnement
+///////////du convoyeur en faisant tourner lentement le lanceur pour laisser sortir les ballons.
 public class ConvoyerSimple extends CommandBase {
   Convoyeur convoyeur;
   Lanceur lanceur;

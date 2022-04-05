@@ -19,7 +19,7 @@ public class TournerLimelight extends CommandBase {
   @Override
   public void initialize() {
     limelight.ledOn();
-    basePilotable.setBrake(true);
+    basePilotable.setBrake(true);//Pour ne pas se faire pousser
   }
 
   @Override
@@ -44,6 +44,5 @@ public class TournerLimelight extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
-    //return basePilotable.atAngleCible();
   }
 }

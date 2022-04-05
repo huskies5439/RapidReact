@@ -14,6 +14,11 @@ import frc.robot.subsystems.Gobeur;
 import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.Lanceur;
 
+
+
+////////ATTENTION////////
+//Ce trajet n'est pas fonctionnel !!!!
+//NE PAS UTILISER
 public class Auto3Ballons extends SequentialCommandGroup {
 
   public Auto3Ballons(BasePilotable basePilotable, Gobeur gobeur, Lanceur lanceur, LimeLight limelight, Convoyeur convoyeur) {
@@ -26,7 +31,7 @@ public class Auto3Ballons extends SequentialCommandGroup {
 
 
   addCommands(
-  //0. Initialisations -> Créer un CommandGroup, c'est pareil dans tous les trajets??
+  //0. Initialisations 
   new InstantCommand(() -> basePilotable.resetOdometry(trajet.getInitialPose())),
   new InstantCommand(() -> basePilotable.setRamp(0)),
   new InstantCommand(() -> basePilotable.setBrake(true)),

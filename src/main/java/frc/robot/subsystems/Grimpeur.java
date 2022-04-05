@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Grimpeur extends SubsystemBase {
 
   private WPI_TalonFX moteurGrimpeur = new WPI_TalonFX(6);
-  //private Servo barrure = new Servo(0);
+  //private Servo barrure = new Servo(0); //Finalement le mode Brake sur le Falcon fait la job
   
   
   

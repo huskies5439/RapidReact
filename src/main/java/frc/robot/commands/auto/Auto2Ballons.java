@@ -22,7 +22,7 @@ public class Auto2Ballons extends SequentialCommandGroup {
     Trajectory trajet = basePilotable.creerTrajectoire("2ballons");
    
     addCommands(
-      //0. Initialisations -> Créer un CommandGroup, c'est pareil dans tous les trajets??
+      //0. Initialisations
       new InstantCommand(() -> basePilotable.resetOdometry(trajet.getInitialPose())),
       new InstantCommand(() -> basePilotable.setRamp(0)),
       new InstantCommand(() -> basePilotable.setBrake(true)),

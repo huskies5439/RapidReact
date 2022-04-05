@@ -16,6 +16,8 @@ public class ConvoyerFancy extends CommandBase {
   @Override
   public void execute() {
     if(convoyeur.capteurHaut() && !convoyeur.capteurBas()){
+      //Si le capteur du bas voit un ballon, on convoit jusqu'à ce qu'il soit assez rentré pour ne plus bloqué le capteur
+      //Si on bloque le capteur du haut, on ne convoit plus du tout car le ballon du haut toucherait au lanceur
       convoyeur.fournir();
     }
 

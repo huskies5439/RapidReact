@@ -27,7 +27,7 @@ public class LimeLight extends SubsystemBase {
 
   public LimeLight() {
     ledOff();
-    stream.setNumber(2);
+    stream.setNumber(2);//Pour mettre l'image de la limelight en PiP
   }
 
   public void ledOn() {

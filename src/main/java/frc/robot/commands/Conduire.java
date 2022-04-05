@@ -21,16 +21,19 @@ public class Conduire extends CommandBase {
   
   @Override
   public void initialize() {
+    //S'assure d'avoir les bons paramètres pour la conduite en autonome
     basePilotable.setBrake(false);
-    basePilotable.setRamp(Constants.kRampTeleOp);//à configurer*/
+    basePilotable.setRamp(Constants.kRampTeleOp);
   }
 
   
   @Override
   public void execute() {
 
+    //Conduire en tant que tel
     basePilotable.conduire(avancer.getAsDouble(), tourner.getAsDouble());
-    // À calibrer
+
+  //Transmission automatique
   if(! basePilotable.getIsHighGear() && basePilotable.getVitesse()>1.65){
       basePilotable.highGear();
 
@@ -47,7 +50,6 @@ public class Conduire extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    basePilotable.setBrake(false);
   }
 
 
