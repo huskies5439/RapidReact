@@ -43,7 +43,7 @@ public class LancerFancy extends CommandBase {
         enHaut = false;
       }
 
-      else if(limelight.getDistance() < 3.25 && limelight.getDistance() >= 1.5) {//zone où l'angle permet de lancer en haut
+      else if(limelight.getDistance() < 2.75 && limelight.getDistance() >= 1.5) {//zone où l'angle permet de lancer en haut
         shoot = true;
         enHaut = true;
       }
@@ -60,7 +60,7 @@ public class LancerFancy extends CommandBase {
     if(shoot) { //Lancer.....
       if(enHaut) { //Lancer en haut
         //trouver rpm du lanceur selon la distance
-        vitesse = 329 * Math.pow(limelight.getDistance(), 2) -911 * limelight.getDistance() + 4258; 
+        vitesse = 184 * Math.pow(limelight.getDistance(), 2) -237 * limelight.getDistance() + 3229; 
          //lance si bonne vitesse et centrer sur la limelight
         pretLancer = (lanceur.estBonneVitesse() && Math.abs(limelight.getTx())<Constants.kToleranceRotation) || convoyeur.capteurHaut(); 
       }
