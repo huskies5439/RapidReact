@@ -19,6 +19,8 @@ import frc.robot.commands.LancerSimple;
 import frc.robot.commands.ViserLancer;
 import frc.robot.commands.auto.Auto1Ballon;
 import frc.robot.commands.auto.Auto2Ballons;
+import frc.robot.commands.auto.AutoBas1Ballon;
+import frc.robot.commands.auto.AutoBasJusteLancer;
 import frc.robot.subsystems.BasePilotable;
 import frc.robot.subsystems.Convoyeur;
 import frc.robot.subsystems.Gobeur;
@@ -43,6 +45,8 @@ public class RobotContainer {
   private final Command Auto2Ballons = new Auto2Ballons(basePilotable, gobeur, lanceur, limelight, convoyeur);
   //private final Command Auto3Ballons = new Auto3Ballons(basePilotable, gobeur, lanceur, limelight, convoyeur);( Auto 3 Ballon Fonctionne Pas ;(
   private final Command trajetVide = new WaitCommand(14);
+  private final Command AutoBas1Ballon = new AutoBas1Ballon( basePilotable,gobeur,lanceur,limelight,convoyeur);
+  private final Command AutoBasJusteLancer = new AutoBasJusteLancer(lanceur, convoyeur);
 
 
   public class GobeurTrigger extends Trigger {
@@ -59,6 +63,8 @@ public class RobotContainer {
     chooser.setDefaultOption("Trajet Vide", trajetVide);
     chooser.addOption("Trajet 1 Ballon", Auto1Ballon);
     chooser.addOption("Trajet 2 Ballons", Auto2Ballons);
+    chooser.addOption("Trajet bas 1 Ballon + reculer",AutoBas1Ballon);
+    chooser.addOption( "Trajet Bas juste lancer",AutoBasJusteLancer);
     //chooser.addOption("Trajet 3 Ballons", Auto3Ballons);
     
     configureButtonBindings();
