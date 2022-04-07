@@ -28,7 +28,7 @@ public class AutoBas1Ballon extends SequentialCommandGroup {
     new InstantCommand(() -> basePilotable.setRamp(0)),
     new InstantCommand(() -> basePilotable.setBrake(true)), 
     
-      new LancerSimple(Constants.vitesseLancerBas, lanceur, convoyeur)
+      new LancerSimple(Constants.vitesseLancerBas+2000, lanceur, convoyeur)
       .raceWith(new CompterBallon(1,convoyeur)),
 
       basePilotable.ramseteSimple(trajet),
