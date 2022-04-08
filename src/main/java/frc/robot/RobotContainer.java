@@ -78,10 +78,13 @@ public class RobotContainer {
     /*//B = Convoyer pour test
     new JoystickButton(pilote, Button.kB.value).toggleWhenPressed(new ConvoyerSimple(convoyeur, lanceur));*/
 
-    //A = LancerSimple
+    //A = LancerSimple en bas
     new JoystickButton(pilote, Button.kA.value).toggleWhenPressed(new LancerSimple(Constants.vitesseLancerBas, lanceur, convoyeur));
 
-    //Y = Lancer en haut
+    //X = LancerSimple en haut
+    new JoystickButton(pilote, Button.kX.value).toggleWhenPressed(new LancerSimple(Constants.vitesseLancerHaut, lanceur, convoyeur));
+
+    //Y = Lancer auto limelight
     new JoystickButton(pilote, Button.kY.value).toggleWhenPressed(new ViserLancer(basePilotable, lanceur, convoyeur, limelight));
 
     //Trigger droit = Gober

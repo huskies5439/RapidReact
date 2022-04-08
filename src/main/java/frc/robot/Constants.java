@@ -16,6 +16,7 @@ public final class Constants {
 
     //Lancer
     public static final int vitesseLancerBas = 2000;
+    public static final int vitesseLancerHaut = 3450; // à configurer
 
     //Alignement limelight
     public static final double kToleranceRotation = 3;
