@@ -23,7 +23,7 @@ public class LimeLight extends SubsystemBase {
   double angleLimelight = 33.2;
 
 
-  LinearFilter filtreDistance = LinearFilter.singlePoleIIR(0.1, 0.02); //filtre pour adoucir les variations
+  LinearFilter filtreDistance = LinearFilter.singlePoleIIR(0.15, 0.02); //filtre pour adoucir les variations
 
   public LimeLight() {
     ledOff();

@@ -27,14 +27,14 @@ public class Auto1Ballon extends SequentialCommandGroup {
       new InstantCommand(() -> basePilotable.setBrake(true)),
       
       //1. Attendre pour éviter de cogner les ballons 
-      new WaitCommand(2),
+     // new WaitCommand(0),
 
       //2. Lancer un ballon en haut
       new ViserLancer(basePilotable, lanceur, convoyeur, limelight)
           .raceWith(new CompterBallon(1,convoyeur)),//arrêter le ViserLancer après que 1 ballon soit lancé
 
       //3. Attendre pour laisser le temps aux robots de bouger
-      new WaitCommand(3),
+    //  new WaitCommand(0),
     
       //4. Recule pour le 2 points
       basePilotable.ramseteSimple(trajet),
